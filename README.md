@@ -12,7 +12,7 @@ uhh crusher engine iss uhhh e uhhhh ermmm uhh I forgor 💀 (mainly cuz nothing 
 - Healthbar Colours (it was kinda ez to make and I didnt have to steal code from psych!)
 - Combo Sprite (WIP)
 - Options (WIP and I suck at making this also fnf did add this but its in the newgrounds version)
-- Ghost Tapping (uhh for now you can spam the shit out of your keys though, I do plan on fixing it though!)
+- Ghost Tapping (uhh for now you can spam the shit out of your keys and not get any misses (cuz theres no anti spam), I do plan on fixing it though!)
 - Judgement Counters (Basically if you notes it tells you how much notes you hit, your combo, your sicks, goods, bads etc.)
 
 and thats really it
