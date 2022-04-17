@@ -143,7 +143,7 @@ class TitleState extends MusicBeatState
 		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
 		logoBl.antialiasing = true;
 		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24);
-		logoBl.animation.play('bump');
+		//logoBl.animation.play('bump');
 		logoBl.updateHitbox();
 		// logoBl.screenCenter();
 		// logoBl.color = FlxColor.BLACK;
@@ -316,13 +316,28 @@ class TitleState extends MusicBeatState
 		}
 	}
 
+	function ZoomIn()
+	{
+		FlxTween.tween(FlxG.camera, {zoom: 1.5}, 0.2);
+	}
+
+	function ZoomOut()
+	{
+		FlxTween.tween(FlxG.camera, {zoom: 1}, 0.2);
+	}
+
 	override function beatHit()
 	{
 		super.beatHit();
 
-		FlxTween.tween(FlxG.camera, {zoom: 1.03, onComplete: defaultZoom}, 0.5);
+		ZoomIn();
 
-		logoBl.animation.play('bump');
+		if (curBeat % 1 == 0)
+		{
+			ZoomOut();
+		}
+
+		//logoBl.animation.play('bump');
 		danceLeft = !danceLeft;
 
 		if (danceLeft)
@@ -396,10 +411,5 @@ class TitleState extends MusicBeatState
 			remove(credGroup);
 			skippedIntro = true;
 		}
-	}
-
-	function defaultZoom(tween:FlxTween):Void
-	{
-		FlxTween.tween(FlxG.camera, {zoom: 1}, 0.5);
 	}
 }
