@@ -36,6 +36,7 @@ jobs:
           haxelib install lime
           haxelib install openfl
           haxelib install newgrounds
+          haxelib install polymod
           haxelib --never install flixel
           haxelib run lime setup flixel
           haxelib run lime setup
@@ -77,6 +78,7 @@ jobs:
           haxelib install lime
           haxelib install openfl
           haxelib install newgrounds
+          haxelib install polymod
           haxelib --never install flixel
           haxelib run lime setup flixel
           haxelib run lime setup
@@ -119,6 +121,7 @@ jobs:
           haxelib install lime
           haxelib install openfl
           haxelib install newgrounds
+          haxelib install polymod
           haxelib --never install flixel
           haxelib run lime setup flixel
           haxelib run lime setup
