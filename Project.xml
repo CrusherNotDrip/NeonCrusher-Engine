@@ -164,7 +164,8 @@
 	<!--Enable this for Nape release builds for a serious peformance improvement-->
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
 
-	<haxedef name="HXCPP_ARM64" />
+    <!--Enable this if your PC is ARM64-->
+	<!--<haxedef name="HXCPP_ARM64" />-->
 
 	<!-- _________________________________ Custom _______________________________ -->
 
