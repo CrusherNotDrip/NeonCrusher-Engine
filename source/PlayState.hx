@@ -850,6 +850,8 @@ class PlayState extends MusicBeatState
 					schoolIntro(doof);
 				case 'thorns':
 					schoolIntro(doof);
+				case 'tutorial':
+					playCutscene('testVideo');
 				default:
 					startCountdown();
 			}
