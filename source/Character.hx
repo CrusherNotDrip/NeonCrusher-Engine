@@ -135,17 +135,25 @@ class Character extends FlxSprite
 				// DAD ANIMATION LOADING CODE
 				tex = Paths.getSparrowAtlas('characters/DADDY_DEAREST');
 				frames = tex;
-				animation.addByPrefix('idle', 'Dad idle dance', 24);
-				animation.addByPrefix('singUP', 'Dad Sing Note UP', 24);
-				animation.addByPrefix('singRIGHT', 'Dad Sing Note RIGHT', 24);
-				animation.addByPrefix('singDOWN', 'Dad Sing Note DOWN', 24);
-				animation.addByPrefix('singLEFT', 'Dad Sing Note LEFT', 24);
+				animation.addByPrefix('idle', 'Dad idle dance', 24, false);
+				animation.addByPrefix('singUP', 'Dad Sing Note UP', 24, false);
+				animation.addByPrefix('singRIGHT', 'Dad Sing Note RIGHT', 24, false);
+				animation.addByPrefix('singDOWN', 'Dad Sing Note DOWN', 24, false);
+				animation.addByPrefix('singLEFT', 'Dad Sing Note LEFT', 24, false);
+
+				animation.addByIndices('idle-loop', 'Dad idle dance', [10, 11, 12, 12], "", 24, true);
+				animation.addByIndices('singUP-loop', 'Dad Sing Note UP', [2, 3, 4], "", 24, true);
+				animation.addByIndices('singRIGHT-loop', 'Dad Sing Note RIGHT', [15, 16, 17, 18], "", 24, true);
 
 				addOffset('idle');
 				addOffset("singUP", -6, 50);
 				addOffset("singRIGHT", 0, 27);
 				addOffset("singLEFT", -10, 10);
 				addOffset("singDOWN", 0, -30);
+
+				addOffset('idle-loop');
+				addOffset("singUP-loop", -6, 50);
+				addOffset("singRIGHT-loop", 0, 27);
 
 				playAnim('idle');
 			case 'spooky':
@@ -205,11 +213,23 @@ class Character extends FlxSprite
 				// CUZ DAVE IS DUMB!
 				animation.addByPrefix('singRIGHT', 'Mom Pose Left', 24, false);
 
+				animation.addByIndices('idle-loop', "Mom Idle", [10, 11, 12, 13], "", 24, true);
+				animation.addByIndices('singLEFT-loop', "Mom Left Pose", [6, 7, 8, 9], "", 24, true);
+				animation.addByIndices('singDOWN-loop', "MOM DOWN POSE", [11, 12, 13, 14], "", 24, true);
+				animation.addByIndices('singUP-loop', "Mom Up Pose", [11, 12, 13, 14], "", 24, true);
+				animation.addByIndices('singRIGHT-loop', "Mom Pose Left", [6, 7, 8, 9], "", 24, true);
+
 				addOffset('idle');
 				addOffset("singUP", 14, 71);
 				addOffset("singRIGHT", 10, -60);
 				addOffset("singLEFT", 250, -23);
 				addOffset("singDOWN", 20, -160);
+
+				addOffset('idle-loop');
+				addOffset("singUP-loop", 14, 71);
+				addOffset("singRIGHT-loop", 10, -60);
+				addOffset("singLEFT-loop", 250, -23);
+				addOffset("singDOWN-loop", 20, -160);
 
 				playAnim('idle');
 			case 'monster':
@@ -240,11 +260,24 @@ class Character extends FlxSprite
 				animation.addByPrefix('singLEFT', 'Monster left note', 24, false);
 				animation.addByPrefix('singRIGHT', 'Monster Right note', 24, false);
 
+				animation.addByIndices('idle-loop', 'monster idle', [12, 13, 14], "", 24, true);
+				animation.addByIndices('singLEFT-loop', 'monster left note', [17, 18, 19], "", 24, true);
+				animation.addByIndices('singDOWN-loop', 'monster down', [27, 28, 29], "", 24, true);
+				animation.addByIndices('singUP-loop', 'monster up note', [21, 22, 23], "", 24, true);
+				animation.addByIndices('singRIGHT-loop', 'monster Right note', [12, 13, 14], "", 24, true);
+
 				addOffset('idle');
 				addOffset("singUP", -20, 50);
 				addOffset("singRIGHT", -51);
 				addOffset("singLEFT", -30);
 				addOffset("singDOWN", -40, -94);
+
+				addOffset('idle-loop');
+				addOffset("singUP-loop", -20, 50);
+				addOffset("singRIGHT-loop", -51);
+				addOffset("singLEFT-loop", -30);
+				addOffset("singDOWN-loop", -40, -94);
+
 				playAnim('idle');
 			case 'pico':
 				iconColour = 0xFFB7D855;
@@ -373,6 +406,12 @@ class Character extends FlxSprite
 				animation.addByPrefix('singRIGHTmiss', 'BF NOTE RIGHT MISS', 24, false);
 				animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN MISS', 24, false);
 
+				animation.addByIndices('idle-loop', 'BF idle dance', [10, 11, 12, 13], "", 24, true);
+				animation.addByIndices('singLEFT-loop', 'BF NOTE LEFT0', [12, 13, 14, 15], "", 24, true);
+				animation.addByIndices('singDOWN-loop', 'BF NOTE DOWN0', [26, 27, 28, 29], "", 24, true);
+				animation.addByIndices('singUP-loop', 'BF NOTE UP0', [11, 12, 13, 14], "", 24, true);
+				animation.addByIndices('singRIGHT-loop', 'BF NOTE RIGHT0', [58, 59, 60, 61], "", 24, true);
+
 				addOffset('idle', -5);
 				addOffset("singUP", -29, 27);
 				addOffset("singRIGHT", -38, -7);
@@ -382,6 +421,13 @@ class Character extends FlxSprite
 				addOffset("singRIGHTmiss", -30, 21);
 				addOffset("singLEFTmiss", 12, 24);
 				addOffset("singDOWNmiss", -11, -19);
+
+				addOffset('idle-loop', -5);
+				addOffset("singUP-loop", -29, 27);
+				addOffset("singRIGHT-loop", -38, -7);
+				addOffset("singLEFT-loop", 12, -6);
+				addOffset("singDOWN-loop", -10, -50);
+
 				playAnim('idle');
 
 				flipX = true;
@@ -508,6 +554,8 @@ class Character extends FlxSprite
 				antialiasing = false;
 
 			case 'parents-christmas':
+				iconColour = 0xFFBF5FB4;
+
 				frames = Paths.getSparrowAtlas('characters/mom_dad_christmas_assets');
 				animation.addByPrefix('idle', 'Parent Christmas Idle', 24, false);
 				animation.addByPrefix('singUP', 'Parent Up Note Dad', 24, false);
@@ -516,20 +564,42 @@ class Character extends FlxSprite
 				animation.addByPrefix('singRIGHT', 'Parent Right Note Dad', 24, false);
 
 				animation.addByPrefix('singUP-alt', 'Parent Up Note Mom', 24, false);
-
 				animation.addByPrefix('singDOWN-alt', 'Parent Down Note Mom', 24, false);
 				animation.addByPrefix('singLEFT-alt', 'Parent Left Note Mom', 24, false);
 				animation.addByPrefix('singRIGHT-alt', 'Parent Right Note Mom', 24, false);
+
+				animation.addByIndices('idle-loop', 'Parent Christmas Idle', [10, 11, 12, 13], "", 24, true);
+				animation.addByIndices('singLEFT-loop', 'Parent Left Note Dad', [12, 13, 14, 15], "", 24, true);
+				animation.addByIndices('singDOWN-loop', 'Parent Down Note Dad', [11, 12, 13, 14], "", 24, true);
+				animation.addByIndices('singUP-loop', 'Parent Up Note Dad', [10, 11, 12, 13], "", 24, true);
+				animation.addByIndices('singRIGHT-loop', 'Parent Right Note Dad', [12, 13, 14, 15], "", 24, true);
+
+				animation.addByIndices('singLEFT-alt-loop', 'Parent Left Note Mom', [11, 12, 13, 14], "", 24, true);
+				animation.addByIndices('singDOWN-alt-loop', 'Parent Down Note Mom', [11, 12, 13, 14], "", 24, true);
+				animation.addByIndices('singUP-alt-loop', 'Parent Up Note Mom', [10, 11, 12, 13], "", 24, true);
+				animation.addByIndices('singRIGHT-alt-loop', 'Parent Right Note Mom', [11, 12, 13, 14], "", 24, true);
 
 				addOffset('idle');
 				addOffset("singUP", -47, 24);
 				addOffset("singRIGHT", -1, -23);
 				addOffset("singLEFT", -30, 16);
 				addOffset("singDOWN", -31, -29);
+
 				addOffset("singUP-alt", -47, 24);
 				addOffset("singRIGHT-alt", -1, -24);
 				addOffset("singLEFT-alt", -30, 15);
 				addOffset("singDOWN-alt", -30, -27);
+
+				addOffset('idle-loop');
+				addOffset("singUP-loop", -47, 24);
+				addOffset("singRIGHT-loop", -1, -23);
+				addOffset("singLEFT-loop", -30, 16);
+				addOffset("singDOWN-loop", -31, -29);
+				
+				addOffset("singUP-alt-loop", -47, 24);
+				addOffset("singRIGHT-alt-loop", -1, -24);
+				addOffset("singLEFT-alt-loop", -30, 15);
+				addOffset("singDOWN-alt-loop", -30, -27);
 
 				playAnim('idle');
 		}
@@ -557,11 +627,6 @@ class Character extends FlxSprite
 				}
 			}
 		}
-		
-		if(animation.curAnim.finished && animation.getByName(animation.curAnim.name + '-loop') != null)
-			{
-				playAnim(animation.curAnim.name + '-loop');
-			}
 	}
 
 	override function update(elapsed:Float)
@@ -589,6 +654,11 @@ class Character extends FlxSprite
 			case 'gf':
 				if (animation.curAnim.name == 'hairFall' && animation.curAnim.finished)
 					playAnim('danceRight');
+		}
+
+		if(animation.curAnim.finished && animation.getByName(animation.curAnim.name + '-loop') != null)
+		{
+			playAnim(animation.curAnim.name + '-loop');
 		}
 
 		super.update(elapsed);

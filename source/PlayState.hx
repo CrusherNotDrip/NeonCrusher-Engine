@@ -748,7 +748,7 @@ class PlayState extends MusicBeatState
 		// healthBar
 		add(healthBar);
 
-		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
+		scoreTxt = new FlxText(0, healthBarBG.y + 30, FlxG.width, "", 20);
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.borderSize = 2;
 		scoreTxt.borderQuality = 1;
@@ -756,7 +756,7 @@ class PlayState extends MusicBeatState
 		add(scoreTxt);
 
 		// Crusher Engine Watermark
-		ceWatermark = new FlxText(0, FlxG.height - 710, 0, "Crusher Engine: v" + MainMenuState.crusherEngineVersion, 16);
+		ceWatermark = new FlxText(0, FlxG.height - 690, 0, "Crusher Engine: v" + MainMenuState.crusherEngineVersion, 16);
 		ceWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		ceWatermark.borderSize = 2;
 		ceWatermark.borderQuality = 2;
@@ -766,7 +766,7 @@ class PlayState extends MusicBeatState
 		add(ceWatermark);
 
 		// Song Display thingy
-		songDisplay = new FlxText(0, FlxG.height - 690, 0, SONG.song + " - " + CoolUtil.difficultyString(), 16);
+		songDisplay = new FlxText(0, ceWatermark.y - 16, 0, SONG.song + " - " + CoolUtil.difficultyString(), 16);
 		songDisplay.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		songDisplay.borderSize = 2;
 		songDisplay.borderQuality = 2;
@@ -776,15 +776,7 @@ class PlayState extends MusicBeatState
 		add(songDisplay);
 
 		judgementCounter = new FlxText(20, 0, 0, "", 20);
-		judgementCounter.text = '
-		Total Notes Hit: ${songHits}
-		Combo: ${combo}
-
-		Sicks: ${sicks}
-		Goods: ${goods}
-		Bads: ${bads}
-		Shits: ${shits}
-		Misses: ${songMisses}';
+		judgementCounter.text = 'Total Notes Hit: ${songHits}\nCombo: ${combo}\n\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nMisses: ${songMisses}';
 		judgementCounter.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		judgementCounter.borderSize = 2;
 		judgementCounter.borderQuality = 2;
@@ -1422,16 +1414,7 @@ class PlayState extends MusicBeatState
 		super.update(elapsed);
 
 		scoreTxt.text = "Score: " + songScore + " // Misses: " + songMisses;
-		judgementCounter.text = '
-		Total Notes Hit: ${songHits}
-		Combo: ${combo}
-
-		Sicks: ${sicks}
-		Goods: ${goods}
-		Bads: ${bads}
-		Shits: ${shits}
-		Misses: ${songMisses}';
-
+		judgementCounter.text = 'Total Notes Hit: ${songHits}\nCombo: ${combo}\n\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nMisses: ${songMisses}';
 		if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
 		{
 			persistentUpdate = false;
@@ -1975,9 +1958,9 @@ class PlayState extends MusicBeatState
 			if (combo >= 10 || combo == 0)
 				add(numScore);
 
-			if (combo == 10) {
+			if (combo >= 9) {
 				add(comboSpr);
-			}
+			} 
 
 			FlxTween.tween(numScore, {alpha: 0}, 0.2, {
 				onComplete: function(tween:FlxTween)
