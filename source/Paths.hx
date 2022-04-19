@@ -90,6 +90,11 @@ class Paths
 		return 'songs:assets/songs/${song.toLowerCase()}/Voices.$SOUND_EXT';
 	}
 
+	inline static public function video(key:String, ?library:String)
+	{
+		return getPath('videos/$key.mp4', BINARY, library);
+	}
+		
 	inline static public function inst(song:String)
 	{
 		return 'songs:assets/songs/${song.toLowerCase()}/Inst.$SOUND_EXT';
