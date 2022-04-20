@@ -114,7 +114,7 @@ class PlayState extends MusicBeatState
 	var talking:Bool = true;
 
 	var scoreTxt:FlxText;
-	var ceWatermark:FlxText;
+	var nceWatermark:FlxText;
 	var songDisplay:FlxText;
 	var judgementCounter:FlxText;
 
@@ -756,17 +756,17 @@ class PlayState extends MusicBeatState
 		add(scoreTxt);
 
 		// NeonCrusher Engine Watermark
-		ceWatermark = new FlxText(0, FlxG.height - 690, 0, "NeonCrusher Engine: v" + MainMenuState.neoncrusherEngineVersion, 16);
-		ceWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		ceWatermark.borderSize = 2;
-		ceWatermark.borderQuality = 2;
-		ceWatermark.scrollFactor.set();
-		ceWatermark.updateHitbox();
-		ceWatermark.x = FlxG.width - ceWatermark.width - 5;
-		add(ceWatermark);
+		nceWatermark = new FlxText(0, FlxG.height - 690, 0, "NeonCrusher Engine: v" + MainMenuState.neoncrusherEngineVersion, 16);
+		nceWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		nceWatermark.borderSize = 2;
+		nceWatermark.borderQuality = 2;
+		nceWatermark.scrollFactor.set();
+		nceWatermark.updateHitbox();
+		nceWatermark.x = FlxG.width - nceWatermark.width - 5;
+		add(nceWatermark);
 
 		// Song Display thingy
-		songDisplay = new FlxText(0, ceWatermark.y - 16, 0, SONG.song + " - " + CoolUtil.difficultyString(), 16);
+		songDisplay = new FlxText(0, nceWatermark.y - 16, 0, SONG.song + " - " + CoolUtil.difficultyString(), 16);
 		songDisplay.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		songDisplay.borderSize = 2;
 		songDisplay.borderQuality = 2;
@@ -799,7 +799,7 @@ class PlayState extends MusicBeatState
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
-		ceWatermark.cameras = [camHUD];
+		nceWatermark.cameras = [camHUD];
 		songDisplay.cameras = [camHUD];
 		judgementCounter.cameras = [camHUD];
 		doof.cameras = [camHUD];
