@@ -2,7 +2,7 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Friday Night Funkin': Crusher Engine" file="CrusherEngine" packageName="com.crushermods.crusherengine" package="com.crushermods.crusherengine" main="Main" version="0.2.7.1" company="CrusherMods" />
+	<app title="Friday Night Funkin': NeonCrusher Engine" file="NeonCrusherEngine" packageName="com.crushermods.neoncrusherengine" package="com.crushermods.neoncrusherengine" main="Main" version="0.2.7.1" company="CrusherMods" />
 
 	<!--Switch Export with Unique ApplicationID and Icon-->
 	<set name="APP_ID" value="0x0100f6c013bbc000" />

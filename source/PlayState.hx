@@ -755,8 +755,8 @@ class PlayState extends MusicBeatState
 		scoreTxt.scrollFactor.set();
 		add(scoreTxt);
 
-		// Crusher Engine Watermark
-		ceWatermark = new FlxText(0, FlxG.height - 690, 0, "Crusher Engine: v" + MainMenuState.crusherEngineVersion, 16);
+		// NeonCrusher Engine Watermark
+		ceWatermark = new FlxText(0, FlxG.height - 690, 0, "NeonCrusher Engine: v" + MainMenuState.neoncrusherEngineVersion, 16);
 		ceWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		ceWatermark.borderSize = 2;
 		ceWatermark.borderQuality = 2;
@@ -2225,7 +2225,7 @@ class PlayState extends MusicBeatState
 	function noteMiss(direction:Int = 1):Void
 	{
 		ghostTaps++;
-		if(!CrusherSettings.ghostTapping)
+		if(!NeonCrusherSettings.ghostTapping)
 		{
 		    songMisses++;
 			

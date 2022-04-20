@@ -6,7 +6,7 @@ import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import Controls;
 
-class CrusherSettings {
+class NeonCrusherSettings {
 	public static var downScroll:Bool = false;
 	public static var showFPS:Bool = true;
 	public static var framerate:Int = 60;

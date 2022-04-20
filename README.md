@@ -1,10 +1,10 @@
-# Crusher Engine
+# NeonCrusher Engine
 
 ## Logo
 uhhh someone ill pay you -26798562341985698$ bucks if you make it
 
 ## About the Engine
-uhh crusher engine iss uhhh e uhhhh ermmm uhh I forgor 💀 (mainly cuz nothing cool is inside the engine except for judgement counters but thats very fucking ez to make)
+uhh neoncrusher engine iss uhhh e uhhhh ermmm uhh I forgor 💀 (mainly cuz nothing cool is inside the engine except for judgement counters but thats very fucking ez to make)
 
 ## Stuff that fnf didn't add that I added into this engine
 
@@ -19,8 +19,10 @@ and thats really it
 
 # Credits
 
-### Crusher Engine
-- [CrusherMods (a.k.a CrusherNotDrip)](https://twitter.com/CrusherNotDrip) - Main Programmer + Owner of Crusher Engine
+### NeonCrusher Engine
+- [CrusherMods (a.k.a CrusherNotDrip)](https://twitter.com/CrusherNotDrip) - Main Programmer + Owner of NeonCrusher 
+
+- [NeonFurious](https://twitter.com/Java_NotDrip) - Co-Owner of NeonCrusher Engine
 
 ### Special Thanks
 - no one at all cuz no one else helped with the engine except for haxeflixel tutorials

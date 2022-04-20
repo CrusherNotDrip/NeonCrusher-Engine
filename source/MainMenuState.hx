@@ -21,7 +21,7 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var crusherEngineVersion:String = "0.1";
+	public static var neoncrusherEngineVersion:String = "0.1";
 	var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
@@ -97,7 +97,7 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollow, null, 0.06);
 
-		var versionShit:FlxText = new FlxText(5, FlxG.height - 38, 0, "Crusher Engine v" + crusherEngineVersion, 12);
+		var versionShit:FlxText = new FlxText(5, FlxG.height - 38, 0, "NeonCrusher Engine v" + neoncrusherEngineVersion, 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
