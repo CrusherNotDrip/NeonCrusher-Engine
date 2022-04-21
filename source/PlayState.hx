@@ -1413,7 +1413,7 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
-		scoreTxt.text = "Score: " + songScore + " // Misses: " + songMisses;
+		scoreTxt.text = "Score: " + songScore + " // Health: " + healthBar.percent + "%" + " // Misses: " + songMisses;
 		judgementCounter.text = 'Total Notes Hit: ${songHits}\nCombo: ${combo}\n\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nMisses: ${songMisses}';
 		if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
 		{
