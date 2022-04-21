@@ -850,8 +850,6 @@ class PlayState extends MusicBeatState
 					schoolIntro(doof);
 				case 'thorns':
 					schoolIntro(doof);
-				case 'tutorial':
-					playCutscene('testVideo');
 				default:
 					startCountdown();
 			}
@@ -867,34 +865,6 @@ class PlayState extends MusicBeatState
 
 		super.create();
 	}
-
-	//Video Shit
-	var video:MP4Handler;
-
-    public function playCutscene(name:String)
-	{
-	    inCutscene = true;
-
-	    video = new MP4Handler();
-	    video.finishCallback = function()
-	    {
-		    startCountdown();
-	    }
-	    video.playVideo(Paths.video(name));
-    }
-
-    public function playEndCutscene(name:String)
-    {
-	    inCutscene = true;
-
-	    video = new MP4Handler();
-	    video.finishCallback = function()
-	    {
-		    SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
-		    LoadingState.loadAndSwitchState(new PlayState());
-	    }
-	    video.playVideo(Paths.video(name));
-    }
 
 	function schoolIntro(?dialogueBox:DialogueBox):Void
 	{

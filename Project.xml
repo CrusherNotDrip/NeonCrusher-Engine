@@ -39,14 +39,7 @@
 	<set name="BUILD_DIR" value="export/32bit" if="32bit" />
 
 	<classpath name="source" />
-
-    <assets path="assets/videos" rename="assets/videos" include="*.mp4" embed='false' />
-
-    <assets path="assets/videos" exclude="*.mp3" if="web"/>
-    <assets path="assets/videos" exclude="*.ogg" unless="web"/>
-
-    <assets path="plugins/" rename='' if="windows"/>
-    <assets path="dlls/" rename='' if="windows"/>
+	
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3" unless="web"/>
 	
@@ -163,9 +156,6 @@
 
 	<!--Enable this for Nape release builds for a serious peformance improvement-->
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
-
-    <!--Enable this if your PC is ARM64-->
-	<!--<haxedef name="HXCPP_ARM64" />-->
 
 	<!-- _________________________________ Custom _______________________________ -->
 
