@@ -29,6 +29,7 @@ and thats really it
 
 ### People I stole a *tiny* bit of code from
 - [Shadow Mario](https://twitter.com/Shadow_Mario_) - Code for Animation Loops (yea thats it really)
+- [Stillic](https://github.com/Stilic) - Custom Health Icon Bopping I got from his pull request from Psych Engine
 
 ### Friday Night Funkin'
 - [ninjamuffin99](https://twitter.com/ninja_muffin99) - Programmer

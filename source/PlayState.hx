@@ -1447,8 +1447,8 @@ class PlayState extends MusicBeatState
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
 		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
 
-		iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.50)));
-		iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.50)));
+		iconP1.canBounce = true;
+		iconP2.canBounce = true;
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
@@ -2509,8 +2509,8 @@ class PlayState extends MusicBeatState
 			camHUD.zoom += 0.03;
 		}
 
-		iconP1.setGraphicSize(Std.int(iconP1.width + 30));
-		iconP2.setGraphicSize(Std.int(iconP2.width + 30));
+		iconP1.bounce();
+		iconP2.bounce();
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();

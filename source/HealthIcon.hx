@@ -1,6 +1,7 @@
 package;
 
 import flixel.FlxSprite;
+import flixel.math.FlxMath;
 
 class HealthIcon extends FlxSprite
 {
@@ -8,6 +9,7 @@ class HealthIcon extends FlxSprite
 	 * Used for FreeplayState! If you use it elsewhere, prob gonna annoying
 	 */
 	public var sprTracker:FlxSprite;
+	public var canBounce:Bool = false;
 
 	public function new(char:String = 'bf', isPlayer:Bool = false)
 	{
@@ -44,5 +46,19 @@ class HealthIcon extends FlxSprite
 
 		if (sprTracker != null)
 			setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y - 30);
+
+		if(canBounce) {
+			var mult:Float = FlxMath.lerp(1, scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+			scale.set(mult, mult);
+			updateHitbox();
+		}
+	}
+	
+	public function bounce() {
+		if(canBounce) {
+			var mult:Float = 1.2;
+			scale.set(mult, mult);
+			updateHitbox();
+		}
 	}
 }
