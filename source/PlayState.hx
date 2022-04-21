@@ -1731,6 +1731,35 @@ class PlayState extends MusicBeatState
 						health -= 0.0475;
 						vocals.volume = 0;
 						combo = 0;
+				        if (boyfriend.animation.getByName("singLEFTmiss") != null)
+						{
+							switch (daNote.noteData)
+						    {
+							    case 0:
+								    boyfriend.playAnim('singLEFTmiss', true);
+								case 1:
+								    boyfriend.playAnim('singDOWNmiss', true);
+							    case 2:
+								    boyfriend.playAnim('singUPmiss', true);
+							    case 3:
+								    boyfriend.playAnim('singRIGHTmiss', true);
+						    }
+					    }
+					    else 
+						{
+							switch (daNote.noteData)
+						    {
+							    case 0:
+								    boyfriend.playAnim('singLEFT', true);
+								case 1:
+								    boyfriend.playAnim('singDOWN', true);
+							    case 2:
+								    boyfriend.playAnim('singUP', true);
+							    case 3:
+								    boyfriend.playAnim('singRIGHT', true);
+						    }
+						    boyfriend.color = 0xFF0000FF;
+					    }
 					}
 
 					daNote.active = false;
@@ -2221,18 +2250,36 @@ class PlayState extends MusicBeatState
 			    {
 				    boyfriend.stunned = false;
 			    });
-
-			    switch (direction)
-			    {
-				    case 0:
-					    boyfriend.playAnim('singLEFTmiss', true);
-					case 1:
-					    boyfriend.playAnim('singDOWNmiss', true);
-				    case 2:
-					    boyfriend.playAnim('singUPmiss', true);
-				    case 3:
-					    boyfriend.playAnim('singRIGHTmiss', true);
-			    }
+				
+				if (boyfriend.animation.getByName("singLEFTmiss") != null)
+						{
+							switch (direction)
+						    {
+							    case 0:
+								    boyfriend.playAnim('singLEFTmiss', true);
+								case 1:
+								    boyfriend.playAnim('singDOWNmiss', true);
+							    case 2:
+								    boyfriend.playAnim('singUPmiss', true);
+							    case 3:
+								    boyfriend.playAnim('singRIGHTmiss', true);
+						    }
+					    }
+					    else 
+						{
+							switch (direction)
+						    {
+							    case 0:
+								    boyfriend.playAnim('singLEFT', true);
+								case 1:
+								    boyfriend.playAnim('singDOWN', true);
+							    case 2:
+								    boyfriend.playAnim('singUP', true);
+							    case 3:
+								    boyfriend.playAnim('singRIGHT', true);
+						    }
+						    boyfriend.color = 0xFF0000FF;
+					    }
 			}
 		}
 	}
@@ -2286,12 +2333,16 @@ class PlayState extends MusicBeatState
 			{
 				case 0:
 					boyfriend.playAnim('singLEFT', true);
+					boyfriend.color = 0xFFFFFFFF;
 				case 1:
 					boyfriend.playAnim('singDOWN', true);
+					boyfriend.color = 0xFFFFFFFF;
 				case 2:
 					boyfriend.playAnim('singUP', true);
+					boyfriend.color = 0xFFFFFFFF;
 				case 3:
 					boyfriend.playAnim('singRIGHT', true);
+					boyfriend.color = 0xFFFFFFFF;
 			}
 
 			playerStrums.forEach(function(spr:FlxSprite)
@@ -2472,6 +2523,7 @@ class PlayState extends MusicBeatState
 		if (!boyfriend.animation.curAnim.name.startsWith("sing"))
 		{
 			boyfriend.playAnim('idle');
+			boyfriend.color = 0xFFFFFFFF;
 		}
 
 		if (curBeat % 8 == 7 && curSong == 'Bopeebo')
