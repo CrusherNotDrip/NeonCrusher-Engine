@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="story_mode.png">
+    <!-- XML Manually Coded by CrusherNotDrip cuz I dont have adobe animate on this computer LOL-->
+    <SubTexture name="story_mode basic0000" x="0" y="0" width="618" height="123"/>
+    <SubTexture name="story_mode basic0001" x="0" y="0" width="618" height="123"/>
+    <SubTexture name="story_mode basic0002" x="0" y="0" width="618" height="123"/>
+    <SubTexture name="story_mode basic0003" x="618" y="0" width="615" height="123"/>
+    <SubTexture name="story_mode basic0004" x="618" y="0" width="615" height="123"/>
+    <SubTexture name="story_mode basic0005" x="618" y="0" width="615" height="123"/>
+    <SubTexture name="story_mode basic0006" x="1233" y="0" width="616" height="123"/>
+    <SubTexture name="story_mode basic0007" x="1233" y="0" width="616" height="123"/>
+    <SubTexture name="story_mode basic0008" x="1233" y="0" width="616" height="123"/>
+    <SubTexture name="story_mode white0000" x="0" y="123" width="796" height="174" frameX="0" frameY="-3" frameWidth="796" frameHeight="181"/>
+    <SubTexture name="story_mode white0001" x="796" y="123" width="794" height="175" frameX="-2" frameY="-2" frameWidth="796" frameHeight="181"/>
+    <SubTexture name="story_mode white0003" x="1590" y="123" width="794" height="182" frameX="0" frameY="0" frameWidth="796" frameHeight="181"/>
+</TextureAtlas>

@@ -1,7 +1,9 @@
 package;
 
-#if desktop
+#if DISCORD_RPC
 import Discord.DiscordClient;
+#end
+#if desktop
 import sys.thread.Thread;
 #end
 import flixel.FlxG;
@@ -45,7 +47,7 @@ class TitleState extends MusicBeatState
 	var wackyImage:FlxSprite;
 
 	override public function create():Void
-	{
+	{	
 		#if polymod
 		polymod.Polymod.init({modRoot: "mods", dirs: ['introMod']});
 		#end
@@ -87,7 +89,7 @@ class TitleState extends MusicBeatState
 		});
 		#end
 
-		#if desktop
+		#if DISCORD_RPC
 		DiscordClient.initialize();
 		
 		Application.current.onExit.add (function (exitCode) {

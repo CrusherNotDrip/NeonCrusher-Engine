@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="donate.png">
+    <!-- XML Manually Coded by CrusherNotDrip cuz I dont have adobe animate on this computer LOL-->
+    <SubTexture name="donate basic0000" x="0" y="0" width="443" height="117"/>
+    <SubTexture name="donate basic0001" x="0" y="0" width="443" height="117"/>
+    <SubTexture name="donate basic0002" x="0" y="0" width="443" height="117"/>
+    <SubTexture name="donate basic0003" x="443" y="0" width="445" height="117"/>
+    <SubTexture name="donate basic0004" x="443" y="0" width="445" height="117"/>
+    <SubTexture name="donate basic0005" x="443" y="0" width="445" height="117"/>
+    <SubTexture name="donate basic0006" x="887" y="0" width="444" height="117"/>
+    <SubTexture name="donate basic0007" x="887" y="0" width="444" height="117"/>
+    <SubTexture name="donate basic0008" x="887" y="0" width="444" height="117"/>
+    <SubTexture name="donate white0000" x="0" y="117" width="590" height="157" frameX="0" frameY="-2" frameWidth="590" frameHeight="159"/>
+    <SubTexture name="donate white0001" x="590" y="117" width="587" height="155" frameX="-1" frameY="-5" frameWidth="590" frameHeight="159"/>
+    <SubTexture name="donate white0002" x="1177" y="117" width="586" height="155" frameX="-3" frameY="0" frameWidth="590" frameHeight="159"/>
+</TextureAtlas>

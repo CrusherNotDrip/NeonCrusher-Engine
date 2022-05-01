@@ -1,6 +1,6 @@
 package;
 
-#if desktop
+#if DISCORD_RPC
 import Discord.DiscordClient;
 #end
 import Section.SwagSection;
@@ -127,7 +127,7 @@ class PlayState extends MusicBeatState
 
 	var inCutscene:Bool = false;
 
-	#if desktop
+	#if DISCORD_RPC
 	// Discord RPC variables
 	var storyDifficultyText:String = "";
 	var iconRPC:String = "";
@@ -199,7 +199,7 @@ class PlayState extends MusicBeatState
 				dialogue = CoolUtil.coolTextFile(Paths.txt('thorns/thornsDialogue'));
 		}
 
-		#if desktop
+		#if DISCORD_RPC
 		// Making difficulty text for Discord Rich Presence.
 		switch (storyDifficulty)
 		{
@@ -738,7 +738,6 @@ class PlayState extends MusicBeatState
 		healthBarBG = new FlxSprite(0, FlxG.height * 0.9).loadGraphic(Paths.image('healthBar'));
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
-		add(healthBarBG);
 
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 			'health', 0, 2);
@@ -747,6 +746,7 @@ class PlayState extends MusicBeatState
 		healthBar.screenCenter(X);
 		// healthBar
 		add(healthBar);
+		add(healthBarBG);
 
 		scoreTxt = new FlxText(0, healthBarBG.y + 30, FlxG.width, "", 20);
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -756,7 +756,7 @@ class PlayState extends MusicBeatState
 		add(scoreTxt);
 
 		// NeonCrusher Engine Watermark
-		nceWatermark = new FlxText(0, FlxG.height - 690, 0, "NeonCrusher Engine: v" + MainMenuState.neoncrusherEngineVersion, 16);
+		nceWatermark = new FlxText(0, FlxG.height - 690, 0, "NeonCrusher Engine: v" + Assets.getText(Paths.txt('version')), 16);
 		nceWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		nceWatermark.borderSize = 2;
 		nceWatermark.borderQuality = 2;
@@ -1073,7 +1073,7 @@ class PlayState extends MusicBeatState
 		FlxG.sound.music.onComplete = endSong;
 		vocals.play();
 
-		#if desktop
+		#if DISCORD_RPC
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
 
@@ -1321,7 +1321,7 @@ class PlayState extends MusicBeatState
 				startTimer.active = true;
 			paused = false;
 
-			#if desktop
+			#if DISCORD_RPC
 			if (startTimer.finished)
 			{
 				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconRPC, true, songLength - Conductor.songPosition);
@@ -1338,7 +1338,7 @@ class PlayState extends MusicBeatState
 
 	override public function onFocus():Void
 	{
-		#if desktop
+		#if DISCORD_RPC
 		if (health > 0 && !paused)
 		{
 			if (Conductor.songPosition > 0.0)
@@ -1357,7 +1357,7 @@ class PlayState extends MusicBeatState
 	
 	override public function onFocusLost():Void
 	{
-		#if desktop
+		#if DISCORD_RPC
 		if (health > 0 && !paused)
 		{
 			DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconRPC);
@@ -1430,7 +1430,7 @@ class PlayState extends MusicBeatState
 			else
 				openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		
-			#if desktop
+			#if DISCORD_RPC
 			DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconRPC);
 			#end
 		}
@@ -1439,7 +1439,7 @@ class PlayState extends MusicBeatState
 		{
 			FlxG.switchState(new ChartingState());
 
-			#if desktop
+			#if DISCORD_RPC
 			DiscordClient.changePresence("Chart Editor", null, null, true);
 			#end
 		}
@@ -1638,7 +1638,7 @@ class PlayState extends MusicBeatState
 
 			// FlxG.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 			
-			#if desktop
+			#if DISCORD_RPC
 			// Game Over doesn't get his own variable because it's only used here
 			DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyDifficultyText + ")", iconRPC);
 			#end
@@ -2507,6 +2507,22 @@ class PlayState extends MusicBeatState
 		{
 			FlxG.camera.zoom += 0.015;
 			camHUD.zoom += 0.03;
+		}
+		
+        if(NeonCrusherSettings.iconDancing) {
+		    if (curBeat % gfSpeed == 0) {
+			    curBeat % (gfSpeed * 2) == 0 ? {
+			        iconP1.angle = -15;
+			        FlxTween.angle(iconP1, -15, 0, 0.5, {ease: FlxEase.quadOut});
+		            iconP2.angle = 15;
+		            FlxTween.angle(iconP2, 15, 0, 0.5, {ease: FlxEase.quadOut});
+		    } : {
+			        iconP1.angle = 15;
+		    	    FlxTween.angle(iconP1, 15, 0, 0.5, {ease: FlxEase.quadOut});
+		            iconP2.angle = -15;
+		            FlxTween.angle(iconP2, -15, 0, 0.5, {ease: FlxEase.quadOut});	
+		        }
+		    }
 		}
 
 		iconP1.bounce();

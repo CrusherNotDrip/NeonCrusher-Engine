@@ -2,3 +2,5 @@ testVideo.mp4
 export/
 .vscode/
 APIStuff.hx
+build_x64-officialrelease.bat
+build_x32-officialrelease.bat

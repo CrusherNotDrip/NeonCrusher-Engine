@@ -1,7 +1,8 @@
 package;
 
+import lime.utils.Assets;
 import options.OptionsMenu;
-#if desktop
+#if DISCORD_RPC
 import Discord.DiscordClient;
 #end
 import flixel.FlxG;
@@ -21,15 +22,15 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var neoncrusherEngineVersion:String = "0.1";
+	//public static var neoncrusherEngineVersion:String = '0.1';
 	var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
 
 	#if !switch
-	var optionShit:Array<String> = ['story mode', 'freeplay', 'donate', 'options'];
+	var optionShit:Array<String> = ['story_mode', 'freeplay', 'donate', 'options'];
 	#else
-	var optionShit:Array<String> = ['story mode', 'freeplay'];
+	var optionShit:Array<String> = ['story_mode', 'freeplay'];
 	#end
 
 	var magenta:FlxSprite;
@@ -37,7 +38,7 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
-		#if desktop
+		#if DISCORD_RPC
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
 		#end
@@ -79,10 +80,9 @@ class MainMenuState extends MusicBeatState
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
 
-		var tex = Paths.getSparrowAtlas('FNF_main_menu_assets');
-
 		for (i in 0...optionShit.length)
 		{
+			var tex = Paths.getSparrowAtlas('mainmenu/' + optionShit[i]);
 			var menuItem:FlxSprite = new FlxSprite(0, 60 + (i * 160));
 			menuItem.frames = tex;
 			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
@@ -97,7 +97,7 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollow, null, 0.06);
 
-		var versionShit:FlxText = new FlxText(5, FlxG.height - 38, 0, "NeonCrusher Engine v" + neoncrusherEngineVersion, 12);
+		var versionShit:FlxText = new FlxText(5, FlxG.height - 38, 0, "NeonCrusher Engine v" + Assets.getText(Paths.txt('version')), 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
@@ -142,15 +142,6 @@ class MainMenuState extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
-				if (optionShit[curSelected] == 'donate')
-				{
-					#if linux
-					Sys.command('/usr/bin/xdg-open', ["https://ninja-muffin24.itch.io/funkin", "&"]);
-					#else
-					FlxG.openURL('https://ninja-muffin24.itch.io/funkin');
-					#end
-				}
-				else
 				{
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
@@ -177,17 +168,18 @@ class MainMenuState extends MusicBeatState
 
 								switch (daChoice)
 								{
-									case 'story mode':
+									case 'story_mode':
 										FlxG.switchState(new StoryMenuState());
-										trace("Story Menu Selected");
 									case 'freeplay':
 										FlxG.switchState(new FreeplayState());
-
-										trace("Freeplay Menu Selected");
-
+									case 'donate':
+										#if linux
+										Sys.command('/usr/bin/xdg-open', ["https://ninja-muffin24.itch.io/funkin", "&"]);
+										#else
+										FlxG.openURL('https://ninja-muffin24.itch.io/funkin');
+										#end
+										FlxG.switchState(new MainMenuState()); //Had to switch it back to main menu otherwise everything dies in the main menu
 									case 'options':
-										FlxTransitionableState.skipNextTransIn = true;
-										FlxTransitionableState.skipNextTransOut = true;
 										FlxG.switchState(new OptionsMenu());
 								}
 							});

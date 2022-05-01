@@ -14,6 +14,9 @@ class OptionsSubState extends MusicBeatSubstate
 
 	var grpOptionsTexts:FlxTypedGroup<Alphabet>;
 
+	var arrowLeft:Alphabet;
+	var arrowRight:Alphabet;
+
 	public function new()
 	{
 		super();
@@ -28,12 +31,22 @@ class OptionsSubState extends MusicBeatSubstate
 			grpOptionsTexts.add(optionText);
 			optionText.screenCenter(X);
 		}
+
+		arrowLeft = new Alphabet(0, 0, '>', true, false);
+		add(arrowLeft);
+		arrowRight = new Alphabet(0, 0, '<', true, false);
+		add(arrowRight);
 	}
 
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
+		if (FlxG.keys.justPressed.ESCAPE)
+		{
+			FlxG.switchState(new MainMenuState());
+		}
+		
 		if (controls.UP_P)
 			curSelected -= 1;
 

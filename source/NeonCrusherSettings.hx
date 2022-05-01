@@ -9,8 +9,9 @@ import Controls;
 class NeonCrusherSettings {
 	public static var downScroll:Bool = false;
 	public static var showFPS:Bool = true;
-	public static var framerate:Int = 60;
 	public static var ghostTapping:Bool = true;
+	public static var iconDancing:Bool = true;
+	public static var framerate:Int = 60;
 
 	//Every key has two binds, add your key bind down here and then add your control on options/ControlsSubState.hx and Controls.hx
 	public static var keyBinds:Map<String, Array<FlxKey>> = [
@@ -58,16 +59,28 @@ class NeonCrusherSettings {
 		FlxG.log.add("Settings saved!");
 	}
 
-	public static function loadPrefs() {
+	public static function loadSettings() {
+		//Engine Stuff
 		if(FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;
 		}
+
 		if(FlxG.save.data.showFPS != null) {
 			showFPS = FlxG.save.data.showFPS;
 			if(Main.fpsVar != null) {
 				Main.fpsVar.visible = showFPS;
 			}
 		}
+
+		if(FlxG.save.data.ghostTapping != null) {
+			ghostTapping = FlxG.save.data.ghostTapping;
+		}
+
+		if(FlxG.save.data.iconDancing != null) {
+			iconDancing = FlxG.save.data.iconDancing;
+		}
+		
+		//HaxeFlixel Stuff
 		if(FlxG.save.data.framerate != null) {
 			framerate = FlxG.save.data.framerate;
 			if(framerate > FlxG.drawFramerate) {
@@ -78,15 +91,12 @@ class NeonCrusherSettings {
 				FlxG.updateFramerate = framerate;
 			}
 		}
-		if(FlxG.save.data.ghostTapping != null) {
-			ghostTapping = FlxG.save.data.ghostTapping;
-		}
-		
-		// flixel automatically saves your volume!
+
 		if(FlxG.save.data.volume != null)
 		{
 			FlxG.sound.volume = FlxG.save.data.volume;
 		}
+
 		if (FlxG.save.data.mute != null)
 		{
 			FlxG.sound.muted = FlxG.save.data.mute;
