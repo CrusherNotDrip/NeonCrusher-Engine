@@ -88,7 +88,7 @@ class PlayState extends MusicBeatState
 
 	private var iconP1:HealthIcon;
 	private var iconP2:HealthIcon;
-	private var camHUD:FlxCamera;
+	public static var camHUD:FlxCamera;
 	private var camGame:FlxCamera;
 
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
@@ -147,9 +147,19 @@ class PlayState extends MusicBeatState
 	public var goods:Int = 0;
 	public var bads:Int = 0;
 	public var shits:Int = 0;
+	public static var blueballed:Int = 0;
 
 	override public function create()
 	{
+		if (isStoryMode) 
+		{
+			Events.changeAppName(Events.appName + " - " + SONG.song + " - " + CoolUtil.difficultyString()  + " - (Story Mode)");
+		}
+		else
+		{
+			Events.changeAppName(Events.appName + " - " + SONG.song + " - " + CoolUtil.difficultyString()  + " - (Freeplay)");
+		}
+
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 
@@ -194,7 +204,14 @@ class PlayState extends MusicBeatState
 			case 'senpai':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('senpai/senpaiDialogue'));
 			case 'roses':
-				dialogue = CoolUtil.coolTextFile(Paths.txt('roses/rosesDialogue'));
+				if (NeonCrusherSettings.cursing)
+				{
+				    dialogue = CoolUtil.coolTextFile(Paths.txt('roses/rosesDialogue'));
+				}
+				else
+				{
+					dialogue = CoolUtil.coolTextFile(Paths.txt('roses/rosesDialogue2'));
+				}
 			case 'thorns':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('thorns/thornsDialogue'));
 		}
@@ -243,23 +260,22 @@ class PlayState extends MusicBeatState
 
 		switch (SONG.song.toLowerCase())
 		{
-                        case 'spookeez' | 'monster' | 'south': 
-                        {
-                                curStage = 'spooky';
-	                          halloweenLevel = true;
+            case 'spookeez' | 'monster' | 'south': 
+            {
+                curStage = 'spooky';
+	            halloweenLevel = true;
 
-		                  var hallowTex = Paths.getSparrowAtlas('halloween_bg');
+		        var hallowTex = Paths.getSparrowAtlas('halloween_bg');
+	            halloweenBG = new FlxSprite(-200, -100);
+		        halloweenBG.frames = hallowTex;
+	            halloweenBG.animation.addByPrefix('idle', 'halloweem bg0');
+	            halloweenBG.animation.addByPrefix('lightning', 'halloweem bg lightning strike', 24, false);
+                halloweenBG.animation.play('idle');
+	            halloweenBG.antialiasing = true;
+	            add(halloweenBG);
 
-	                          halloweenBG = new FlxSprite(-200, -100);
-		                  halloweenBG.frames = hallowTex;
-	                          halloweenBG.animation.addByPrefix('idle', 'halloweem bg0');
-	                          halloweenBG.animation.addByPrefix('lightning', 'halloweem bg lightning strike', 24, false);
-	                          halloweenBG.animation.play('idle');
-	                          halloweenBG.antialiasing = true;
-	                          add(halloweenBG);
-
-		                  isHalloween = true;
-		          }
+		        isHalloween = true;
+		    }
 		          case 'pico' | 'blammed' | 'philly': 
                         {
 		                  curStage = 'philly';
@@ -583,24 +599,23 @@ class PlayState extends MusicBeatState
 		          }
               }
 
-		var gfVersion:String = 'gf';
-
-		switch (curStage)
+		//too lazy to test to see if this actually works right now
+		if (SONG.girlfriend == null)
 		{
-			case 'limo':
-				gfVersion = 'gf-car';
-			case 'mall' | 'mallEvil':
-				gfVersion = 'gf-christmas';
-			case 'school':
-				gfVersion = 'gf-pixel';
-			case 'schoolEvil':
-				gfVersion = 'gf-pixel';
+			switch (curStage)
+			{
+				case 'limo':
+					SONG.girlfriend = 'gf-car';
+				case 'mall' | 'mallEvil':
+					SONG.girlfriend = 'gf-christmas';
+				case 'school':
+					SONG.girlfriend = 'gf-pixel';
+				case 'schoolEvil':
+					SONG.girlfriend = 'gf-pixel';
+			}
 		}
 
-		if (curStage == 'limo')
-			gfVersion = 'gf-car';
-
-		gf = new Character(400, 130, gfVersion);
+		gf = new Character(400, 130, SONG.girlfriend);
 		gf.scrollFactor.set(0.95, 0.95);
 
 		dad = new Character(100, 100, SONG.player2);
@@ -791,6 +806,9 @@ class PlayState extends MusicBeatState
 		iconP2 = new HealthIcon(SONG.player2, false);
 		iconP2.y = healthBar.y - (iconP2.height / 2);
 		add(iconP2);
+
+		iconP1.canBounce = true;
+		iconP2.canBounce = true;
 
 		strumLineNotes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -1447,9 +1465,6 @@ class PlayState extends MusicBeatState
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
 		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
 
-		iconP1.canBounce = true;
-		iconP2.canBounce = true;
-
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
 
@@ -1642,6 +1657,8 @@ class PlayState extends MusicBeatState
 			// Game Over doesn't get his own variable because it's only used here
 			DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyDifficultyText + ")", iconRPC);
 			#end
+
+			blueballed++;
 		}
 
 		if (unspawnNotes[0] != null)
@@ -1783,6 +1800,7 @@ class PlayState extends MusicBeatState
 
 	function endSong():Void
 	{
+		blueballed = 0;
 		canPause = false;
 		FlxG.sound.music.volume = 0;
 		vocals.volume = 0;
@@ -1990,6 +2008,13 @@ class PlayState extends MusicBeatState
 			if (combo >= 9) {
 				add(comboSpr);
 			} 
+
+			if (NeonCrusherSettings.ratingCamHud)
+			{
+				rating.cameras = [camHUD];
+				comboSpr.cameras = [camHUD];
+				numScore.cameras = [camHUD];
+			}
 
 			FlxTween.tween(numScore, {alpha: 0}, 0.2, {
 				onComplete: function(tween:FlxTween)
@@ -2499,27 +2524,21 @@ class PlayState extends MusicBeatState
 		// HARDCODING FOR MILF ZOOMS!
 		if (curSong.toLowerCase() == 'milf' && curBeat >= 168 && curBeat < 200 && camZooming && FlxG.camera.zoom < 1.35)
 		{
-			FlxG.camera.zoom += 0.015;
-			camHUD.zoom += 0.03;
+			Events.addCamZoom(0.015, 0.03);
 		}
 
 		if (camZooming && FlxG.camera.zoom < 1.35 && curBeat % 4 == 0)
 		{
-			FlxG.camera.zoom += 0.015;
-			camHUD.zoom += 0.03;
+			Events.addCamZoom(0.015, 0.03);
 		}
 		
         if(NeonCrusherSettings.iconDancing) {
 		    if (curBeat % gfSpeed == 0) {
 			    curBeat % (gfSpeed * 2) == 0 ? {
-			        iconP1.angle = -15;
 			        FlxTween.angle(iconP1, -15, 0, 0.5, {ease: FlxEase.quadOut});
-		            iconP2.angle = 15;
 		            FlxTween.angle(iconP2, 15, 0, 0.5, {ease: FlxEase.quadOut});
 		    } : {
-			        iconP1.angle = 15;
 		    	    FlxTween.angle(iconP1, 15, 0, 0.5, {ease: FlxEase.quadOut});
-		            iconP2.angle = -15;
 		            FlxTween.angle(iconP2, -15, 0, 0.5, {ease: FlxEase.quadOut});	
 		        }
 		    }

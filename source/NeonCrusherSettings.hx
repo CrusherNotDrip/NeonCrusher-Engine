@@ -11,6 +11,8 @@ class NeonCrusherSettings {
 	public static var showFPS:Bool = true;
 	public static var ghostTapping:Bool = true;
 	public static var iconDancing:Bool = true;
+	public static var cursing:Bool = true;
+	public static var ratingCamHud:Bool = false;
 	public static var framerate:Int = 60;
 
 	//Every key has two binds, add your key bind down here and then add your control on options/ControlsSubState.hx and Controls.hx
@@ -29,13 +31,13 @@ class NeonCrusherSettings {
 		'accept'		=> [SPACE, ENTER],
 		'back'			=> [BACKSPACE, ESCAPE],
 		'pause'			=> [ENTER, ESCAPE],
-		'reset'			=> [R, NONE],
+		'reset'			=> [R],
 		
-		'volume_mute'	=> [ZERO, NONE],
+		'volume_mute'	=> [ZERO],
 		'volume_up'		=> [NUMPADPLUS, PLUS],
 		'volume_down'	=> [NUMPADMINUS, MINUS],
 		
-		'debug'		    => [SEVEN, NONE]
+		'debug'		    => [SEVEN]
 	];
 	public static var defaultKeys:Map<String, Array<FlxKey>> = null;
 
@@ -49,6 +51,7 @@ class NeonCrusherSettings {
 		FlxG.save.data.showFPS = showFPS;
 		FlxG.save.data.framerate = framerate;
 		FlxG.save.data.ghostTapping = ghostTapping;
+		FlxG.save.data.ratingCamHud = ratingCamHud;
 	
 		FlxG.save.flush();
 
@@ -78,6 +81,14 @@ class NeonCrusherSettings {
 
 		if(FlxG.save.data.iconDancing != null) {
 			iconDancing = FlxG.save.data.iconDancing;
+		}
+
+		if(FlxG.save.data.cursing != null) {
+			cursing = FlxG.save.data.cursing;
+		}
+
+		if(FlxG.save.data.ratingCamHud != null) {
+			ratingCamHud = FlxG.save.data.ratingCamHud;
 		}
 		
 		//HaxeFlixel Stuff

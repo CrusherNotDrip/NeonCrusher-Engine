@@ -35,6 +35,8 @@ class FreeplayState extends MusicBeatState
 
 	override function create()
 	{
+		Events.changeAppName(Events.appName + " - Freeplay Menu");
+
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
 
 		for (i in 0...initSonglist.length)

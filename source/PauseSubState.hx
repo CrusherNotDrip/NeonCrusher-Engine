@@ -24,6 +24,15 @@ class PauseSubState extends MusicBeatSubstate
 
 	public function new(x:Float, y:Float)
 	{
+		if (PlayState.isStoryMode) 
+		{
+			Events.changeAppName(Events.appName + " - " + PlayState.SONG.song + " - " + CoolUtil.difficultyString()  + " - (Story Mode)" + " - PAUSED");
+		}
+		else
+		{
+			Events.changeAppName(Events.appName + " - " + PlayState.SONG.song + " - " + CoolUtil.difficultyString()  + " - (Freeplay)" + " - PAUSED");
+		}
+
 		super();
 
 		pauseMusic = new FlxSound().loadEmbedded(Paths.music('breakfast'), true, true);
@@ -51,15 +60,25 @@ class PauseSubState extends MusicBeatSubstate
 		levelDifficulty.updateHitbox();
 		add(levelDifficulty);
 
+		var blueballedText:FlxText = new FlxText(20, 15 + 64, 0, "Blueballed: ", 32);
+		blueballedText.text += PlayState.blueballed; 
+		blueballedText.scrollFactor.set();
+		blueballedText.setFormat(Paths.font('vcr.ttf'), 32);
+		blueballedText.updateHitbox();
+		add(blueballedText);
+
 		levelDifficulty.alpha = 0;
 		levelInfo.alpha = 0;
+		blueballedText.alpha = 0;
 
 		levelInfo.x = FlxG.width - (levelInfo.width + 20);
 		levelDifficulty.x = FlxG.width - (levelDifficulty.width + 20);
+		blueballedText.x = FlxG.width - (blueballedText.width + 20);
 
 		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
 		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
+		FlxTween.tween(blueballedText, {alpha: 1, y: blueballedText.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
 
 		grpMenuShit = new FlxTypedGroup<Alphabet>();
 		add(grpMenuShit);
@@ -84,8 +103,8 @@ class PauseSubState extends MusicBeatSubstate
 
 		super.update(elapsed);
 
-		var upP = controls.UP_P;
-		var downP = controls.DOWN_P;
+		var upP = controls.UI_UP_P;
+		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
 
 		if (upP)
@@ -108,7 +127,15 @@ class PauseSubState extends MusicBeatSubstate
 				case "Restart Song":
 					FlxG.resetState();
 				case "Exit to menu":
-					FlxG.switchState(new MainMenuState());
+					if (PlayState.isStoryMode)
+					{
+						FlxG.switchState(new StoryMenuState());
+					}
+					else 
+					{
+						FlxG.switchState(new FreeplayState());
+					}
+					PlayState.blueballed = 0; //it doesnt reset blueballed counter if you select "Exit to menu" so we just put it here
 			}
 		}
 

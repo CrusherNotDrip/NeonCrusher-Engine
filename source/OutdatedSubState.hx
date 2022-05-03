@@ -13,6 +13,8 @@ class OutdatedSubState extends MusicBeatState
 
 	override function create()
 	{
+		Events.changeAppName(Events.appName + " - Outdated Version!");
+
 		super.create();
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);

@@ -7,7 +7,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.FlxSubState;
 
-class GameplayOptionsSubState extends FlxSubState
+class GameplayOptionsSubState extends OptionsSubState
 {
 	public function new()
 	{
@@ -18,7 +18,7 @@ class GameplayOptionsSubState extends FlxSubState
     {
 		super.update(elapsed);
 
-        if (FlxG.keys.justPressed.ESCAPE)
+        if (controls.BACK)
 		{
 			FlxG.switchState(new MainMenuState());
 		}
