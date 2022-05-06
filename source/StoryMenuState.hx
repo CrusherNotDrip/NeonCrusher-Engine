@@ -32,6 +32,7 @@ class StoryMenuState extends MusicBeatState
 		['Senpai', 'Roses', 'Thorns']
 	];
 	var curDifficulty:Int = 1;
+	var curDifficultyName:String = 'normal';
 
 	public static var weekUnlocked:Array<Bool> = [true, true, true, true, true, true, true];
 
@@ -99,7 +100,7 @@ class StoryMenuState extends MusicBeatState
 		rankText.size = scoreText.size;
 		rankText.screenCenter(X);
 
-		var ui_tex = Paths.getSparrowAtlas('campaign_menu_UI_assets');
+		var arrows_tex = Paths.getSparrowAtlas('ui/arrows');
 		var yellowBG:FlxSprite = new FlxSprite(0, 56).makeGraphic(FlxG.width, 400, 0xFFF9CF51);
 
 		grpWeekText = new FlxTypedGroup<MenuItem>();
@@ -134,10 +135,7 @@ class StoryMenuState extends MusicBeatState
 			// Needs an offset thingie
 			if (!weekUnlocked[i])
 			{
-				var lock:FlxSprite = new FlxSprite(weekThing.width + 10 + weekThing.x);
-				lock.frames = ui_tex;
-				lock.animation.addByPrefix('lock', 'lock');
-				lock.animation.play('lock');
+				var lock:FlxSprite = new FlxSprite(weekThing.width + 10 + weekThing.x, Paths.image('ui/lock'));
 				lock.ID = i;
 				lock.antialiasing = true;
 				grpLocks.add(lock);
@@ -180,30 +178,23 @@ class StoryMenuState extends MusicBeatState
 		trace("Line 124");
 
 		leftArrow = new FlxSprite(grpWeekText.members[0].x + grpWeekText.members[0].width + 10, grpWeekText.members[0].y + 10);
-		leftArrow.frames = ui_tex;
-		leftArrow.animation.addByPrefix('idle', "arrow left");
-		leftArrow.animation.addByPrefix('press', "arrow push left");
+		leftArrow.frames = arrows_tex;
+		leftArrow.animation.addByPrefix('idle', "left");
+		leftArrow.animation.addByPrefix('press', "push left");
 		leftArrow.animation.play('idle');
 		difficultySelectors.add(leftArrow);
 
-		sprDifficulty = new FlxSprite(leftArrow.x + 130, leftArrow.y);
-		sprDifficulty.frames = ui_tex;
-		sprDifficulty.animation.addByPrefix('easy', 'EASY');
-		sprDifficulty.animation.addByPrefix('normal', 'NORMAL');
-		sprDifficulty.animation.addByPrefix('hard', 'HARD');
-		sprDifficulty.animation.play('easy');
+		sprDifficulty = new FlxSprite(leftArrow.x + 125, leftArrow.y, Paths.image('ui/difficulties/' + curDifficultyName));
 		changeDifficulty();
 
 		difficultySelectors.add(sprDifficulty);
 
-		rightArrow = new FlxSprite(sprDifficulty.x + sprDifficulty.width + 50, leftArrow.y);
-		rightArrow.frames = ui_tex;
-		rightArrow.animation.addByPrefix('idle', 'arrow right');
-		rightArrow.animation.addByPrefix('press', "arrow push right", 24, false);
+		rightArrow = new FlxSprite(leftArrow.x + 370, leftArrow.y);
+		rightArrow.frames = arrows_tex;
+		rightArrow.animation.addByPrefix('idle', "right");
+		rightArrow.animation.addByPrefix('press', "push right");
 		rightArrow.animation.play('idle');
 		difficultySelectors.add(rightArrow);
-
-		trace("Line 150");
 
 		add(yellowBG);
 		add(grpWeekCharacters);
@@ -346,16 +337,17 @@ class StoryMenuState extends MusicBeatState
 		switch (curDifficulty)
 		{
 			case 0:
-				sprDifficulty.animation.play('easy');
 				sprDifficulty.offset.x = 20;
+				curDifficultyName = 'easy';
 			case 1:
-				sprDifficulty.animation.play('normal');
 				sprDifficulty.offset.x = 70;
+				curDifficultyName = 'normal';
 			case 2:
-				sprDifficulty.animation.play('hard');
 				sprDifficulty.offset.x = 20;
+				curDifficultyName = 'hard';
 		}
 
+		sprDifficulty.loadGraphic(Paths.image('ui/difficulties/' + curDifficultyName));
 		sprDifficulty.alpha = 0;
 
 		// USING THESE WEIRD VALUES SO THAT IT DOESNT FLOAT UP
