@@ -7,7 +7,7 @@ import flixel.graphics.FlxGraphic;
 import Controls;
 
 class NeonCrusherSettings {
-	public static var downScroll:Bool = true;
+	public static var downScroll:Bool = false;
 	public static var showFPS:Bool = true;
 	public static var ghostTapping:Bool = true;
 	public static var iconDancing:Bool = true;
