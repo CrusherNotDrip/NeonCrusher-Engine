@@ -17,3 +17,7 @@ gf-pixel
 senpai
 senpai-angry
 spirit
+tankman
+gf-tankmen
+bf-holding-gf
+pico-speaker

@@ -7,12 +7,13 @@ import flixel.graphics.FlxGraphic;
 import Controls;
 
 class NeonCrusherSettings {
-	public static var downScroll:Bool = false;
+	public static var downScroll:Bool = true;
 	public static var showFPS:Bool = true;
 	public static var ghostTapping:Bool = true;
 	public static var iconDancing:Bool = true;
 	public static var cursing:Bool = true;
 	public static var ratingCamHud:Bool = false;
+	public static var noteTexture:String = "Arrows";
 	public static var framerate:Int = 60;
 
 	//Every key has two binds, add your key bind down here and then add your control on options/ControlsSubState.hx and Controls.hx
@@ -49,9 +50,12 @@ class NeonCrusherSettings {
 	public static function saveSettings() {
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.showFPS = showFPS;
-		FlxG.save.data.framerate = framerate;
 		FlxG.save.data.ghostTapping = ghostTapping;
+		FlxG.save.data.iconDancing = iconDancing;
+		FlxG.save.data.cursing = cursing;
 		FlxG.save.data.ratingCamHud = ratingCamHud;
+		FlxG.save.data.noteTexture = noteTexture;
+		FlxG.save.data.framerate = framerate;
 	
 		FlxG.save.flush();
 
@@ -89,6 +93,10 @@ class NeonCrusherSettings {
 
 		if(FlxG.save.data.ratingCamHud != null) {
 			ratingCamHud = FlxG.save.data.ratingCamHud;
+		}
+
+		if(FlxG.save.data.noteTexture != null) {
+			noteTexture = FlxG.save.data.noteTexture;
 		}
 		
 		//HaxeFlixel Stuff

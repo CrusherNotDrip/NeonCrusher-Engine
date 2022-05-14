@@ -26,7 +26,6 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import io.newgrounds.NG;
 import lime.app.Application;
 import openfl.Assets;
 
@@ -55,8 +54,6 @@ class TitleState extends MusicBeatState
 		PlayerSettings.init();
 
 		curWacky = FlxG.random.getObject(getIntroTextShit());
-
-		// DEBUG BULLSHIT
 
 		super.create();
 
@@ -318,28 +315,11 @@ class TitleState extends MusicBeatState
 		}
 	}
 
-	function ZoomIn()
-	{
-		FlxTween.tween(FlxG.camera, {zoom: 1.5}, 0.2);
-	}
-
-	function ZoomOut()
-	{
-		FlxTween.tween(FlxG.camera, {zoom: 1}, 0.2);
-	}
-
 	override function beatHit()
 	{
 		super.beatHit();
 
-		ZoomIn();
-
-		if (curBeat % 1 == 0)
-		{
-			ZoomOut();
-		}
-
-		//logoBl.animation.play('bump');
+		logoBl.animation.play('bump');
 		danceLeft = !danceLeft;
 
 		if (danceLeft)

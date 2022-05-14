@@ -1,8 +1,9 @@
 package;
 
 import lime.app.Application;
-import flixel.FlxCamera;
 import flixel.FlxG;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 
 class Events { //These are easy as fuck to code but whatever LOL
     var gameZoom:Float = 0;
@@ -16,5 +17,9 @@ class Events { //These are easy as fuck to code but whatever LOL
 
     public static function changeAppName(newAppName:String) {
         Application.current.window.title = newAppName;
+    }
+
+    public static function visibleHud(hudAlpha:Float, time:Float) {
+        FlxTween.tween(PlayState.camHUD, {alpha: hudAlpha}, time, {ease: FlxEase.quadInOut});
     }
 }

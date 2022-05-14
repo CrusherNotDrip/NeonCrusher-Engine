@@ -16,7 +16,7 @@ class Paths
 		currentLevel = name.toLowerCase();
 	}
 
-	static function getPath(file:String, type:AssetType, library:Null<String>)
+	public static function getPath(file:String, type:AssetType, library:Null<String>)
 	{
 		if (library != null)
 			return getLibraryPath(file, library);
@@ -92,7 +92,7 @@ class Paths
 
 	inline static public function video(key:String, ?library:String)
 	{
-		return getPath('videos/$key.mp4', BINARY, library);
+		return getPath('videos/$key.mp4', TEXT, library);
 	}
 		
 	inline static public function inst(song:String)
