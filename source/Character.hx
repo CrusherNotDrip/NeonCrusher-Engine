@@ -1,7 +1,9 @@
 package;
 
 import Section.SwagSection;
+#if html5
 import js.html.AddEventListenerOptions;
+#end
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.animation.FlxBaseAnimation;
