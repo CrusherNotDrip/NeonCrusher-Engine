@@ -44,10 +44,10 @@ class HealthIcon extends FlxSprite
 			if (animation.getByName(char) == null)
 			{
 				frames = Paths.getSparrowAtlas('icons/icon-' + char);
-				animation.addByPrefix('normal', char + 'normal', 24, true);
-				animation.addByPrefix('lose', char + 'lose', 24, true);
+				animation.addByPrefix('normal', char + ' normal', 24, true);
+				animation.addByPrefix('lose', char + ' lose', 24, true);
 			}
-			animation.play(char);
+			animation.play('normal', true);
 			this.char = char;
 		}
 	}
