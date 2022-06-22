@@ -82,7 +82,7 @@ class StoryMenuState extends MusicBeatState
 
 	override function create()
 	{
-		Events.changeAppName(Events.appName + " - Story Mode Menu");
+		FunkinWindow.changeAppName(FunkinWindow.appName + " - Story Mode Menu");
 
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;

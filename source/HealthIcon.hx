@@ -15,7 +15,7 @@ class HealthIcon extends FlxSprite
 	public var char:String;
 	public var isPlayer:Bool = false;
 	public var isOldIcon:Bool = false;
-	public var canBounce:Bool = true;
+	public var canBounce:Bool = false;
 
 	public function new(char:String = 'bf', isPlayer:Bool = false)
 	{
@@ -24,6 +24,8 @@ class HealthIcon extends FlxSprite
 		changeIcon(char);
 		antialiasing = true;
 		scrollFactor.set();
+		if(isPlayer == true)
+			flipX = true; //stupid animation.addByPrefix doesnt flip it
 	}
 
 	public function swapOldIcon()
@@ -41,8 +43,9 @@ class HealthIcon extends FlxSprite
 		{
 			if (animation.getByName(char) == null)
 			{
-				loadGraphic(Paths.image('icons/icon-' + char), true, 150, 150);
-				animation.add(char, [0, 1], 0, false, isPlayer);
+				frames = Paths.getSparrowAtlas('icons/icon-' + char);
+				animation.addByPrefix('normal', char + 'normal', 24, true);
+				animation.addByPrefix('lose', char + 'lose', 24, true);
 			}
 			animation.play(char);
 			this.char = char;
@@ -57,16 +60,15 @@ class HealthIcon extends FlxSprite
 			setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y - 30);
 
 		if(canBounce) {
-			var mult:Float = FlxMath.lerp(1, scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+			var mult:Float = FlxMath.lerp(1, scale.x, 0.7);
 			scale.set(mult, mult);
 			updateHitbox();
 		}
 	}
 
-	public function bounce() {
+	public function bounce(amount:Float) {
 		if(canBounce) {
-			var mult:Float = 1.2;
-			scale.set(mult, mult);
+			scale.set(amount, amount);
 			updateHitbox();
 		}
 	}

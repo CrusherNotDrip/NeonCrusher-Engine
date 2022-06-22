@@ -26,11 +26,11 @@ class PauseSubState extends MusicBeatSubstate
 	{
 		if (PlayState.isStoryMode) 
 		{
-			Events.changeAppName(Events.appName + " - " + PlayState.SONG.song + " - " + CoolUtil.difficultyString()  + " - (Story Mode)" + " - PAUSED");
+			FunkinWindow.changeAppName(FunkinWindow.appName + " - " + PlayState.SONG.song + " - " + CoolUtil.difficultyString()  + " - (Story Mode)" + " - PAUSED");
 		}
 		else
 		{
-			Events.changeAppName(Events.appName + " - " + PlayState.SONG.song + " - " + CoolUtil.difficultyString()  + " - (Freeplay)" + " - PAUSED");
+			FunkinWindow.changeAppName(FunkinWindow.appName + " - " + PlayState.SONG.song + " - " + CoolUtil.difficultyString()  + " - (Freeplay)" + " - PAUSED");
 		}
 
 		super();

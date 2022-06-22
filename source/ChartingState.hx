@@ -83,7 +83,7 @@ class ChartingState extends MusicBeatState
 
 	override function create()
 	{
-		Events.changeAppName(Events.appName + " - Charting Menu");
+		FunkinWindow.changeAppName(FunkinWindow.appName + " - Charting Menu");
 
 		curSection = lastSection;
 

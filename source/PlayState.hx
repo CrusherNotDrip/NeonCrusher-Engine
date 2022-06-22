@@ -61,6 +61,8 @@ class PlayState extends MusicBeatState
 	private var gf:Character;
 	private var boyfriend:Boyfriend;
 
+	private var daWindow:FunkinWindow;
+
 	private var notes:FlxTypedGroup<Note>;
 	private var unspawnNotes:Array<Note> = [];
 
@@ -90,7 +92,7 @@ class PlayState extends MusicBeatState
 
 	private var iconP1:HealthIcon;
 	private var iconP2:HealthIcon;
-	public static var camHUD:FlxCamera;
+	private var camHUD:FlxCamera;
 	private var camGame:FlxCamera;
 
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
@@ -169,11 +171,11 @@ class PlayState extends MusicBeatState
 	{
 		if (isStoryMode) 
 		{
-			Events.changeAppName(Events.appName + " - " + SONG.song + " - " + CoolUtil.difficultyString()  + " - (Story Mode)");
+			FunkinWindow.changeAppName("Friday Night Funkin': NeonCrusher Engine" + " - " + SONG.song + " - " + CoolUtil.difficultyString()  + " - (Story Mode)");
 		}
 		else
 		{
-			Events.changeAppName(Events.appName + " - " + SONG.song + " - " + CoolUtil.difficultyString()  + " - (Freeplay)");
+			FunkinWindow.changeAppName("Friday Night Funkin': NeonCrusher Engine" + " - " + SONG.song + " - " + CoolUtil.difficultyString()  + " - (Freeplay)");
 		}
 
 		if (FlxG.sound.music != null)
@@ -185,14 +187,12 @@ class PlayState extends MusicBeatState
 		camHUD.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
-		FlxG.cameras.add(camHUD);
+		FlxG.cameras.add(camHUD, false);
 
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 		var splash:NoteSplash = new NoteSplash(100, 100, 0);
 		grpNoteSplashes.add(splash);
 		splash.alpha = 0.1;
-
-		FlxCamera.defaultCameras = [camGame];
 
 		persistentUpdate = true;
 		persistentDraw = true;
@@ -887,10 +887,12 @@ class PlayState extends MusicBeatState
 
 		iconP1 = new HealthIcon(SONG.player1, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
+		iconP1.canBounce = true;
 		add(iconP1);
 
 		iconP2 = new HealthIcon(SONG.player2, false);
 		iconP2.y = healthBar.y - (iconP2.height / 2);
+		iconP2.canBounce = true;
 		add(iconP2);
 
 		grpNoteSplashes.cameras = [camHUD];
@@ -906,12 +908,7 @@ class PlayState extends MusicBeatState
 		songDisplay.cameras = [camHUD];
 		judgementCounter.cameras = [camHUD];
 		doof.cameras = [camHUD];
-
-		// if (SONG.song == 'South')
-		// FlxG.camera.alpha = 0.7;
-		// UI_camera.zoom = 1;
-
-		// cameras = [FlxG.cameras.list[1]];
+		
 		startingSong = true;
 
 		if (isStoryMode)
@@ -1068,7 +1065,7 @@ class PlayState extends MusicBeatState
 		new FlxVideo('videos/ughCutscene.mp4').finishCallback = function()
 		{
 			remove(black);
-			Events.visibleHud(0, 0.001);
+			camHUD.visible = false;
 			FlxG.camera.zoom = 0.90;
 			startCountdown();
 		};
@@ -1086,7 +1083,7 @@ class PlayState extends MusicBeatState
 		new FlxVideo('videos/gunsCutscene.mp4').finishCallback = function()
 		{
 			remove(black);
-			Events.visibleHud(0, 0.001);
+			camHUD.visible = false;
 			startCountdown();
 		};
 	}
@@ -1100,7 +1097,7 @@ class PlayState extends MusicBeatState
 		new FlxVideo('videos/stressCutscene.mp4').finishCallback = function()
 		{
 			remove(black);
-			Events.visibleHud(0, 0.001);
+			camHUD.visible = false;
 			startCountdown();
 		};
 	}
@@ -1110,7 +1107,7 @@ class PlayState extends MusicBeatState
 
 	function startCountdown():Void
 	{
-		Events.visibleHud(1, 1);
+		camHUD.visible = true;
 		inCutscene = false;
 
 		generateStaticArrows(0);
@@ -1623,17 +1620,14 @@ class PlayState extends MusicBeatState
 			health = 2;
 
 		if (healthBar.percent < 20)
-			iconP1.animation.curAnim.curFrame = 1;
+			iconP1.animation.play('lose', true);
 		else
-			iconP1.animation.curAnim.curFrame = 0;
+			iconP1.animation.play('normal', true);
 
 		if (healthBar.percent > 80)
-			iconP2.animation.curAnim.curFrame = 1;
+			iconP2.animation.play('lose', true);
 		else
-			iconP2.animation.curAnim.curFrame = 0;
-
-		/* if (FlxG.keys.justPressed.NINE)
-			FlxG.switchState(new Charting()); */
+			iconP2.animation.play('normal', true);
 
 		#if debug
 		if (FlxG.keys.justPressed.EIGHT)
@@ -2761,28 +2755,18 @@ class PlayState extends MusicBeatState
 		// HARDCODING FOR MILF ZOOMS!
 		if (curSong.toLowerCase() == 'milf' && curBeat >= 168 && curBeat < 200 && camZooming && FlxG.camera.zoom < 1.35)
 		{
-			Events.addCamZoom(0.015, 0.03);
+			camGame.zoom += 0.015;
+			camHUD.zoom += 0.03;
 		}
 
 		if (camZooming && FlxG.camera.zoom < 1.35 && curBeat % 4 == 0)
 		{
-			Events.addCamZoom(0.015, 0.03);
-		}
-		
-        if(NeonCrusherSettings.iconDancing) {
-		    if (curBeat % gfSpeed == 0) {
-			    curBeat % (gfSpeed * 2) == 0 ? {
-			        FlxTween.angle(iconP1, -15, 0, 0.5, {ease: FlxEase.quadOut});
-		            FlxTween.angle(iconP2, 15, 0, 0.5, {ease: FlxEase.quadOut});
-		    } : {
-		    	    FlxTween.angle(iconP1, 15, 0, 0.5, {ease: FlxEase.quadOut});
-		            FlxTween.angle(iconP2, -15, 0, 0.5, {ease: FlxEase.quadOut});	
-		        }
-		    }
+			camGame.zoom += 0.015;
+			camHUD.zoom += 0.03;
 		}
 
-		iconP1.bounce();
-		iconP2.bounce();
+		iconP1.bounce(1.2);
+		iconP2.bounce(1.2);
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();

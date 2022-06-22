@@ -23,7 +23,7 @@ class OptionsMenu extends MusicBeatState
 
 	override function create()
 	{
-		Events.changeAppName(Events.appName + " - Options Menu");
+		FunkinWindow.changeAppName(FunkinWindow.appName + " - Options Menu");
 
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		menuBG.color = 0xFFea71fd;
