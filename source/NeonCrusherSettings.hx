@@ -10,7 +10,6 @@ class NeonCrusherSettings {
 	public static var downScroll:Bool = false;
 	public static var showFPS:Bool = true;
 	public static var ghostTapping:Bool = true;
-	public static var iconDancing:Bool = true;
 	public static var cursing:Bool = true;
 	public static var ratingCamHud:Bool = false;
 	public static var noteTexture:String = "Arrows";
@@ -51,7 +50,6 @@ class NeonCrusherSettings {
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.showFPS = showFPS;
 		FlxG.save.data.ghostTapping = ghostTapping;
-		FlxG.save.data.iconDancing = iconDancing;
 		FlxG.save.data.cursing = cursing;
 		FlxG.save.data.ratingCamHud = ratingCamHud;
 		FlxG.save.data.noteTexture = noteTexture;
@@ -82,11 +80,7 @@ class NeonCrusherSettings {
 		if(FlxG.save.data.ghostTapping != null) {
 			ghostTapping = FlxG.save.data.ghostTapping;
 		}
-
-		if(FlxG.save.data.iconDancing != null) {
-			iconDancing = FlxG.save.data.iconDancing;
-		}
-
+		
 		if(FlxG.save.data.cursing != null) {
 			cursing = FlxG.save.data.cursing;
 		}
