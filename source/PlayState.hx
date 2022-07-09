@@ -309,7 +309,6 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 			case 'stage':
-		    {
 		        defaultCamZoom = 0.9;
 
 				bg = new BGSprite('stageback', -600, -200, 0.9, 0.9);
@@ -330,9 +329,8 @@ class PlayState extends MusicBeatState
 		        stageCurtains.scrollFactor.set(1.3, 1.3);
 		        stageCurtains.active = false;
 		        add(stageCurtains);
-		    }
-            case 'spooky': 
-            {
+
+            case 'spooky':
 	            halloweenLevel = true;
 
 		        var hallowTex = Paths.getSparrowAtlas('halloween_bg');
@@ -345,9 +343,8 @@ class PlayState extends MusicBeatState
 	            add(halloweenBG);
 
 		        isHalloween = true;
-		    }
-		    case 'philly': 
-            {
+
+		    case 'philly':
 		        var bg:FlxSprite = new FlxSprite(-100).loadGraphic(Paths.image('philly/sky'));
 		        bg.scrollFactor.set(0.1, 0.1);
 		        add(bg);
@@ -383,9 +380,8 @@ class PlayState extends MusicBeatState
 
 		        var street:FlxSprite = new FlxSprite(-40, streetBehind.y).loadGraphic(Paths.image('philly/street'));
 	            add(street);
-		    }
+
 		    case 'limo':
-		    {
 		        defaultCamZoom = 0.90;
 
 		        var skyBG:FlxSprite = new FlxSprite(-120, -50).loadGraphic(Paths.image('limo/limoSunset'));
@@ -421,9 +417,8 @@ class PlayState extends MusicBeatState
 		        limo.antialiasing = true;
 
 		        fastCar = new FlxSprite(-300, 160).loadGraphic(Paths.image('limo/fastCarLol'));
-		    }
+		    
 		    case 'mall':
-		    {
 		        defaultCamZoom = 0.80;
 
 		        var bg:FlxSprite = new FlxSprite(-1000, -500).loadGraphic(Paths.image('christmas/bgWalls'));
@@ -475,9 +470,8 @@ class PlayState extends MusicBeatState
 		        santa.animation.addByPrefix('idle', 'santa idle in fear', 24, false);
 		        santa.antialiasing = true;
 		        add(santa);
-		    }
+
 		    case 'mallEvil':
-		    {
 		        var bg:FlxSprite = new FlxSprite(-400, -500).loadGraphic(Paths.image('christmas/evilBG'));
 		        bg.antialiasing = true;
 		        bg.scrollFactor.set(0.2, 0.2);
@@ -494,9 +488,8 @@ class PlayState extends MusicBeatState
 		        var evilSnow:FlxSprite = new FlxSprite(-200, 700).loadGraphic(Paths.image("christmas/evilSnow"));
 	            evilSnow.antialiasing = true;
 		        add(evilSnow);
-            }
+            
 		    case 'school':
-		    {
 				pixelStage = true;
 
 		        var bgSky = new FlxSprite().loadGraphic(Paths.image('weeb/weebSky'));
@@ -559,27 +552,32 @@ class PlayState extends MusicBeatState
 		        bgGirls.setGraphicSize(Std.int(bgGirls.width * daPixelZoom));
 		        bgGirls.updateHitbox();
 		        add(bgGirls);
-		    }
+		    
 		    case 'schoolEvil':
-		    {
 				pixelStage = true;
 
-		        var waveEffectBG = new FlxWaveEffect(FlxWaveMode.ALL, 2, -1, 3, 2);
-		        var waveEffectFG = new FlxWaveEffect(FlxWaveMode.ALL, 2, -1, 5, 2);
+		        var posX = 502;
+	            var posY = 376;
 
-		        var posX = 400;
-	            var posY = 200;
-
-		        var bg:FlxSprite = new FlxSprite(posX, posY);
-		        bg.frames = Paths.getSparrowAtlas('weeb/animatedEvilSchool');
-		        bg.animation.addByPrefix('idle', 'background 2', 24);
-		        bg.animation.play('idle');
+		        var bg:FlxSprite = new FlxSprite(posX, posY).loadGraphic(Paths.image("weeb/evilSchoolBG"));
 		        bg.scrollFactor.set(0.8, 0.9);
 		        bg.scale.set(6, 6);
 		        add(bg);
-		    }
+
+				var fg:FlxSprite = new FlxSprite(posX, posY).loadGraphic(Paths.image("weeb/evilSchoolFG"));
+		        fg.scrollFactor.set(0.8, 0.9);
+		        fg.scale.set(6, 6);
+		        add(fg);
+
+				wiggleShit = new WiggleEffect();
+				wiggleShit.effectType = WiggleEffectType.WAVY;
+				wiggleShit.waveAmplitude = 0.05;
+				wiggleShit.waveFrequency = 5;
+				wiggleShit.waveSpeed = 2.5;
+				bg.shader = wiggleShit.shader;
+				fg.shader = wiggleShit.shader;
+
 			case 'tank':
-			{
 				defaultCamZoom = 0.9;
 						
 				var sky:BGSprite = new BGSprite('tankSky', -400, -400, 0, 0);
@@ -632,7 +630,6 @@ class PlayState extends MusicBeatState
 				tankdude4 = new BGSprite('tank4', 1300, 900, 1.5, 1.5, ['fg']);	
 				tankdude5 = new BGSprite('tank5', 1620, 700, 1.5, 1.5, ['fg']);
 				tankdude3 = new BGSprite('tank3', 1300, 1200, 3.5, 2.5, ['fg']);
-			}
         }
 
 		//too lazy to test to see if this actually works right now
@@ -852,7 +849,7 @@ class PlayState extends MusicBeatState
 		scoreTxt = new FlxText(0, healthBarBG.y + 30, FlxG.width, "", 20);
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.borderSize = 2;
-		scoreTxt.borderQuality = 1;
+		scoreTxt.borderQuality = 2;
 		scoreTxt.scrollFactor.set();
 		add(scoreTxt);
 
@@ -1570,6 +1567,8 @@ class PlayState extends MusicBeatState
 						trainFrameTiming = 0;
 					}
 				}
+			case 'schoolEvil':
+				wiggleShit.update(elapsed);
 			case 'tank':
 				moveTank();
 		}
@@ -2749,8 +2748,6 @@ class PlayState extends MusicBeatState
 			if (SONG.notes[Math.floor(curStep / 16)].mustHitSection)
 				dad.dance();
 		}
-		// FlxG.log.add('change bpm' + SONG.notes[Std.int(curStep / 16)].changeBPM);
-		wiggleShit.update(Conductor.crochet);
 
 		// HARDCODING FOR MILF ZOOMS!
 		if (curSong.toLowerCase() == 'milf' && curBeat >= 168 && curBeat < 200 && camZooming && FlxG.camera.zoom < 1.35)

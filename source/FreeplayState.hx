@@ -295,6 +295,13 @@ class FreeplayState extends MusicBeatState
 
 		iconArray[curSelected].alpha = 1;
 
+		for (i in 0...iconArray.length)
+		{
+			iconArray[i].animation.play('normal', true);
+		}
+
+		iconArray[curSelected].animation.play('lose', true);
+
 		for (item in grpSongs.members)
 		{
 			item.targetY = bullShit - curSelected;

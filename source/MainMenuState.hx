@@ -27,7 +27,7 @@ class MainMenuState extends MusicBeatState
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
 
-	var optionShit:Array<String> = ['story_mode', 'freeplay', 'credits', 'donate', 'options'];
+	var optionShit:Array<String> = ['story_mode', 'freeplay', 'credits', 'stats', 'donate', 'options'];
 
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
@@ -172,6 +172,8 @@ class MainMenuState extends MusicBeatState
 										FlxG.switchState(new FreeplayState());
 									case 'credits':
 										FlxG.switchState(new CreditsMenuState());
+									case 'stats':
+										FlxG.switchState(new GameStatsState());
 									case 'donate':
 										#if linux
 										Sys.command('/usr/bin/xdg-open', ["https://ninja-muffin24.itch.io/funkin", "&"]);
