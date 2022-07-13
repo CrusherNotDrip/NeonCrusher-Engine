@@ -49,6 +49,8 @@ class FreeplayState extends MusicBeatState
 
 	override function create()
 	{
+		FunkinWindow.changeAppName(FunkinWindow.appName + " - Freeplay Menu");
+
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
 
 		for (i in 0...initSonglist.length)
@@ -281,9 +283,7 @@ class FreeplayState extends MusicBeatState
 		#end
 
 		#if PRELOAD_ALL
-		// No clue if this was removed or not, but I wanted to keep this as close as possible to the web version, and this is not in there.
-		// Yes, I know it's because the web version doesn't preload everything. If this being gone bothers you so much, then do it yourself lol.
-		//FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
+		FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
 		#end
 
 		var bullShit:Int = 0;
