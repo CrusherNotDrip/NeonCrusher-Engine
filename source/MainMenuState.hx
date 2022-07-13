@@ -170,8 +170,6 @@ class MainMenuState extends MusicBeatState
 										FlxG.switchState(new StoryMenuState());
 									case 'freeplay':
 										FlxG.switchState(new FreeplayState());
-									case 'credits':
-										FlxG.switchState(new CreditsMenuState());
 									case 'stats':
 										FlxG.switchState(new GameStatsState());
 									case 'donate':
