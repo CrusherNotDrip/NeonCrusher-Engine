@@ -874,7 +874,7 @@ class PlayState extends MusicBeatState
 		add(songDisplay);
 
 		judgementCounter = new FlxText(20, 0, 0, "", 20);
-		judgementCounter.text = 'Total Notes Hit: ${songHits}\nCombo: ${combo}\n\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nMisses: ${songMisses}';
+		judgementCounter.text = 'Total Notes Hit: ${songHits}\nCombo: ${combo}\n\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\n';
 		judgementCounter.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		judgementCounter.borderSize = 2;
 		judgementCounter.borderQuality = 2;
@@ -1997,6 +1997,28 @@ class PlayState extends MusicBeatState
 
 	function endSong():Void
 	{
+		GameStatsState.lastPlayed = SONG.song;
+		GameStatsState.icon = iconP2.char;
+		GameStatsState.iconColour = dad.iconColour;
+
+		GameStatsState.totalNotesHit += songHits;
+		GameStatsState.totalSicks += sicks;
+		GameStatsState.totalGoods += goods;
+		GameStatsState.totalBads += bads;
+		GameStatsState.totalShits += shits;
+		GameStatsState.totalMisses += songMisses;
+		GameStatsState.totalBlueballed += blueballed;
+
+		GameStatsState.songNotesHit = songHits;
+		GameStatsState.songSicks = sicks;
+		GameStatsState.songGoods = goods;
+		GameStatsState.songBads = bads;
+		GameStatsState.songShits = shits;
+		GameStatsState.songMisses = songMisses;
+		GameStatsState.songBlueballed = blueballed;
+
+		GameStatsState.saveGameData();
+
 		blueballed = 0;
 		pixelStage = false; //it keeps pixel stage on even if the stage isnt pixelated so we put this here lol
 		canPause = false;
@@ -2127,7 +2149,7 @@ class PlayState extends MusicBeatState
 		if (doSplash)
 		{
 			var splash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
-			splash.setupNoteSplash(daNote.x, daNote.y, daNote.noteData);
+			splash.setupNoteSplash(daNote.x, strumLine.y, daNote.noteData);
 			grpNoteSplashes.add(splash);
 		}
 
