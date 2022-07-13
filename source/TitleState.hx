@@ -47,11 +47,7 @@ class TitleState extends MusicBeatState
 	var wackyImage:FlxSprite;
 
 	override public function create():Void
-	{	
-		#if polymod
-		polymod.Polymod.init({modRoot: "mods", dirs: ['introMod']});
-		#end
-
+	{
 		PlayerSettings.init();
 
 		GameStatsState.loadGameData();
