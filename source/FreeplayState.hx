@@ -12,6 +12,7 @@ import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import lime.utils.Assets;
+import Song.SwagSong;
 
 using StringTools;
 
@@ -50,6 +51,8 @@ class FreeplayState extends MusicBeatState
 	override function create()
 	{
 		FunkinWindow.changeAppName(FunkinWindow.appName + " - Freeplay Menu");
+		
+		Conductor.changeBPM(100);
 
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
 
@@ -57,14 +60,6 @@ class FreeplayState extends MusicBeatState
 		{
 			songs.push(new SongMetadata(initSonglist[i], 1, 'gf'));
 		}
-
-		/* 
-			if (FlxG.sound.music != null)
-			{
-				if (!FlxG.sound.music.playing)
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
-			}
-		 */
 
 		#if desktop
 		// Updating Discord Rich Presence
@@ -155,19 +150,6 @@ class FreeplayState extends MusicBeatState
 
 		var swag:Alphabet = new Alphabet(1, 0, "swag");
 
-		// JUST DOIN THIS SHIT FOR TESTING!!!
-		/* 
-			var md:String = Markdown.markdownToHtml(Assets.getText('CHANGELOG.md'));
-			var texFel:TextField = new TextField();
-			texFel.width = FlxG.width;
-			texFel.height = FlxG.height;
-			// texFel.
-			texFel.htmlText = md;
-			FlxG.stage.addChild(texFel);
-			// scoreText.textField.htmlText = md;
-			trace(md);
-		 */
-
 		super.create();
 	}
 
@@ -195,11 +177,16 @@ class FreeplayState extends MusicBeatState
 	{
 		super.update(elapsed);
 
-		if (FlxG.sound.music != null && FlxG.sound.music.volume < 0.7)
+		if (FlxG.sound.music != null)
 		{
-			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
-		}
+			Conductor.songPosition = FlxG.sound.music.time;
 
+			if (FlxG.sound.music.volume < 0.7)
+				FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
+		}
+			
+		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, 0.7);
+		
 		lerpScore = CoolUtil.coolLerp(lerpScore, intendedScore, 0.4);
 		bg.color = FlxColor.interpolate(bg.color, coolColors[curSelected % coolColors.length], CoolUtil.camLerpShit(0.045));
 
@@ -229,6 +216,8 @@ class FreeplayState extends MusicBeatState
 		if (controls.BACK)
 		{
 			FlxG.sound.play(Paths.sound("cancelMenu"));
+			FlxG.sound.playMusic(Paths.music('freakyMenu'), 1);
+            Conductor.changeBPM(102);
 			FlxG.switchState(new MainMenuState());
 		}
 
@@ -282,23 +271,77 @@ class FreeplayState extends MusicBeatState
 		// lerpScore = 0;
 		#end
 
-		#if PRELOAD_ALL
 		FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
-		#end
+
+		switch (songs[curSelected].songName.toLowerCase()) //i didnt know another way of doing this
+		{
+			case 'tutorial':
+				Conductor.changeBPM(100);
+
+			case 'bopeebo':
+				Conductor.changeBPM(100);
+			case 'fresh':
+				Conductor.changeBPM(120);
+			case 'dadbattle':
+				Conductor.changeBPM(180);
+
+			case 'spookeez':
+				Conductor.changeBPM(150);
+			case 'south':
+				Conductor.changeBPM(165);
+			case 'monster':
+				Conductor.changeBPM(95);
+
+			
+			case 'pico':
+				Conductor.changeBPM(150);
+			case 'philly':
+				Conductor.changeBPM(175);
+			case 'blammed':
+				Conductor.changeBPM(165);
+
+			case 'satin-panties':
+				Conductor.changeBPM(110);
+			case 'high':
+				Conductor.changeBPM(125);
+			case 'milf':
+				Conductor.changeBPM(180);
+
+			case 'cocoa':
+				Conductor.changeBPM(100);
+			case 'eggnog':
+				Conductor.changeBPM(150);
+			case 'winter-horrorland':
+				Conductor.changeBPM(159);
+
+			case 'senpai':
+				Conductor.changeBPM(144);
+			case 'roses':
+				Conductor.changeBPM(120);
+			case 'thorns':
+				Conductor.changeBPM(190);
+
+			case 'ugh':
+				Conductor.changeBPM(160);
+			case 'guns':
+				Conductor.changeBPM(185);
+			case 'stress':
+				Conductor.changeBPM(178);
+		}
 
 		var bullShit:Int = 0;
 
 		for (i in 0...iconArray.length)
 		{
 			iconArray[i].alpha = 0.6;
+			iconArray[i].canBounce = false;
 		}
 
 		iconArray[curSelected].alpha = 1;
+		iconArray[curSelected].canBounce = true;
 
 		for (i in 0...iconArray.length)
-		{
 			iconArray[i].animation.play('normal', true);
-		}
 
 		iconArray[curSelected].animation.play('lose', true);
 
@@ -325,6 +368,17 @@ class FreeplayState extends MusicBeatState
 		scoreBG.x = FlxG.width - scoreBG.scale.x / 2;
 		diffText.x = scoreBG.x + scoreBG.width / 2;
 		diffText.x -= diffText.width / 2;
+	}
+
+	override function beatHit()
+	{
+		iconArray[curSelected].bounce(1.2);
+
+		if (songs[curSelected].songName.toLowerCase() == 'milf' && curBeat >= 168 && curBeat < 200 && FlxG.camera.zoom < 1.35)
+			FlxG.camera.zoom += 0.03;
+
+		if (curBeat % 4 == 0 && FlxG.camera.zoom < 1.35)
+			FlxG.camera.zoom += 0.03;
 	}
 }
 

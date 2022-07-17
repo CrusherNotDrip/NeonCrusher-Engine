@@ -2,7 +2,7 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Friday Night Funkin': NeonCrusher Engine" file="NeonCrusherEngine" packageName="com.crushermods.neoncrusherengine" package="com.crushermods.neoncrusherengine" main="Main" version="0.2.7.1" company="CrusherMods" />
+	<app title="Friday Night Funkin': NeonCrusher Engine" file="NeonCrusherEngine" packageName="com.crushermods.neoncrusherengine" package="com.crushermods.neoncrusherengine" main="Main" version="0.2.8" company="CrusherMods" />
 
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
 	<app preloader="flixel.system.FlxPreloader" />
@@ -56,7 +56,7 @@
 	</section>
 	
 	<section if="NO_PRELOAD_ALL">
-		<library name="songs"    preload="false" />
+		<library name="songs"    preload="true" />
 		<library name="shared"   preload="false" />
 		<library name="tutorial" preload="false" />
 		<library name="week1"    preload="false" />

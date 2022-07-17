@@ -60,15 +60,14 @@ class HealthIcon extends FlxSprite
 			setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y - 30);
 
 		if(canBounce) {
-			var mult:Float = FlxMath.lerp(1, scale.x, 0.7);
-			scale.set(mult, mult);
+			setGraphicSize(Std.int(FlxMath.lerp(150, width, 0.85)));
 			updateHitbox();
 		}
 	}
 
 	public function bounce(amount:Float) {
 		if(canBounce) {
-			scale.set(amount, amount);
+			setGraphicSize(Std.int(width * amount));
 			updateHitbox();
 		}
 	}

@@ -24,14 +24,10 @@ class PauseSubState extends MusicBeatSubstate
 
 	public function new(x:Float, y:Float)
 	{
-		if (PlayState.isStoryMode) 
-		{
-			FunkinWindow.changeAppName(FunkinWindow.appName + " - " + PlayState.SONG.song + " - " + CoolUtil.difficultyString()  + " - (Story Mode)" + " - PAUSED");
-		}
+		if (PlayState.isStoryMode)
+			FunkinWindow.changeAppName(FunkinWindow.appName + " - " + PlayState.SONG.song + " - " + CoolUtil.difficultyString()  + " - (Story Mode) - PAUSED");
 		else
-		{
-			FunkinWindow.changeAppName(FunkinWindow.appName + " - " + PlayState.SONG.song + " - " + CoolUtil.difficultyString()  + " - (Freeplay)" + " - PAUSED");
-		}
+			FunkinWindow.changeAppName(FunkinWindow.appName + " - " + PlayState.SONG.song + " - " + CoolUtil.difficultyString()  + " - (Freeplay) - PAUSED");
 
 		super();
 
@@ -124,17 +120,18 @@ class PauseSubState extends MusicBeatSubstate
 			{
 				case "Resume":
 					close();
+					if (PlayState.isStoryMode)
+						FunkinWindow.changeAppName(FunkinWindow.appName + " - " + PlayState.SONG.song + " - " + CoolUtil.difficultyString()  + " - (Story Mode)");
+					else
+						FunkinWindow.changeAppName(FunkinWindow.appName + " - " + PlayState.SONG.song + " - " + CoolUtil.difficultyString()  + " - (Freeplay)");
 				case "Restart Song":
 					FlxG.resetState();
 				case "Exit to menu":
 					if (PlayState.isStoryMode)
-					{
 						FlxG.switchState(new StoryMenuState());
-					}
 					else 
-					{
 						FlxG.switchState(new FreeplayState());
-					}
+
 					PlayState.blueballed = 0; //it doesnt reset blueballed counter if you select "Exit to menu" so we just put it here
 			}
 		}

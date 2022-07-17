@@ -1,11 +1,13 @@
 package;
 
+import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.group.FlxGroup;
 import flixel.tweens.FlxTween;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
+import flixel.util.FlxSave;
 
 class GameStatsState extends MusicBeatState
 {
@@ -94,7 +96,14 @@ class GameStatsState extends MusicBeatState
         lastPlayedIcon.scrollFactor.set();
         lastPlayedIcon.y = 550;
         lastPlayedIcon.screenCenter(X);
+        lastPlayedIcon.canBounce = true;
         add(lastPlayedIcon);
+
+        if (lastPlayed != 'None')
+        {
+            FlxG.sound.playMusic(Paths.inst(lastPlayed), 1);
+            Conductor.changeBPM(PlayState.SONG.bpm);
+        }
 
         super.create();
     }
@@ -104,6 +113,11 @@ class GameStatsState extends MusicBeatState
 
     override function update(elapsed:Float) 
     {
+        FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, 0.7);
+        
+        if (FlxG.sound.music != null)
+            Conductor.songPosition = FlxG.sound.music.time;
+
         if(controls.UI_LEFT && daStats.x == -900 && daStatsAlt.x == 0)
         {
             daStats.alpha = 1;
@@ -123,9 +137,27 @@ class GameStatsState extends MusicBeatState
         }
 
         if(controls.BACK)
+        {
+            if (lastPlayed != 'None')
+            {
+                FlxG.sound.playMusic(Paths.music('freakyMenu'), 1);
+                Conductor.changeBPM(102);
+            }
             FlxG.switchState(new MainMenuState());
+        }
 
         super.update(elapsed);
+    }
+
+    override function beatHit() 
+    {
+		lastPlayedIcon.bounce(1.2);
+
+		if (lastPlayed.toLowerCase() == 'milf' && curBeat >= 168 && curBeat < 200 && FlxG.camera.zoom < 1.35)
+			FlxG.camera.zoom += 0.03;
+
+		if (curBeat % 4 == 0 && FlxG.camera.zoom < 1.35)
+			FlxG.camera.zoom += 0.03;
     }
 
     public static function saveGameData() 
@@ -133,7 +165,6 @@ class GameStatsState extends MusicBeatState
         FlxG.save.data.lastPlayed = lastPlayed;
         FlxG.save.data.icon = icon;
         FlxG.save.data.iconColour = iconColour;
-        
         FlxG.save.data.totalNotesHit = totalNotesHit;
         FlxG.save.data.totalSicks = totalSicks;
         FlxG.save.data.totalGoods = totalGoods;
@@ -141,7 +172,6 @@ class GameStatsState extends MusicBeatState
         FlxG.save.data.totalShits = totalShits;
         FlxG.save.data.totalMisses = totalMisses;
         FlxG.save.data.totalBlueballed = totalBlueballed;
-
         FlxG.save.data.songNotesHit = songNotesHit;
         FlxG.save.data.songSicks = songSicks;
         FlxG.save.data.songGoods = songGoods;
@@ -149,60 +179,44 @@ class GameStatsState extends MusicBeatState
         FlxG.save.data.songShits = songShits;
         FlxG.save.data.songMisses = songMisses;
         FlxG.save.data.songBlueballed = songBlueballed;
-	
+
 		FlxG.save.flush();
     }
 
     public static function loadGameData() 
     {
-        if(FlxG.save.data.lastPlayed != null)
-			lastPlayed = FlxG.save.data.lastPlayed;
-
-        if(FlxG.save.data.icon != null)
+        if(FlxG.save.data.lastPlayed != null) 
+            lastPlayed = FlxG.save.data.lastPlayed;
+        if(FlxG.save.data.icon != null) 
 			icon = FlxG.save.data.icon;
-
-        if(FlxG.save.data.iconColour != null)
+        if(FlxG.save.data.iconColour != null) 
 			iconColour = FlxG.save.data.iconColour;
-
         if(FlxG.save.data.totalNotesHit != null)
 			totalNotesHit = FlxG.save.data.totalNotesHit;
-
         if(FlxG.save.data.totalSicks != null)
 			totalSicks = FlxG.save.data.totalSicks;
-
         if(FlxG.save.data.totalGoods != null)
 			totalGoods = FlxG.save.data.totalGoods;
-
         if(FlxG.save.data.totalBads != null)
 			totalBads = FlxG.save.data.totalBads;
-
         if(FlxG.save.data.totalShits != null)
 			totalShits = FlxG.save.data.totalShits;
-
         if(FlxG.save.data.totalMisses != null)
 			totalMisses = FlxG.save.data.totalMisses;
-
         if(FlxG.save.data.totalBlueballed != null)
 			totalBlueballed = FlxG.save.data.totalBlueballed;
-
         if(FlxG.save.data.songNotesHit != null)
 			songNotesHit = FlxG.save.data.songNotesHit;
-
         if(FlxG.save.data.songSicks != null)
 			songSicks = FlxG.save.data.songSicks;
-
         if(FlxG.save.data.songGoods != null)
 			songGoods = FlxG.save.data.songGoods;
-
         if(FlxG.save.data.songBads != null)
 			songBads = FlxG.save.data.songBads;
-
         if(FlxG.save.data.songShits != null)
 			songShits = FlxG.save.data.songShits;
-
         if(FlxG.save.data.songMisses != null)
 			songMisses = FlxG.save.data.songMisses;
-
         if(FlxG.save.data.songBlueballed != null)
 			songBlueballed = FlxG.save.data.songBlueballed;
     } 

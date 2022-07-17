@@ -15,7 +15,7 @@ class BackgroundGirls extends FlxSprite
 		animation.addByIndices('danceLeft', 'BG girls group', CoolUtil.numberArray(14), "", 24, false);
 		animation.addByIndices('danceRight', 'BG girls group', CoolUtil.numberArray(30, 15), "", 24, false);
 
-		animation.play('danceLeft');
+		animation.play('danceRight');
 	}
 
 	var danceDir:Bool = false;
