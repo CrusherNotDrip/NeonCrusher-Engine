@@ -1,5 +1,6 @@
 package;
 
+import ui.PreferencesMenu;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSubState;
@@ -54,7 +55,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		bf.playAnim('firstDeath');
 
 		var exclude = [];
-		if (!NeonCrusherSettings.cursing)
+		if (PreferencesMenu.getPref('censor-naughty'))
 		{
 			exclude = [1, 3, 8, 13, 17, 21];
 		}

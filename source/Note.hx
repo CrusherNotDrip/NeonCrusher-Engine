@@ -1,5 +1,6 @@
 package;
 
+import ui.PreferencesMenu;
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.math.FlxMath;
@@ -49,7 +50,7 @@ class Note extends FlxSprite
 
 		if (PlayState.pixelStage == true)
 		{
-			loadGraphic(Paths.image('noteskins/pixel/' + NeonCrusherSettings.noteTexture), true, 17, 17);
+			loadGraphic(Paths.image('pixelUI/NOTE_assets'), true, 17, 17);
 
 			animation.add('greenScroll', [6]);
 			animation.add('redScroll', [7]);
@@ -58,7 +59,7 @@ class Note extends FlxSprite
 
 			if (isSustainNote)
 			{
-				loadGraphic(Paths.image('noteskins/pixel/' + NeonCrusherSettings.noteTexture + 'Ends'), true, 7, 6);
+				loadGraphic(Paths.image('pixelUI/NOTE_assetsEnds'), true, 7, 6);
 
 				animation.add('purpleholdend', [4]);
 				animation.add('greenholdend', [6]);
@@ -76,7 +77,7 @@ class Note extends FlxSprite
 		}
 		else
 		{
-			frames = Paths.getSparrowAtlas('noteskins/normal/' + NeonCrusherSettings.noteTexture);
+			frames = Paths.getSparrowAtlas('NOTE_assets');
 
 			animation.addByPrefix('greenScroll', 'green0');
 			animation.addByPrefix('redScroll', 'red0');
@@ -118,7 +119,7 @@ class Note extends FlxSprite
 
 		if (isSustainNote && prevNote != null)
 		{
-			if(NeonCrusherSettings.downScroll) flipY = true;
+			if (PreferencesMenu.getPref('downScroll') == true) flipY = true;
 			noteScore * 0.2;
 			alpha = 0.6;
 

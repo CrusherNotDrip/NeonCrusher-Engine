@@ -1,5 +1,6 @@
 package;
 
+import ui.PreferencesMenu;
 import lime.app.Application;
 #if DISCORD_RPC
 import Discord.DiscordClient;
@@ -239,14 +240,10 @@ class PlayState extends MusicBeatState
 			case 'senpai':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('senpai/senpaiDialogue'));
 			case 'roses':
-				if (NeonCrusherSettings.cursing)
-				{
+				if (PreferencesMenu.getPref('censor-naughty'))
 				    dialogue = CoolUtil.coolTextFile(Paths.txt('roses/rosesDialogue'));
-				}
 				else
-				{
 					dialogue = CoolUtil.coolTextFile(Paths.txt('roses/rosesDialogue2'));
-				}
 			case 'thorns':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('thorns/thornsDialogue'));
 		}
@@ -823,7 +820,7 @@ class PlayState extends MusicBeatState
 
 		strumLine = new FlxSprite(0, 50).makeGraphic(FlxG.width, 10);
 		strumLine.scrollFactor.set();
-		if (NeonCrusherSettings.downScroll)
+		if (PreferencesMenu.getPref('downScroll'))
 			strumLine.y = FlxG.height - 150;
 
 		strumLineNotes = new FlxTypedGroup<FlxSprite>();
@@ -864,7 +861,7 @@ class PlayState extends MusicBeatState
 		healthBarBG = new FlxSprite(0, FlxG.height * 0.9).loadGraphic(Paths.image('healthBar'));
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
-		if (NeonCrusherSettings.downScroll)
+		if (PreferencesMenu.getPref('downScroll'))
 			healthBarBG.y = FlxG.height * 0.1;
 
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
@@ -1396,7 +1393,7 @@ class PlayState extends MusicBeatState
 
 			if (pixelStage == true)
 			{
-				babyArrow.loadGraphic(Paths.image('noteskins/pixel/' + NeonCrusherSettings.noteTexture), true, 17, 17);
+				babyArrow.loadGraphic(Paths.image('pixelUI/NOTE_assets'), true, 17, 17);
 				babyArrow.animation.add('green', [6]);
 				babyArrow.animation.add('red', [7]);
 				babyArrow.animation.add('blue', [5]);
@@ -1432,7 +1429,7 @@ class PlayState extends MusicBeatState
 			}
 			else
 			{
-				babyArrow.frames = Paths.getSparrowAtlas('noteskins/normal/' + NeonCrusherSettings.noteTexture);
+				babyArrow.frames = Paths.getSparrowAtlas('NOTE_assets');
 				babyArrow.animation.addByPrefix('green', 'arrowUP');
 				babyArrow.animation.addByPrefix('blue', 'arrowDOWN');
 				babyArrow.animation.addByPrefix('purple', 'arrowLEFT');
@@ -1663,7 +1660,7 @@ class PlayState extends MusicBeatState
 
 			for (i in 0...8)
 			{
-				if(NeonCrusherSettings.downScroll)
+				if (PreferencesMenu.getPref('downScroll'))
 					noteTweenY(i, FlxG.height - 150 - 40 * Math.cos((currentBeat + i*0.25) * Math.PI), 0.01);
 				else
 					noteTweenY(i, 50 - 40 * Math.cos((currentBeat + i*0.25) * Math.PI), 0.01);
@@ -1852,7 +1849,7 @@ class PlayState extends MusicBeatState
 				var center = strumLine.y + (Note.swagWidth / 2);
 				
 				// i am so fucking sorry for these if conditions
-				if (NeonCrusherSettings.downScroll)
+				if (PreferencesMenu.getPref('downScroll'))
 				{
 					daNote.y = strumLine.y + 0.45 * (Conductor.songPosition - daNote.strumTime) * FlxMath.roundDecimal(SONG.speed, 2);
 					
@@ -1899,7 +1896,7 @@ class PlayState extends MusicBeatState
 				// daNote.y = (strumLine.y - (songTime - daNote.strumTime) * (0.45 * PlayState.SONG.speed));
 
 				var doKill = daNote.y < -daNote.height;
-				if (NeonCrusherSettings.downScroll)
+				if (PreferencesMenu.getPref('downScroll'))
 					doKill = daNote.y > FlxG.height;
 
 				if (doKill)
@@ -2190,13 +2187,6 @@ class PlayState extends MusicBeatState
 
 			if (combo >= 9) {
 				add(comboSpr);
-			} 
-
-			if (NeonCrusherSettings.ratingCamHud)
-			{
-				rating.cameras = [camHUD];
-				comboSpr.cameras = [camHUD];
-				numScore.cameras = [camHUD];
 			}
 
 			FlxTween.tween(numScore, {alpha: 0}, 0.2, {
@@ -2280,9 +2270,9 @@ class PlayState extends MusicBeatState
 
 	private function keyShit():Void
 	{
-		var holdingArray:Array<Bool> = [controls.LEFT, controls.DOWN, controls.UP, controls.RIGHT];
-		var controlArray:Array<Bool> = [controls.LEFT_P, controls.DOWN_P, controls.UP_P, controls.RIGHT_P];
-		var releaseArray:Array<Bool> = [controls.LEFT_R, controls.DOWN_R, controls.UP_R, controls.RIGHT_R];
+		var holdingArray:Array<Bool> = [controls.NOTE_LEFT, controls.NOTE_DOWN, controls.NOTE_UP, controls.NOTE_RIGHT];
+		var controlArray:Array<Bool> = [controls.NOTE_LEFT_P, controls.NOTE_DOWN_P, controls.NOTE_UP_P, controls.NOTE_RIGHT_P];
+		var releaseArray:Array<Bool> = [controls.NOTE_LEFT_R, controls.NOTE_DOWN_R, controls.NOTE_UP_R, controls.NOTE_RIGHT_R];
 
 		// FlxG.watch.addQuick('asdfa', upP);
 		if (holdingArray.contains(true) && generatedMusic)
@@ -2391,7 +2381,7 @@ class PlayState extends MusicBeatState
 	function noteMiss(direction:Int = 1):Void
 	{
 		ghostTaps++;
-		if(!NeonCrusherSettings.ghostTapping)
+		if (PreferencesMenu.getPref('ghostTapping') != true)
 		{
 		    songMisses++;
 			
@@ -2437,10 +2427,10 @@ class PlayState extends MusicBeatState
 	{
 		// just double pasting this shit cuz fuk u
 		// REDO THIS SYSTEM!
-		var leftP = controls.LEFT_P;
-		var downP = controls.DOWN_P;
-		var upP = controls.UP_P;
-		var rightP = controls.RIGHT_P;
+		var leftP = controls.NOTE_LEFT_P;
+		var downP = controls.NOTE_DOWN_P;
+		var upP = controls.NOTE_UP_P;
+		var rightP = controls.NOTE_RIGHT_P;
 
 		if (leftP)
 			noteMiss(0);

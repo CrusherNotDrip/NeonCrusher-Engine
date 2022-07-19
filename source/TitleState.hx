@@ -1,5 +1,6 @@
 package;
 
+import ui.PreferencesMenu;
 import flixel.math.FlxMath;
 #if DISCORD_RPC
 import Discord.DiscordClient;
@@ -48,16 +49,17 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
-		PlayerSettings.init();
-
-		GameStatsState.loadGameData();
-
 		curWacky = FlxG.random.getObject(getIntroTextShit());
+		
+		FlxG.game.focusLostFramerate = 60;
 
 		super.create();
 
 		FlxG.save.bind('funkin', 'ninjamuffin99');
 
+		GameStatsState.loadGameData();
+		PreferencesMenu.initPrefs();
+		PlayerSettings.init();
 		Highscore.load();
 
 		if (FlxG.save.data.weekUnlocked != null)

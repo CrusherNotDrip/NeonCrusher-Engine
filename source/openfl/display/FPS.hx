@@ -83,11 +83,7 @@ class FPS extends TextField
 
 		if (currentCount != cacheCount /*&& visible*/)
 		{
-			#if debug 
-			text = "FPS: " + times.length + "\nMemory: " + mem + " MB\nMemory Peak: " + memPeak + " MB" + "\nNeonCrusher Engine v" + Assets.getText(Paths.txt('version')) + '\n[DEBUG MODE]';
-			#else
-			text = "FPS: " + times.length + "\nMemory: " + mem + " MB\nMemory Peak: " + memPeak + " MB" + "\nNeonCrusher Engine v" + Assets.getText(Paths.txt('version'));
-			#end
+			text = "FPS: " + times.length + "\nMemory: " + mem + " MB / " + memPeak + " MB" + "\nNeonCrusher Engine v" + Assets.getText(Paths.txt('version'));
 
 			#if (gl_stats && !disable_cffi && (!html5 || !canvas))
 			text += "\ntotalDC: " + Context3DStats.totalDrawCalls();

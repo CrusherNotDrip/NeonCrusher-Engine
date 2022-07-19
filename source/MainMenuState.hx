@@ -1,7 +1,7 @@
 package;
 
 import lime.utils.Assets;
-import options.OptionsMenu;
+import ui.OptionsState;
 #if DISCORD_RPC
 import Discord.DiscordClient;
 #end
@@ -180,7 +180,7 @@ class MainMenuState extends MusicBeatState
 										#end
 										FlxG.switchState(new MainMenuState()); //Had to switch it back to main menu otherwise everything dies in the main menu
 									case 'options':
-										FlxG.switchState(new OptionsMenu());
+										FlxG.switchState(new OptionsState());
 								}
 							});
 						}
