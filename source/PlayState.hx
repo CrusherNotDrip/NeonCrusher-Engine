@@ -203,7 +203,7 @@ class PlayState extends MusicBeatState
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 		var splash:NoteSplash = new NoteSplash(100, 100, 0);
 		grpNoteSplashes.add(splash);
-		splash.alpha = 0.1;
+		splash.alpha = 0;
 
 		persistentUpdate = true;
 		persistentDraw = true;
@@ -881,8 +881,8 @@ class PlayState extends MusicBeatState
 		add(scoreTxt);
 
 		// NeonCrusher Engine Watermark
-		watermarks = new FlxText(10, FlxG.height - 25, FlxG.width, SONG.song + " - " + CoolUtil.difficultyString() + " // NeonCrusher Engine v" + Assets.getText(Paths.txt('version')) + " // Friday Night Funkin' v" + Application.current.meta.get('version'), 16);
-		watermarks.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		watermarks = new FlxText(10, FlxG.height - 25, FlxG.width, SONG.song + " - " + CoolUtil.difficultyString() + " // NeonCrusher Engine v" + Assets.getText(Paths.txt('version')) + " // Friday Night Funkin' v" + Application.current.meta.get('version'), 10);
+		watermarks.setFormat(Paths.font("vcr.ttf"), 10, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		watermarks.borderSize = 2;
 		watermarks.borderQuality = 2;
 		watermarks.scrollFactor.set();
