@@ -1,5 +1,8 @@
 package ui;
 
+#if DISCORD_RPC
+import Discord.DiscordClient;
+#end
 import flixel.FlxG;
 import flixel.FlxSprite;
 import haxe.ds.EnumValueMap;
@@ -15,6 +18,13 @@ class OptionsState extends MusicBeatState
 
 	override function create()
 	{
+		FunkinWindow.changeAppName("Friday Night Funkin': NeonCrusher Engine - Options Menu");
+
+		#if DISCORD_RPC
+		// Updating Discord Rich Presence
+		DiscordClient.changePresence("In the Menus", null);
+		#end
+
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFEA71FD;
 		bg.setGraphicSize(Std.int(bg.width * 1.1));

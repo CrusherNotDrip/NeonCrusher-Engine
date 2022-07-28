@@ -174,13 +174,9 @@ class PlayState extends MusicBeatState
 	override public function create()
 	{
 		if (isStoryMode) 
-		{
 			FunkinWindow.changeAppName("Friday Night Funkin': NeonCrusher Engine" + " - " + SONG.song + " - " + CoolUtil.difficultyString()  + " - (Story Mode)");
-		}
 		else
-		{
 			FunkinWindow.changeAppName("Friday Night Funkin': NeonCrusher Engine" + " - " + SONG.song + " - " + CoolUtil.difficultyString()  + " - (Freeplay)");
-		}
 
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
@@ -200,6 +196,8 @@ class PlayState extends MusicBeatState
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD, false);
 
+		pixelStage = false;
+
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 		var splash:NoteSplash = new NoteSplash(100, 100, 0);
 		grpNoteSplashes.add(splash);
@@ -215,8 +213,6 @@ class PlayState extends MusicBeatState
 		Conductor.changeBPM(SONG.bpm);
 
 		foregroundSprites = new FlxTypedGroup<BGSprite>();
-
-		pixelStage = false;
 
 		switch (SONG.song.toLowerCase())
 		{
@@ -556,9 +552,7 @@ class PlayState extends MusicBeatState
 		        bgGirls.scrollFactor.set(0.9, 0.9);
 
 		        if (SONG.song.toLowerCase() == 'roses')
-	            {
 		            bgGirls.getScared();
-		        }
 
 		        bgGirls.setGraphicSize(Std.int(bgGirls.width * daPixelZoom));
 		        bgGirls.updateHitbox();
@@ -820,7 +814,7 @@ class PlayState extends MusicBeatState
 
 		strumLine = new FlxSprite(0, 50).makeGraphic(FlxG.width, 10);
 		strumLine.scrollFactor.set();
-		if (PreferencesMenu.getPref('downScroll'))
+		if (PreferencesMenu.getPref('downscroll'))
 			strumLine.y = FlxG.height - 150;
 
 		strumLineNotes = new FlxTypedGroup<FlxSprite>();
@@ -861,7 +855,7 @@ class PlayState extends MusicBeatState
 		healthBarBG = new FlxSprite(0, FlxG.height * 0.9).loadGraphic(Paths.image('healthBar'));
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
-		if (PreferencesMenu.getPref('downScroll'))
+		if (PreferencesMenu.getPref('downscroll'))
 			healthBarBG.y = FlxG.height * 0.1;
 
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
@@ -881,9 +875,10 @@ class PlayState extends MusicBeatState
 		add(scoreTxt);
 
 		// NeonCrusher Engine Watermark
-		watermarks = new FlxText(10, FlxG.height - 25, FlxG.width, SONG.song + " - " + CoolUtil.difficultyString() + " // NeonCrusher Engine v" + Assets.getText(Paths.txt('version')) + " // Friday Night Funkin' v" + Application.current.meta.get('version'), 10);
-		watermarks.setFormat(Paths.font("vcr.ttf"), 10, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		watermarks.borderSize = 2;
+		watermarks = new FlxText(0, 10, FlxG.width, SONG.song + " - " + CoolUtil.difficultyString() + " // NeonCrusher Engine v" + Assets.getText(Paths.txt('version')) + " // Friday Night Funkin' v" + Application.current.meta.get('version'), 15);
+		watermarks.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		watermarks.screenCenter(X);
+		watermarks.borderSize = 1.5;
 		watermarks.borderQuality = 2;
 		watermarks.scrollFactor.set();
 		add(watermarks);
@@ -1660,7 +1655,7 @@ class PlayState extends MusicBeatState
 
 			for (i in 0...8)
 			{
-				if (PreferencesMenu.getPref('downScroll'))
+				if (PreferencesMenu.getPref('downscroll'))
 					noteTweenY(i, FlxG.height - 150 - 40 * Math.cos((currentBeat + i*0.25) * Math.PI), 0.01);
 				else
 					noteTweenY(i, 50 - 40 * Math.cos((currentBeat + i*0.25) * Math.PI), 0.01);
@@ -1745,7 +1740,7 @@ class PlayState extends MusicBeatState
 			cameraMovement();
 		}
 
-		if (camZooming)
+		if (camZooming && PreferencesMenu.getPref('camera-zoom'))
 		{
 			FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom, FlxG.camera.zoom, 0.95);
 			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, 0.95);
@@ -1808,7 +1803,7 @@ class PlayState extends MusicBeatState
 
 				// FlxG.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 
-				#if desktop
+				#if DISCORD_RPC
 				// Game Over doesn't get his own variable because it's only used here
 				DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyDifficultyText + ")", iconRPC);
 				#end
@@ -1849,7 +1844,7 @@ class PlayState extends MusicBeatState
 				var center = strumLine.y + (Note.swagWidth / 2);
 				
 				// i am so fucking sorry for these if conditions
-				if (PreferencesMenu.getPref('downScroll'))
+				if (PreferencesMenu.getPref('downscroll'))
 				{
 					daNote.y = strumLine.y + 0.45 * (Conductor.songPosition - daNote.strumTime) * FlxMath.roundDecimal(SONG.speed, 2);
 					
@@ -1896,7 +1891,7 @@ class PlayState extends MusicBeatState
 				// daNote.y = (strumLine.y - (songTime - daNote.strumTime) * (0.45 * PlayState.SONG.speed));
 
 				var doKill = daNote.y < -daNote.height;
-				if (PreferencesMenu.getPref('downScroll'))
+				if (PreferencesMenu.getPref('downscroll'))
 					doKill = daNote.y > FlxG.height;
 
 				if (doKill)
@@ -1974,6 +1969,7 @@ class PlayState extends MusicBeatState
 		blueballed = 0;
 		pixelStage = false; //it keeps pixel stage on even if the stage isnt pixelated so we put this here lol
 		canPause = false;
+		seenCutscene = true;
 		FlxG.sound.music.volume = 0;
 		vocals.volume = 0;
 		if (SONG.validScore)
@@ -2082,14 +2078,14 @@ class PlayState extends MusicBeatState
 			doSplash = false;
 			shits++;
 		}
-		else if (noteDiff > Conductor.safeZoneOffset * 0.6)
+		else if (noteDiff > Conductor.safeZoneOffset * 0.75)
 		{
 			daRating = 'bad';
 			score = 100;
 			doSplash = false;
 			bads++;
 		}
-		else if (noteDiff > Conductor.safeZoneOffset * 0.3)
+		else if (noteDiff > Conductor.safeZoneOffset * 0.2)
 		{
 			daRating = 'good';
 			score = 200;
@@ -2098,8 +2094,10 @@ class PlayState extends MusicBeatState
 		}
 		else if (noteDiff > Conductor.safeZoneOffset * 0)
 		{
-			sicks++;
+			daRating = 'sick';
+			score = 350;
 			doSplash = true;
+			sicks++;
 		}
 
 		if (doSplash)
@@ -2681,17 +2679,20 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		// HARDCODING FOR MILF ZOOMS!
-		if (curSong.toLowerCase() == 'milf' && curBeat >= 168 && curBeat < 200 && camZooming && FlxG.camera.zoom < 1.35)
+		if (PreferencesMenu.getPref('camera-zoom'))
 		{
-			camGame.zoom += 0.015;
-			camHUD.zoom += 0.03;
-		}
+			// HARDCODING FOR MILF ZOOMS!
+			if (curSong.toLowerCase() == 'milf' && curBeat >= 168 && curBeat < 200 && camZooming && FlxG.camera.zoom < 1.35)
+			{
+				camGame.zoom += 0.015;
+				camHUD.zoom += 0.03;
+			}
 
-		if (camZooming && FlxG.camera.zoom < 1.35 && curBeat % 4 == 0)
-		{
-			camGame.zoom += 0.015;
-			camHUD.zoom += 0.03;
+			if (camZooming && FlxG.camera.zoom < 1.35 && curBeat % 4 == 0)
+			{
+				camGame.zoom += 0.015;
+				camHUD.zoom += 0.03;
+			}
 		}
 
 		iconP1.bounce(1.2);

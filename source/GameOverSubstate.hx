@@ -56,9 +56,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		var exclude = [];
 		if (PreferencesMenu.getPref('censor-naughty'))
-		{
 			exclude = [1, 3, 8, 13, 17, 21];
-		}
 		randomGameover = FlxG.random.int(1, 25, exclude);
 	}
 

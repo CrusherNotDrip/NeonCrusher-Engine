@@ -11,10 +11,7 @@ class NoteSplash extends FlxSprite
 	public function new(x:Float, y:Float, ?notedata:Int = 0)
 	{
 		super(x, y);
-		if (PlayState.pixelStage)
-			texSplashes = Paths.getSparrowAtlas('pixelUI/noteSplashes');
-		else
-			texSplashes = Paths.getSparrowAtlas('noteSplashes');
+		texSplashes = Paths.getSparrowAtlas('noteSplashes');
 		frames = texSplashes;
 		animation.addByPrefix('note1-0', 'note impact 1  blue', 24, false);
 		animation.addByPrefix('note2-0', 'note impact 1 green', 24, false);

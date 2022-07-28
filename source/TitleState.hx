@@ -227,7 +227,8 @@ class TitleState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, 0.7);
+		if (PreferencesMenu.getPref('camera-zoom'))
+			FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, 0.7);
 
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
@@ -265,9 +266,12 @@ class TitleState extends MusicBeatState
 
 		if (pressedEnter && !transitioning && skippedIntro)
 		{
-			titleText.animation.play('press');
+			if (PreferencesMenu.getPref('flashing-menu'))
+				titleText.animation.play('press');
 
-			FlxG.camera.flash(FlxColor.WHITE, 1);
+			if (PreferencesMenu.getPref('flashing-menu'))
+				FlxG.camera.flash(FlxColor.WHITE, 1);
+
 			FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 
 			transitioning = true;
@@ -320,7 +324,8 @@ class TitleState extends MusicBeatState
 
 	override function beatHit()
 	{
-		FlxG.camera.zoom += 0.03;
+		if (PreferencesMenu.getPref('camera-zoom'))
+			FlxG.camera.zoom += 0.03;
 
 		super.beatHit();
 

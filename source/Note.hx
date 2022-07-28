@@ -119,7 +119,7 @@ class Note extends FlxSprite
 
 		if (isSustainNote && prevNote != null)
 		{
-			if (PreferencesMenu.getPref('downScroll') == true) flipY = true;
+			if (PreferencesMenu.getPref('downscroll') == true) flipY = true;
 			noteScore * 0.2;
 			alpha = 0.6;
 

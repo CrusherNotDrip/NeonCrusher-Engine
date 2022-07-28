@@ -1,5 +1,6 @@
 package;
 
+import ui.PreferencesMenu;
 import lime.utils.Assets;
 import ui.OptionsState;
 #if DISCORD_RPC
@@ -144,7 +145,8 @@ class MainMenuState extends MusicBeatState
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 
-					FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+					if (PreferencesMenu.getPref('flashing-menu'))
+						FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 
 					menuItems.forEach(function(spr:FlxSprite)
 					{
@@ -160,7 +162,33 @@ class MainMenuState extends MusicBeatState
 						}
 						else
 						{
-							FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
+							if (PreferencesMenu.getPref('flashing-menu'))
+							{
+								FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
+								{
+									var daChoice:String = optionShit[curSelected];
+
+									switch (daChoice)
+									{
+										case 'story_mode':
+											FlxG.switchState(new StoryMenuState());
+										case 'freeplay':
+											FlxG.switchState(new FreeplayState());
+										case 'stats':
+											FlxG.switchState(new GameStatsState());
+										case 'donate':
+											#if linux
+											Sys.command('/usr/bin/xdg-open', ["https://ninja-muffin24.itch.io/funkin", "&"]);
+											#else
+											FlxG.openURL('https://ninja-muffin24.itch.io/funkin');
+											#end
+											FlxG.resetState();
+										case 'options':
+											FlxG.switchState(new OptionsState());
+									}
+								});
+							}
+							else
 							{
 								var daChoice:String = optionShit[curSelected];
 
@@ -182,7 +210,7 @@ class MainMenuState extends MusicBeatState
 									case 'options':
 										FlxG.switchState(new OptionsState());
 								}
-							});
+							}
 						}
 					});
 				}

@@ -12,9 +12,4 @@ class FunkinWindow extends Application
     public static function changeAppName(newAppName:String) {
         Application.current.window.title = newAppName;
     }
-
-    public function changeWindowSize(width:Float, height:Float, ?smooth:Bool = false)
-    {
-        
-    }
 }

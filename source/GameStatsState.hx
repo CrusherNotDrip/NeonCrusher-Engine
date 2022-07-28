@@ -1,5 +1,6 @@
 package;
 
+import ui.PreferencesMenu;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.group.FlxGroup;
@@ -102,7 +103,62 @@ class GameStatsState extends MusicBeatState
         if (lastPlayed != 'None')
         {
             FlxG.sound.playMusic(Paths.inst(lastPlayed), 1);
-            Conductor.changeBPM(PlayState.SONG.bpm);
+            //Conductor.changeBPM(PlayState.SONG.bpm); this doesnt work when you reopen the game + I tried another method but it also didnt work so unfortunatly we have to hard code
+            switch(lastPlayed.toLowerCase())
+            {
+                case 'tutorial':
+                    Conductor.changeBPM(100);
+    
+                case 'bopeebo':
+                    Conductor.changeBPM(100);
+                case 'fresh':
+                    Conductor.changeBPM(120);
+                case 'dadbattle':
+                    Conductor.changeBPM(180);
+    
+                case 'spookeez':
+                    Conductor.changeBPM(150);
+                case 'south':
+                    Conductor.changeBPM(165);
+                case 'monster':
+                    Conductor.changeBPM(95);
+    
+                
+                case 'pico':
+                    Conductor.changeBPM(150);
+                case 'philly':
+                    Conductor.changeBPM(175);
+                case 'blammed':
+                    Conductor.changeBPM(165);
+    
+                case 'satin-panties':
+                    Conductor.changeBPM(110);
+                case 'high':
+                    Conductor.changeBPM(125);
+                case 'milf':
+                    Conductor.changeBPM(180);
+    
+                case 'cocoa':
+                    Conductor.changeBPM(100);
+                case 'eggnog':
+                    Conductor.changeBPM(150);
+                case 'winter-horrorland':
+                    Conductor.changeBPM(159);
+    
+                case 'senpai':
+                    Conductor.changeBPM(144);
+                case 'roses':
+                    Conductor.changeBPM(120);
+                case 'thorns':
+                    Conductor.changeBPM(190);
+    
+                case 'ugh':
+                    Conductor.changeBPM(160);
+                case 'guns':
+                    Conductor.changeBPM(185);
+                case 'stress':
+                    Conductor.changeBPM(178);
+            }
         }
 
         super.create();
@@ -113,7 +169,8 @@ class GameStatsState extends MusicBeatState
 
     override function update(elapsed:Float) 
     {
-        FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, 0.7);
+        if (PreferencesMenu.getPref('camera-zoom'))
+            FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, 0.7);
         
         if (FlxG.sound.music != null)
             Conductor.songPosition = FlxG.sound.music.time;
@@ -153,11 +210,14 @@ class GameStatsState extends MusicBeatState
     {
 		lastPlayedIcon.bounce(1.2);
 
-		if (lastPlayed.toLowerCase() == 'milf' && curBeat >= 168 && curBeat < 200 && FlxG.camera.zoom < 1.35)
-			FlxG.camera.zoom += 0.03;
+        if (PreferencesMenu.getPref('camera-zoom'))
+        {
+		    if (lastPlayed.toLowerCase() == 'milf' && curBeat >= 168 && curBeat < 200 && FlxG.camera.zoom < 1.35)
+			    FlxG.camera.zoom += 0.03;
 
-		if (curBeat % 4 == 0 && FlxG.camera.zoom < 1.35)
-			FlxG.camera.zoom += 0.03;
+		    if (curBeat % 4 == 0 && FlxG.camera.zoom < 1.35)
+			    FlxG.camera.zoom += 0.03;
+        }
     }
 
     public static function saveGameData() 

@@ -1,6 +1,5 @@
 package ui;
 
-import openfl.Lib;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxCamera;
@@ -24,10 +23,10 @@ class PreferencesMenu extends Page
 		menuCamera.bgColor = FlxColor.TRANSPARENT;
 		camera = menuCamera;
 		add(items = new TextMenuList());
-		createPrefItem('naughtyness', 'censor-naughty', true);
+		createPrefItem('Naughtyness', 'censor-naughty', true);
 		createPrefItem('Ghost Tapping', 'ghostTapping', true);
-		createPrefItem('downscroll', 'downscroll', false);
-		createPrefItem('flashing menu', 'flashing-menu', true);
+		createPrefItem('Downscroll', 'downscroll', false);
+		createPrefItem('Flashing Menu', 'flashing-menu', true);
 		createPrefItem('Camera Zooming on Beat', 'camera-zoom', true);
 		createPrefItem('FPS Counter', 'fps-counter', true);
 		createPrefItem('Auto Pause', 'auto-pause', false);
@@ -50,6 +49,15 @@ class PreferencesMenu extends Page
 		return preferences.get(pref);
 	}
 
+	/*
+	public static function savePrefs()
+	{
+		FlxG.save.data.censorNaughty = getPref('censor-naughty');
+
+		FlxG.save.flush();
+	}
+	*/
+
 	public static function initPrefs()
 	{
 		preferenceCheck('censor-naughty', true);
@@ -60,11 +68,16 @@ class PreferencesMenu extends Page
 		preferenceCheck('fps-counter', true);
 		preferenceCheck('auto-pause', false);
 		preferenceCheck('master-volume', 1);
-		if (!getPref('fps-counter'))
-		{
-			Lib.current.stage.removeChild(Main.fpsVar);
-		}
 		FlxG.autoPause = getPref('auto-pause');
+
+		/*
+		if(FlxG.save.data.censorNaughty != null)
+		{
+			var censorNaughty:Bool = getPref('censor-naughty');
+			censorNaughty = FlxG.save.data.censorNaughty;
+			preferenceCheck('censor-naughty', censorNaughty);
+		}
+		*/
 	}
 
 	public static function preferenceCheck(identifier:String, defaultValue:Dynamic)
@@ -114,6 +127,7 @@ class PreferencesMenu extends Page
 
 	public function prefToggle(identifier:String)
 	{
+		//savePrefs();
 		var value:Bool = preferences.get(identifier);
 		value = !value;
 		preferences.set(identifier, value);
@@ -123,11 +137,6 @@ class PreferencesMenu extends Page
 		{
 			case 'auto-pause':
 				FlxG.autoPause = getPref('auto-pause');
-			case 'fps-counter':
-				if (getPref('fps-counter'))
-					Lib.current.stage.addChild(Main.fpsVar);
-				else
-					Lib.current.stage.removeChild(Main.fpsVar);
 		}
 	}
 

@@ -40,7 +40,7 @@
 	<define name="PRELOAD_ALL" unless="web" />
 	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
 
-	<define name="DISCORD_RPC" if="desktop"/>
+	<define name="DISCORD_RPC" if="desktop" unless="neko"/>
 	
 	<section if="PRELOAD_ALL">
 		<library name="songs"    preload="true" />
@@ -102,6 +102,7 @@
 	<haxelib name="flixel-ui" />
 	<haxelib name="faxe" if='switch' />
 	<haxelib name="discord_rpc" if="DISCORD_RPC" />
+	<haxelib name="hxcpp-debug-server" />
 	<haxelib name="hxCodec" />
 
 	<!-- ______________________________ Haxedefines _____________________________ -->

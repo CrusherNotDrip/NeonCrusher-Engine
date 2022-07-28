@@ -1,5 +1,6 @@
 package openfl.display;
 
+import ui.PreferencesMenu;
 import openfl.system.System;
 import haxe.Timer;
 import openfl.events.Event;
@@ -90,6 +91,11 @@ class FPS extends TextField
 			text += "\nstageDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE);
 			text += "\nstage3DDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE3D);
 			#end
+
+			if (PreferencesMenu.getPref("fps-counter") == false)
+				visible = false;
+			else
+				visible = true;
 		}
 
 		cacheCount = currentCount;

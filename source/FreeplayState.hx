@@ -1,6 +1,7 @@
 package;
 
-#if desktop
+import ui.PreferencesMenu;
+#if DISCORD_RPC
 import Discord.DiscordClient;
 #end
 import flash.text.TextField;
@@ -61,7 +62,7 @@ class FreeplayState extends MusicBeatState
 			songs.push(new SongMetadata(initSonglist[i], 1, 'gf'));
 		}
 
-		#if desktop
+		#if DISCORD_RPC
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
 		#end
@@ -185,7 +186,8 @@ class FreeplayState extends MusicBeatState
 				FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
 			
-		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, 0.7);
+		if (PreferencesMenu.getPref('camera-zoom'))
+			FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, 0.7);
 		
 		lerpScore = CoolUtil.coolLerp(lerpScore, intendedScore, 0.4);
 		bg.color = FlxColor.interpolate(bg.color, coolColors[curSelected % coolColors.length], CoolUtil.camLerpShit(0.045));
@@ -374,11 +376,14 @@ class FreeplayState extends MusicBeatState
 	{
 		iconArray[curSelected].bounce(1.2);
 
-		if (songs[curSelected].songName.toLowerCase() == 'milf' && curBeat >= 168 && curBeat < 200 && FlxG.camera.zoom < 1.35)
-			FlxG.camera.zoom += 0.03;
+		if (PreferencesMenu.getPref('camera-zoom'))
+		{
+			if (songs[curSelected].songName.toLowerCase() == 'milf' && curBeat >= 168 && curBeat < 200 && FlxG.camera.zoom < 1.35)
+				FlxG.camera.zoom += 0.03;
 
-		if (curBeat % 4 == 0 && FlxG.camera.zoom < 1.35)
-			FlxG.camera.zoom += 0.03;
+			if (curBeat % 4 == 0 && FlxG.camera.zoom < 1.35)
+				FlxG.camera.zoom += 0.03;
+		}
 	}
 }
 
