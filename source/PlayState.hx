@@ -52,6 +52,8 @@ using StringTools;
 
 class PlayState extends MusicBeatState
 {
+	public static var gameVar:PlayState;
+
 	public static var curStage:String = '';
 	public static var SONG:SwagSong;
 	public static var isStoryMode:Bool = false;
@@ -65,9 +67,9 @@ class PlayState extends MusicBeatState
 	private var vocals:FlxSound;
 	private var vocalsFinished = false;
 
-	private var dad:Character;
-	private var gf:Character;
-	private var boyfriend:Boyfriend;
+	public var dad:Character;
+	public var gf:Character;
+	public var boyfriend:Boyfriend;
 
 	private var daWindow:FunkinWindow;
 
@@ -99,8 +101,8 @@ class PlayState extends MusicBeatState
 	private var generatedMusic:Bool = false;
 	private var startingSong:Bool = false;
 
-	private var iconP1:HealthIcon;
-	private var iconP2:HealthIcon;
+	public var iconP1:HealthIcon;
+	public var iconP2:HealthIcon;
 	private var camHUD:FlxCamera;
 	private var camGame:FlxCamera;
 
@@ -173,6 +175,7 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
+		gameVar = this;
 		if (isStoryMode) 
 			FunkinWindow.changeAppName("Friday Night Funkin': NeonCrusher Engine" + " - " + SONG.song + " - " + CoolUtil.difficultyString()  + " - (Story Mode)");
 		else
@@ -236,10 +239,7 @@ class PlayState extends MusicBeatState
 			case 'senpai':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('senpai/senpaiDialogue'));
 			case 'roses':
-				if (PreferencesMenu.getPref('censor-naughty'))
-				    dialogue = CoolUtil.coolTextFile(Paths.txt('roses/rosesDialogue'));
-				else
-					dialogue = CoolUtil.coolTextFile(Paths.txt('roses/rosesDialogue2'));
+				dialogue = CoolUtil.coolTextFile(Paths.txt('roses/rosesDialogue'));
 			case 'thorns':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('thorns/thornsDialogue'));
 		}
@@ -918,7 +918,6 @@ class PlayState extends MusicBeatState
 
 		if (isStoryMode && !seenCutscene)
 		{
-			seenCutscene = true;
 			switch (curSong.toLowerCase())
 			{
 				case "winter-horrorland":
@@ -965,6 +964,7 @@ class PlayState extends MusicBeatState
 				default:
 					startCountdown();
 			}
+			seenCutscene = true;
 		}
 		else
 		{
@@ -1017,8 +1017,6 @@ class PlayState extends MusicBeatState
 			{
 				if (dialogueBox != null)
 				{
-					inCutscene = true;
-
 					if (SONG.song.toLowerCase() == 'thorns')
 					{
 						add(senpaiEvil);
@@ -1969,7 +1967,7 @@ class PlayState extends MusicBeatState
 		blueballed = 0;
 		pixelStage = false; //it keeps pixel stage on even if the stage isnt pixelated so we put this here lol
 		canPause = false;
-		seenCutscene = true;
+		seenCutscene = false;
 		FlxG.sound.music.volume = 0;
 		vocals.volume = 0;
 		if (SONG.validScore)
