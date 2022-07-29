@@ -1,6 +1,5 @@
 package;
 
-import js.html.PlaybackDirection;
 import ui.PreferencesMenu;
 import flixel.FlxG;
 import flixel.FlxObject;
