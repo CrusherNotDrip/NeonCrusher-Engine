@@ -1,5 +1,6 @@
 package;
 
+import ui.PreferencesMenu;
 import flixel.FlxG;
 import flixel.FlxSprite;
 
@@ -17,7 +18,7 @@ class TankmenBG extends FlxSprite
 	{
 		super(x, y);
 		frames = Paths.getSparrowAtlas('tankmanKilled1');
-		antialiasing = true;
+		antialiasing = !PreferencesMenu.getPref('performance-mode');
 		animation.addByPrefix('run', 'tankman running', 24, true);
 		animation.addByPrefix('shot', 'John Shot ' + FlxG.random.int(1, 2), 24, false);
 		animation.play('run');

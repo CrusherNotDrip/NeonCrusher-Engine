@@ -178,6 +178,9 @@ class FreeplayState extends MusicBeatState
 	{
 		super.update(elapsed);
 
+		for (i in 0...iconArray.length)
+			iconArray[i].setGraphicSize(Std.int(iconArray[i].width * 1));
+
 		if (FlxG.sound.music != null)
 		{
 			Conductor.songPosition = FlxG.sound.music.time;

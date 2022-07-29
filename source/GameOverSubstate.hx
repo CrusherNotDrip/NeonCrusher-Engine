@@ -54,11 +54,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		FlxG.camera.target = null;
 
 		bf.playAnim('firstDeath');
-
-		var exclude = [];
-		if (PreferencesMenu.getPref('censor-naughty'))
-			exclude = [1, 3, 8, 13, 17, 21];
-		randomGameover = FlxG.random.int(1, 25, exclude);
+		randomGameover = FlxG.random.int(1, 25);
 	}
 
 	override function update(elapsed:Float)
@@ -159,6 +155,8 @@ class GameOverSubstate extends MusicBeatSubstate
 		GameStatsState.songShits = PlayState.gameVar.shits;
 		GameStatsState.songMisses = PlayState.gameVar.songMisses;
 		GameStatsState.songBlueballed = PlayState.blueballed;
+				
+		GameStatsState.songBpm = PlayState.SONG.bpm;
 
 		GameStatsState.saveGameData();
 

@@ -1,5 +1,6 @@
 package;
 
+import ui.PreferencesMenu;
 import flixel.FlxSprite;
 
 class BGSprite extends FlxSprite
@@ -27,7 +28,7 @@ class BGSprite extends FlxSprite
 			active = false;
 		}
 		scrollFactor.set(scrollX, scrollY);
-		antialiasing = true;
+		antialiasing = !PreferencesMenu.getPref('performance-mode');
 	}
 
 	public function dance()

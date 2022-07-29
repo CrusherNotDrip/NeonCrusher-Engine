@@ -191,7 +191,9 @@ class PauseSubState extends MusicBeatSubstate
 		GameStatsState.songBads = PlayState.gameVar.bads;
 		GameStatsState.songShits = PlayState.gameVar.shits;
 		GameStatsState.songMisses = PlayState.gameVar.songMisses;
-		GameStatsState.songBlueballed = PlayState.blueballed;
+		GameStatsState.songBlueballed = PlayState.blueballed;		
+
+		GameStatsState.songBpm = PlayState.SONG.bpm;
 
 		GameStatsState.saveGameData();
 

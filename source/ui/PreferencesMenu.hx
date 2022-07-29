@@ -1,5 +1,7 @@
 package ui;
 
+import flixel.FlxSprite;
+import flixel.text.FlxText;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxCamera;
@@ -14,6 +16,9 @@ class PreferencesMenu extends Page
 	var menuCamera:FlxCamera;
 	var items:TextMenuList;
 	var camFollow:FlxObject;
+	
+	var prefDescription:FlxText;
+	var description:String = 'Unknown';
 
 	override public function new()
 	{
@@ -23,10 +28,10 @@ class PreferencesMenu extends Page
 		menuCamera.bgColor = FlxColor.TRANSPARENT;
 		camera = menuCamera;
 		add(items = new TextMenuList());
-		createPrefItem('Naughtyness', 'censor-naughty', true);
+		createPrefItem('Performance Mode', 'performance-mode', false);
 		createPrefItem('Ghost Tapping', 'ghostTapping', true);
 		createPrefItem('Downscroll', 'downscroll', false);
-		createPrefItem('Flashing Menu', 'flashing-menu', true);
+		createPrefItem('Flashing Lights', 'flashing-menu', true);
 		createPrefItem('Camera Zooming on Beat', 'camera-zoom', true);
 		createPrefItem('FPS Counter', 'fps-counter', true);
 		createPrefItem('Auto Pause', 'auto-pause', false);
@@ -35,6 +40,20 @@ class PreferencesMenu extends Page
 		{
 			camFollow.y = items.members[items.selectedIndex].y;
 		}
+
+		/*
+		var idk:FlxSprite = new FlxSprite(0, FlxG.height - 220).makeGraphic(1100, 200, FlxColor.BLACK);
+		idk.scrollFactor.set();
+		idk.screenCenter(X);
+		idk.alpha = 0.8;
+		add(idk);
+		
+		prefDescription = new FlxText(0, idk.y + 10, idk.width - 200, "", 32);
+		prefDescription.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+		prefDescription.scrollFactor.set();
+		add(prefDescription);
+		*/
+
 		menuCamera.follow(camFollow, null, 0.06);
 		menuCamera.deadzone.set(0, 160, menuCamera.width, 40);
 		menuCamera.minScrollY = 0;
@@ -60,7 +79,7 @@ class PreferencesMenu extends Page
 
 	public static function initPrefs()
 	{
-		preferenceCheck('censor-naughty', true);
+		preferenceCheck('performance-mode', false);
 		preferenceCheck('ghostTapping', true);
 		preferenceCheck('downscroll', false);
 		preferenceCheck('flashing-menu', true);
@@ -147,7 +166,30 @@ class PreferencesMenu extends Page
 		items.forEach(function(item:MenuItem)
 		{
 			if (item == items.members[items.selectedIndex])
+			{
+				/*
+				switch (item)
+				{
+					case 'performance-mode':
+						description = 'If Enabled: Disables Antialiasing, Removes some animations and Removes some sprites.';
+					case 'ghost-tapping':
+						description = 'If Enabled: Everytime you press a note keybind, You wont get a miss.';
+					case 'downscroll':
+						description = 'If Enabled: Some parts of the UI go from bottom to top instead of top to bottom.';
+					case 'flashing-menu':
+						description = "If Enabled: Flashing Lights Show.\nIt's Recommended to disable this if you are sensitive to flashing lights!";
+					case 'camera-zoom':
+						description = 'If Enabled: Camera Zooms in every beat hit.';
+					case 'fps-counter':
+						description = "If Disabled: FPS Counter doesn't show.";
+					case 'auto-pause':
+						description = 'If Enabled: Game Pauses when the Game Window is Unfocused.';
+					default:
+						description = 'Unknown';
+				}
+				*/
 				item.x = 150;
+			}
 			else
 				item.x = 120;
 		});

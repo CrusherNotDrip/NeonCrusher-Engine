@@ -1,5 +1,6 @@
 package;
 
+import ui.PreferencesMenu;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -248,7 +249,7 @@ class AlphaCharacter extends FlxSprite
 		var tex = Paths.getSparrowAtlas('alphabet');
 		frames = tex;
 
-		antialiasing = true;
+		antialiasing = !PreferencesMenu.getPref('performance-mode');
 	}
 
 	public function createBold(letter:String)

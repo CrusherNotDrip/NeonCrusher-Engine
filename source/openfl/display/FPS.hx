@@ -62,7 +62,6 @@ class FPS extends TextField
 		#end
 	}
 
-	// Event Handlers
 	@:noCompletion
 	private #if !flash override #end function __enterFrame(deltaTime:Float):Void
 	{

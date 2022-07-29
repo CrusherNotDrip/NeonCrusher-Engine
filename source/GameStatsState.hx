@@ -32,6 +32,8 @@ class GameStatsState extends MusicBeatState
     public static var songMisses:Float = 0;
     public static var songBlueballed:Float = 0;
 
+    public static var songBpm:Int = 102;
+
     var bg:FlxSprite;
     var bgLane:FlxSprite;
     var lastPlayedIcon:HealthIcon;
@@ -103,62 +105,7 @@ class GameStatsState extends MusicBeatState
         if (lastPlayed != 'None')
         {
             FlxG.sound.playMusic(Paths.inst(lastPlayed), 1);
-            //Conductor.changeBPM(PlayState.SONG.bpm); this doesnt work when you reopen the game + I tried another method but it also didnt work so unfortunatly we have to hard code
-            switch(lastPlayed.toLowerCase())
-            {
-                case 'tutorial':
-                    Conductor.changeBPM(100);
-    
-                case 'bopeebo':
-                    Conductor.changeBPM(100);
-                case 'fresh':
-                    Conductor.changeBPM(120);
-                case 'dadbattle':
-                    Conductor.changeBPM(180);
-    
-                case 'spookeez':
-                    Conductor.changeBPM(150);
-                case 'south':
-                    Conductor.changeBPM(165);
-                case 'monster':
-                    Conductor.changeBPM(95);
-    
-                
-                case 'pico':
-                    Conductor.changeBPM(150);
-                case 'philly':
-                    Conductor.changeBPM(175);
-                case 'blammed':
-                    Conductor.changeBPM(165);
-    
-                case 'satin-panties':
-                    Conductor.changeBPM(110);
-                case 'high':
-                    Conductor.changeBPM(125);
-                case 'milf':
-                    Conductor.changeBPM(180);
-    
-                case 'cocoa':
-                    Conductor.changeBPM(100);
-                case 'eggnog':
-                    Conductor.changeBPM(150);
-                case 'winter-horrorland':
-                    Conductor.changeBPM(159);
-    
-                case 'senpai':
-                    Conductor.changeBPM(144);
-                case 'roses':
-                    Conductor.changeBPM(120);
-                case 'thorns':
-                    Conductor.changeBPM(190);
-    
-                case 'ugh':
-                    Conductor.changeBPM(160);
-                case 'guns':
-                    Conductor.changeBPM(185);
-                case 'stress':
-                    Conductor.changeBPM(178);
-            }
+            Conductor.changeBPM(songBpm);
         }
 
         super.create();
@@ -239,6 +186,7 @@ class GameStatsState extends MusicBeatState
         FlxG.save.data.songShits = songShits;
         FlxG.save.data.songMisses = songMisses;
         FlxG.save.data.songBlueballed = songBlueballed;
+        FlxG.save.data.songBpm = songBpm;
 
 		FlxG.save.flush();
     }
@@ -279,5 +227,7 @@ class GameStatsState extends MusicBeatState
 			songMisses = FlxG.save.data.songMisses;
         if(FlxG.save.data.songBlueballed != null)
 			songBlueballed = FlxG.save.data.songBlueballed;
+        if(FlxG.save.data.songBpm != null)
+            songBpm = FlxG.save.data.songBpm;
     } 
 }

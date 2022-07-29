@@ -1,5 +1,6 @@
 package;
 
+import ui.PreferencesMenu;
 import flixel.math.FlxMath;
 import flixel.FlxSprite;
 
@@ -22,7 +23,6 @@ class HealthIcon extends FlxSprite
 		super();
 		this.isPlayer = isPlayer;
 		changeIcon(char);
-		antialiasing = true;
 		scrollFactor.set();
 		if(isPlayer == true)
 			flipX = true; //stupid animation.addByPrefix doesnt flip it
@@ -36,6 +36,13 @@ class HealthIcon extends FlxSprite
 
 	public function changeIcon(char:String)
 	{
+		if (char == 'senpai')
+			antialiasing = false;
+		else if (char == 'spirit')
+			antialiasing = false;
+		else
+			antialiasing = !PreferencesMenu.getPref('performance-mode');
+
 		if (char != 'bf-pixel' && char != 'bf-old' && char != 'bf-holding-gf')
 			char = char.split('-')[0].trim();
 
@@ -67,7 +74,7 @@ class HealthIcon extends FlxSprite
 
 	public function bounce(amount:Float) {
 		if(canBounce) {
-			setGraphicSize(Std.int(width * amount));
+			setGraphicSize(Std.int(150 * amount));
 			updateHitbox();
 		}
 	}

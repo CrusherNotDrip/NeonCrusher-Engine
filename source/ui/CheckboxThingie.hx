@@ -12,7 +12,7 @@ class CheckboxThingie extends FlxSprite
 		frames = Paths.getSparrowAtlas('checkboxThingie');
 		animation.addByPrefix('static', 'Check Box unselected', 24, false);
 		animation.addByPrefix('checked', 'Check Box selecting animation', 24, false);
-		antialiasing = true;
+		antialiasing = !PreferencesMenu.getPref('performance-mode');
 		setGraphicSize(Std.int(width * 0.7));
 		updateHitbox();
 		daValue = state;

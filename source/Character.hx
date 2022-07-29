@@ -1,5 +1,6 @@
 package;
 
+import ui.PreferencesMenu;
 import Section.SwagSection;
 #if html5
 import js.html.AddEventListenerOptions;
@@ -33,7 +34,7 @@ class Character extends FlxSprite
 		this.isPlayer = isPlayer;
 
 		var tex:FlxAtlasFrames;
-		antialiasing = true;
+		antialiasing = !PreferencesMenu.getPref('performance-mode');
 
 		switch (curCharacter)
 		{

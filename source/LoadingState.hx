@@ -1,5 +1,6 @@
 package;
 
+import ui.PreferencesMenu;
 import flixel.math.FlxMath;
 import lime.app.Promise;
 import lime.app.Future;
@@ -48,7 +49,7 @@ class LoadingState extends MusicBeatState
 		funkay.loadGraphic(Paths.image('funkay'));
 		funkay.setGraphicSize(0, FlxG.height);
 		funkay.updateHitbox();
-		funkay.antialiasing = true;
+		funkay.antialiasing = !PreferencesMenu.getPref('performance-mode');
 		add(funkay);
 		funkay.scrollFactor.set();
 		funkay.screenCenter();
