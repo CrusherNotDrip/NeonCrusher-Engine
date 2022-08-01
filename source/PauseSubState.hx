@@ -17,10 +17,15 @@ class PauseSubState extends MusicBeatSubstate
 {
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
-	var menuItems:Array<String> = ['Resume', 'Restart Song', 'Exit to menu'];
+	var pauseOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Toggle Practice Mode', 'Exit to menu'];
+	var difficultyChoices:Array<String> = ['EASY', 'NORMAL', 'HARD', 'BACK'];
+
+	var menuItems:Array<String> = [];
 	var curSelected:Int = 0;
 
 	var pauseMusic:FlxSound;
+
+	var practiceText:FlxText;
 
 	public function new(x:Float, y:Float)
 	{
@@ -30,6 +35,8 @@ class PauseSubState extends MusicBeatSubstate
 			FunkinWindow.changeAppName(FunkinWindow.appName + " - " + PlayState.SONG.song + " - " + CoolUtil.difficultyString()  + " - (Freeplay) - PAUSED");
 
 		super();
+
+		menuItems = pauseOG;
 
 		pauseMusic = new FlxSound().loadEmbedded(Paths.music('breakfast'), true, true);
 		pauseMusic.volume = 0;
@@ -63,6 +70,14 @@ class PauseSubState extends MusicBeatSubstate
 		blueballedText.updateHitbox();
 		add(blueballedText);
 
+		practiceText = new FlxText(20, 15 + 96, 0, "PRACTICE MODE", 32);
+		practiceText.scrollFactor.set();
+		practiceText.setFormat(Paths.font('vcr.ttf'), 32);
+		practiceText.updateHitbox();
+		practiceText.x = FlxG.width - (practiceText.width + 20);
+		practiceText.visible = PlayState.practiceMode;
+		add(practiceText);
+
 		levelDifficulty.alpha = 0;
 		levelInfo.alpha = 0;
 		blueballedText.alpha = 0;
@@ -79,6 +94,17 @@ class PauseSubState extends MusicBeatSubstate
 		grpMenuShit = new FlxTypedGroup<Alphabet>();
 		add(grpMenuShit);
 
+		regenMenu();
+	}
+
+	private function regenMenu()
+	{
+		while (grpMenuShit.members.length > 0)
+		{
+			grpMenuShit.remove(grpMenuShit.members[0], true);
+		}
+
+
 		for (i in 0...menuItems.length)
 		{
 			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, menuItems[i], true, false);
@@ -87,9 +113,9 @@ class PauseSubState extends MusicBeatSubstate
 			grpMenuShit.add(songText);
 		}
 
-		changeSelection();
+		curSelected = 0;
 
-		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
+		changeSelection();
 	}
 
 	override function update(elapsed:Float)
@@ -126,8 +152,22 @@ class PauseSubState extends MusicBeatSubstate
 						FunkinWindow.changeAppName(FunkinWindow.appName + " - " + PlayState.SONG.song + " - " + CoolUtil.difficultyString()  + " - (Freeplay)");
 				case "Restart Song":
 					FlxG.resetState();
+				case "Change Difficulty":
+					menuItems = difficultyChoices;
+					regenMenu();
+				case "Toggle Practice Mode":
+					PlayState.practiceMode = !PlayState.practiceMode;
+					practiceText.visible = PlayState.practiceMode;
 				case "Exit to menu":
 					endSong();
+
+				case "EASY" | "NORMAL" | "HARD":
+					PlayState.SONG = Song.loadFromJson(Highscore.formatSong(PlayState.SONG.song.toLowerCase(), curSelected), PlayState.SONG.song.toLowerCase());
+					PlayState.storyDifficulty = curSelected;
+					FlxG.resetState();
+				case "BACK":
+					menuItems = pauseOG;
+					regenMenu();
 			}
 		}
 	}
@@ -141,6 +181,8 @@ class PauseSubState extends MusicBeatSubstate
 
 	function changeSelection(change:Int = 0):Void
 	{
+		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+		
 		curSelected += change;
 
 		if (curSelected < 0)

@@ -88,6 +88,7 @@ class ChartingState extends MusicBeatState
 		curSection = lastSection;
 
 		var bg:BGSprite = new BGSprite('menuDesat', 0, 0, 0, 0);
+		bg.color = 0xFF464646;
 		add(bg);
 
 		gridBG = FlxGridOverlay.create(GRID_SIZE, GRID_SIZE, GRID_SIZE * 8, GRID_SIZE * 16);
@@ -275,10 +276,10 @@ class ChartingState extends MusicBeatState
 		tab_group_song.add(loadAutosaveBtn);
 		tab_group_song.add(stepperBPM);
 		tab_group_song.add(stepperSpeed);
-		tab_group_song.add(player1DropDown);
-		tab_group_song.add(player2DropDown);
-		tab_group_song.add(girlfriendDropDown);
 		tab_group_song.add(stageDropDown);
+		tab_group_song.add(girlfriendDropDown);
+		tab_group_song.add(player2DropDown);
+		tab_group_song.add(player1DropDown);
 
 		UI_box.addGroup(tab_group_song);
 		UI_box.scrollFactor.set();

@@ -61,6 +61,7 @@ class PlayState extends MusicBeatState
 	public static var storyWeek:Int = 0;
 	public static var storyPlaylist:Array<String> = [];
 	public static var storyDifficulty:Int = 1;
+	public static var practiceMode:Bool = false;
 	public static var seenCutscene:Bool = false;
 
 	var halloweenLevel:Bool = false;
@@ -1860,7 +1861,7 @@ class PlayState extends MusicBeatState
 				trace("RESET = True");
 			}
 
-			if (health <= 0)
+			if (health <= 0 && !practiceMode)
 			{
 				boyfriend.stunned = true;
 
