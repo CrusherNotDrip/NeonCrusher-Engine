@@ -34,7 +34,6 @@ class PreferencesMenu extends Page
 		createPrefItem('Flashing Lights', 'flashing-menu', true);
 		createPrefItem('Camera Zooming on Beat', 'camera-zoom', true);
 		createPrefItem('FPS Counter', 'fps-counter', true);
-		createPrefItem('Auto Pause', 'auto-pause', false);
 		camFollow = new FlxObject(FlxG.width / 2, 0, 140, 70);
 		if (items != null)
 		{
@@ -85,9 +84,7 @@ class PreferencesMenu extends Page
 		preferenceCheck('flashing-menu', true);
 		preferenceCheck('camera-zoom', true);
 		preferenceCheck('fps-counter', true);
-		preferenceCheck('auto-pause', false);
 		preferenceCheck('master-volume', 1);
-		FlxG.autoPause = getPref('auto-pause');
 
 		/*
 		if(FlxG.save.data.censorNaughty != null)
@@ -154,8 +151,6 @@ class PreferencesMenu extends Page
 		trace('toggled? ' + Std.string(preferences.get(identifier)));
 		switch (identifier)
 		{
-			case 'auto-pause':
-				FlxG.autoPause = getPref('auto-pause');
 		}
 	}
 
@@ -182,8 +177,6 @@ class PreferencesMenu extends Page
 						description = 'If Enabled: Camera Zooms in every beat hit.';
 					case 'fps-counter':
 						description = "If Disabled: FPS Counter doesn't show.";
-					case 'auto-pause':
-						description = 'If Enabled: Game Pauses when the Game Window is Unfocused.';
 					default:
 						description = 'Unknown';
 				}

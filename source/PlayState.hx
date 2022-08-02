@@ -63,8 +63,7 @@ class PlayState extends MusicBeatState
 	public static var storyDifficulty:Int = 1;
 	public static var practiceMode:Bool = false;
 	public static var botplay:Bool = false;
-	public static var practiceModeUsed:Bool = false;
-	public static var botplayUsed:Bool = false;
+	public static var modeUsed:Bool = false;
 	public static var seenCutscene:Bool = false;
 
 	var halloweenLevel:Bool = false;
@@ -939,8 +938,6 @@ class PlayState extends MusicBeatState
 		judgementCounter.screenCenter(Y);
 		add(judgementCounter);
 
-		updateScore();
-
 		iconP1 = new HealthIcon(SONG.player1, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
 		iconP1.canBounce = true;
@@ -1662,6 +1659,25 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
+		if (botplay)
+			scoreTxt.text = "BOTPLAY MODE // Health: " + healthBar.percent + "%";
+		if (practiceMode)
+			scoreTxt.text = "PRACTICE MODE // Health: " + healthBar.percent + "% // Misses: " + songMisses;
+		if (practiceMode && botplay)
+			scoreTxt.text = "BOTPLAY MODE // PRACTICE MODE // Health: " + healthBar.percent + "%";
+		if (!modeUsed)
+			scoreTxt.text = "Score: " + songScore + " // Health: " + healthBar.percent + "% // Misses: " + songMisses;
+
+		judgementCounter.text = 
+		'Total Notes Hit: ' + songHits + 
+		'\nCombo: ' + combo + 
+		
+		'\n\nSicks: '+ sicks +
+		'\nGoods: ' + goods +
+		'\nBads: ' + bads +
+		'\nShits: ' + shits +
+		'\nMisses: ' + songMisses;
+
 		FlxG.camera.followLerp = CoolUtil.camLerpShit(0.04);
 
 		#if !debug
@@ -1857,13 +1873,13 @@ class PlayState extends MusicBeatState
 		if (!inCutscene && !_exiting)
 		{
 			// RESET = Quick Game Over Screen
-			if (controls.RESET && !practiceMode && !botplay)
+			if (controls.RESET)
 			{
 				health = 0;
 				trace("RESET = True");
 			}
 
-			if (health <= 0 && !practiceMode && !botplay)
+			if (health <= 0 && !practiceMode)
 			{
 				boyfriend.stunned = true;
 
@@ -1988,9 +2004,25 @@ class PlayState extends MusicBeatState
 							});
 						}
 					}
+					if(daNote.mustPress && daNote.isSustainNote && daNote.canBeHit)
+					{
+						goodNoteHit(daNote);
 
-					if (boyfriend.animation.finished)
-						boyfriend.dance();
+						if(!PreferencesMenu.getPref('performance-mode'))
+						{
+							playerStrums.forEach(function(spr:FlxSprite)
+							{
+								if (spr.animation.curAnim.name != 'confirm' || curStage.startsWith('school'))
+									spr.centerOffsets();
+								else
+								{
+									spr.centerOffsets();
+									spr.offset.x -= 13;
+									spr.offset.y -= 13;
+								}
+							});
+						}
+					}
 				}
 
 				// WIP interpolation shit? Need to fix the pause issue
@@ -2051,6 +2083,9 @@ class PlayState extends MusicBeatState
 					spr.centerOffsets();
 				}
 			});
+
+			if (boyfriend.animation.curAnim.name.startsWith("sing") && boyfriend.animation.finished)
+				boyfriend.dance();
 		}
 
 		if (!inCutscene)
@@ -2062,33 +2097,13 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
-	private function updateScore() 
-	{
-		if (botplay)
-			scoreTxt.text = "BOTPLAY MODE // Health: " + healthBar.percent + "%";
-		else if (practiceMode)
-			scoreTxt.text = "PRACTICE MODE // Health: " + healthBar.percent + "% // Misses: " + songMisses;
-		else
-			scoreTxt.text = "Score: " + songScore + " // Health: " + healthBar.percent + "% // Misses: " + songMisses;
-
-		judgementCounter.text = 
-		'Total Notes Hit: ' + songHits + 
-		'\nCombo: ' + combo + 
-		
-		'\n\nSicks: '+ sicks +
-		'\nGoods: ' + goods +
-		'\nBads: ' + bads +
-		'\nShits: ' + shits +
-		'\nMisses: ' + songMisses;
-	}
-
 	function endSong():Void
 	{
 		GameStatsState.lastPlayed = SONG.song;
 		GameStatsState.icon = iconP2.char;
 		GameStatsState.iconColour = dad.iconColour;
 
-		if (!botplayUsed && !practiceModeUsed)
+		if (!modeUsed)
 		{
 			GameStatsState.totalNotesHit += songHits;
 			GameStatsState.totalSicks += sicks;
@@ -2106,16 +2121,38 @@ class PlayState extends MusicBeatState
 			GameStatsState.songMisses = songMisses;
 			GameStatsState.songBlueballed = blueballed;
 		}
+		else
+		{
+			GameStatsState.totalNotesHit += 0;
+			GameStatsState.totalSicks += 0;
+			GameStatsState.totalGoods += 0;
+			GameStatsState.totalBads += 0;
+			GameStatsState.totalShits += 0;
+			GameStatsState.totalMisses += 0;
+			GameStatsState.totalBlueballed += 0;
+	
+			GameStatsState.songNotesHit = 0;
+			GameStatsState.songSicks = 0;
+			GameStatsState.songGoods = 0;
+			GameStatsState.songBads = 0;
+			GameStatsState.songShits = 0;
+			GameStatsState.songMisses = 0;
+			GameStatsState.songBlueballed = 0;
+		}
 		
 		GameStatsState.songBpm = SONG.bpm;
 
 		blueballed = 0;
+		botplay = false;
+		practiceMode = false;
+		modeUsed = false;
+		
 		pixelStage = false; //it keeps pixel stage on even if the stage isnt pixelated so we put this here lol
 		canPause = false;
 		seenCutscene = false;
 		FlxG.sound.music.volume = 0;
 		vocals.volume = 0;
-		if (SONG.validScore && !practiceModeUsed && !botplayUsed)
+		if (SONG.validScore && !modeUsed)
 		{
 			#if !switch
 			Highscore.saveScore(SONG.song, songScore, storyDifficulty);
@@ -2250,8 +2287,8 @@ class PlayState extends MusicBeatState
 			grpNoteSplashes.add(splash);
 		}
 
-		if (!botplay && !practiceMode)
-			songScore += score;
+		if (!modeUsed)
+			songScore += score; //no use getting score if you dont see it
 
 		var pixelShitPart1:String = "";
 		var pixelShitPart2:String = '';
@@ -2541,7 +2578,7 @@ class PlayState extends MusicBeatState
 			    }
 			    combo = 0;
 
-				if (!botplay && !practiceMode)
+				if (!modeUsed)
 			    	songScore -= 10;
 
 			    FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
@@ -2648,8 +2685,6 @@ class PlayState extends MusicBeatState
 				notes.remove(note, true);
 				note.destroy();
 			}
-
-			updateScore();
 		}
 	}
 
@@ -2895,18 +2930,18 @@ class PlayState extends MusicBeatState
 		}
 
 		if (curBeat % 2 == 0)
-			{
-				if (!boyfriend.animation.curAnim.name.startsWith("sing"))
-					boyfriend.dance();
+		{
+			if (!boyfriend.animation.curAnim.name.startsWith("sing"))
+				boyfriend.dance();
 	
-				if (!dad.animation.curAnim.name.startsWith("sing"))
-					dad.dance();
-			}
-			else if (dad.animation.name.startsWith("dance"))
-			{
-				if (!dad.animation.curAnim.name.startsWith("sing"))
-					dad.dance();
-			}
+			if (!dad.animation.curAnim.name.startsWith("sing"))
+				dad.dance();
+		}
+		else if (dad.animation.name.startsWith("dance"))
+		{
+			if (!dad.animation.curAnim.name.startsWith("sing"))
+				dad.dance();
+		}
 
 		foregroundSprites.forEach(function(spr:BGSprite)
 		{

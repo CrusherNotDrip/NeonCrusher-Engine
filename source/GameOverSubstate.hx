@@ -128,7 +128,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		}
 	}
 
-	function endSong() 
+	public function endSong() 
 	{
 		if (PlayState.isStoryMode)
 			FlxG.switchState(new StoryMenuState());
@@ -139,27 +139,51 @@ class GameOverSubstate extends MusicBeatSubstate
 		GameStatsState.icon = PlayState.gameVar.iconP2.char;
 		GameStatsState.iconColour = PlayState.gameVar.dad.iconColour;
 
-		GameStatsState.totalNotesHit += PlayState.gameVar.songHits;
-		GameStatsState.totalSicks += PlayState.gameVar.sicks;
-		GameStatsState.totalGoods += PlayState.gameVar.goods;
-		GameStatsState.totalBads += PlayState.gameVar.bads;
-		GameStatsState.totalShits += PlayState.gameVar.shits;
-		GameStatsState.totalMisses += PlayState.gameVar.songMisses;
-		GameStatsState.totalBlueballed += PlayState.blueballed;
-
-		GameStatsState.songNotesHit = PlayState.gameVar.songHits;
-		GameStatsState.songSicks = PlayState.gameVar.sicks;
-		GameStatsState.songGoods = PlayState.gameVar.goods;
-		GameStatsState.songBads = PlayState.gameVar.bads;
-		GameStatsState.songShits = PlayState.gameVar.shits;
-		GameStatsState.songMisses = PlayState.gameVar.songMisses;
-		GameStatsState.songBlueballed = PlayState.blueballed;
-				
+		if (!PlayState.modeUsed)
+		{
+			GameStatsState.totalNotesHit += PlayState.gameVar.songHits;
+			GameStatsState.totalSicks += PlayState.gameVar.sicks;
+			GameStatsState.totalGoods += PlayState.gameVar.goods;
+			GameStatsState.totalBads += PlayState.gameVar.bads;
+			GameStatsState.totalShits += PlayState.gameVar.shits;
+			GameStatsState.totalMisses += PlayState.gameVar.songMisses;
+			GameStatsState.totalBlueballed += PlayState.blueballed;
+	
+			GameStatsState.songNotesHit = PlayState.gameVar.songHits;
+			GameStatsState.songSicks = PlayState.gameVar.sicks;
+			GameStatsState.songGoods = PlayState.gameVar.goods;
+			GameStatsState.songBads = PlayState.gameVar.bads;
+			GameStatsState.songShits = PlayState.gameVar.shits;
+			GameStatsState.songMisses = PlayState.gameVar.songMisses;
+			GameStatsState.songBlueballed = PlayState.blueballed;
+		}
+		else
+		{
+			GameStatsState.totalNotesHit += 0;
+			GameStatsState.totalSicks += 0;
+			GameStatsState.totalGoods += 0;
+			GameStatsState.totalBads += 0;
+			GameStatsState.totalShits += 0;
+			GameStatsState.totalMisses += 0;
+			GameStatsState.totalBlueballed += 0;
+	
+			GameStatsState.songNotesHit = 0;
+			GameStatsState.songSicks = 0;
+			GameStatsState.songGoods = 0;
+			GameStatsState.songBads = 0;
+			GameStatsState.songShits = 0;
+			GameStatsState.songMisses = 0;
+			GameStatsState.songBlueballed = 0;
+		}
+		
 		GameStatsState.songBpm = PlayState.SONG.bpm;
 
 		GameStatsState.saveGameData();
 
 		PlayState.blueballed = 0;
 		PlayState.seenCutscene = false;
+		PlayState.botplay = false;
+		PlayState.practiceMode = false;
+		PlayState.modeUsed = false;
 	}
 }
