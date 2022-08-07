@@ -1,5 +1,8 @@
 package;
 
+import openfl.filters.ColorMatrixFilter;
+import openfl.geom.Point;
+import openfl.geom.Matrix;
 import flixel.addons.transition.TransitionData;
 import ui.PreferencesMenu;
 import lime.app.Application;
@@ -133,8 +136,6 @@ class PlayState extends MusicBeatState
 
 	var bgGirls:BackgroundGirls;
 	var wiggleShit:WiggleEffect = new WiggleEffect();
-	var wiggleShader:Array<BitmapFilter> = [];
-	var wiggleCamera:WiggleShader;
 
 	var tankWatchtower:BGSprite;
 	var tankGround:BGSprite;
@@ -592,39 +593,43 @@ class PlayState extends MusicBeatState
 		    case 'schoolEvil':
 				pixelStage = true;
 
-		        var posX = 502;
-	            var posY = 376;
+				var waveEffect = new FlxWaveEffect(FlxWaveMode.ALL, 1, -1, 1.5);
 
-		        var bg:FlxSprite = new FlxSprite(posX, posY).loadGraphic(Paths.image("weeb/evilSchoolBG"));
-		        bg.scrollFactor.set(0.8, 0.9);
-		        bg.scale.set(6, 6);
-		        add(bg);
+				var posX:Float = 502;
+				var posY:Float = 376;
 
-				var fg:FlxSprite = new FlxSprite(posX, posY).loadGraphic(Paths.image("weeb/evilSchoolFG"));
-		        fg.scrollFactor.set(0.8, 0.9);
-		        fg.scale.set(6, 6);
-		        add(fg);
+		        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image("weeb/evilSchoolBG"));
+				var fg:FlxSprite = new FlxSprite().loadGraphic(Paths.image("weeb/evilSchoolFG"));
 
 				if (!PreferencesMenu.getPref('performance-mode'))
 				{
-					wiggleShit = new WiggleEffect();
-					wiggleShit.effectType = WiggleEffectType.WAVY;
-					wiggleShit.waveAmplitude = 0.03;
-					wiggleShit.waveFrequency = 2;
-					wiggleShit.waveSpeed = 4.5;
-					bg.shader = wiggleShit.shader;
-					fg.shader = wiggleShit.shader;
-	
-					wiggleCamera = new WiggleShader();
-					wiggleCamera.uTime.value = [0];
-					wiggleCamera.effectType.value = [WiggleEffectType.getConstructors().indexOf(Std.string(WiggleEffectType.WAVY))];
-					wiggleCamera.uWaveAmplitude.value = [0.03];
-					wiggleCamera.uFrequency.value = [2];
-					wiggleCamera.uSpeed.value = [4.5];
-	
-					wiggleShader.push(new ShaderFilter(wiggleCamera));
-					camHUD.setFilters(wiggleShader);
-					camHUD.filtersEnabled = true;
+					var waveSprite = new FlxEffectSprite(bg, [waveEffect]);
+					waveSprite.x = posX;
+					waveSprite.y = posY;
+					waveSprite.scrollFactor.set(0.8, 0.9);
+					waveSprite.scale.set(6, 6);
+					add(waveSprite);
+
+					var waveSpriteFG = new FlxEffectSprite(fg, [waveEffect]);
+					waveSpriteFG.x = waveSprite.x;
+					waveSpriteFG.y = waveSprite.y;
+					waveSpriteFG.scrollFactor.set(0.8, 0.9);
+					waveSpriteFG.scale.set(6, 6);
+					add(waveSpriteFG);
+				}
+				else
+				{
+					bg.x = posX;
+					bg.y = posY;
+					bg.scrollFactor.set(0.8, 0.9);
+		        	bg.scale.set(6, 6);
+		        	add(bg);
+
+					fg.x = posX;
+					fg.y = posY;
+					fg.scrollFactor.set(0.8, 0.9);
+		        	fg.scale.set(6, 6);
+		        	add(fg);
 				}
 
 			case 'tank':
@@ -1119,12 +1124,11 @@ class PlayState extends MusicBeatState
 		{
 			remove(black);
 			camHUD.visible = false;
-			if(SONG.song.toLowerCase() == 'ugh')
-				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, (Conductor.stepCrochet / 1000) * 5, {ease: FlxEase.quadInOut});
-			if(SONG.song.toLowerCase() == 'guns')
-				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, (Conductor.stepCrochet / 1000) * 5, {ease: FlxEase.quadInOut});
-			if(SONG.song.toLowerCase() == 'stress')
-				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, (Conductor.stepCrochet / 1000) * 5, {ease: FlxEase.quadInOut});
+			switch (SONG.song.toLowerCase())
+			{
+				case 'ugh' | 'guns' | 'stress':
+					FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, (Conductor.stepCrochet / 1000) * 5, {ease: FlxEase.quadInOut});
+			}
 			startCountdown();
 		};
 		if(SONG.song.toLowerCase() == 'ugh')
@@ -1140,12 +1144,11 @@ class PlayState extends MusicBeatState
 		video.playVideo(filepath);
 		video.finishCallback = function()
 		{
-			if(SONG.song.toLowerCase() == 'ugh')
-				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, (Conductor.stepCrochet / 1000) * 5, {ease: FlxEase.quadInOut});
-			if(SONG.song.toLowerCase() == 'guns')
-				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, (Conductor.stepCrochet / 1000) * 5, {ease: FlxEase.quadInOut});
-			if(SONG.song.toLowerCase() == 'stress')
-				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, (Conductor.stepCrochet / 1000) * 5, {ease: FlxEase.quadInOut});
+			switch (SONG.song.toLowerCase())
+			{
+				case 'ugh' | 'guns' | 'stress':
+					FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, (Conductor.stepCrochet / 1000) * 5, {ease: FlxEase.quadInOut});
+			}
 			startAndEnd();
 			return;
 		}
@@ -1731,12 +1734,6 @@ class PlayState extends MusicBeatState
 						}
 					}
 					lightFadeShader.update(1.5 * (Conductor.crochet / 1000) * FlxG.elapsed);
-				}
-			case 'schoolEvil':
-				if (!PreferencesMenu.getPref('performance-mode'))
-				{
-					wiggleShit.update(elapsed);
-					wiggleCamera.uTime.value[0] += elapsed;
 				}
 			case 'tank':
 				if (!PreferencesMenu.getPref('performance-mode'))
