@@ -136,6 +136,7 @@ class PlayState extends MusicBeatState
 
 	var bgGirls:BackgroundGirls;
 	var wiggleShit:WiggleEffect = new WiggleEffect();
+	var laHentaiShader:PixelShader = new PixelShader();
 
 	var tankWatchtower:BGSprite;
 	var tankGround:BGSprite;
@@ -2282,6 +2283,11 @@ class PlayState extends MusicBeatState
 			var splash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
 			splash.setupNoteSplash(daNote.x, daNote.y, daNote.noteData);
 			grpNoteSplashes.add(splash);
+			if (pixelStage)
+			{
+				laHentaiShader.pixelAmount = 0.1;
+				splash.shader = laHentaiShader.shader;
+			}
 		}
 
 		if (!modeUsed)
