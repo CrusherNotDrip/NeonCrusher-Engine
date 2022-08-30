@@ -12,4 +12,12 @@ class FunkinWindow extends Application
     public static function changeAppName(newAppName:String) {
         Application.current.window.title = newAppName;
     }
+    
+    public static function changeAppX(newAppX:Float) {
+        Application.current.window.x = newAppX;
+    }
+    
+    public static function changeAppY(newAppY:Float) {
+        Application.current.window.y = newAppY;
+    }
 }
