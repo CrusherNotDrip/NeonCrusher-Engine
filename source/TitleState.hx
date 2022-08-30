@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxGradient;
 import ui.PreferencesMenu;
 import flixel.math.FlxMath;
 #if DISCORD_RPC
@@ -26,6 +27,7 @@ import flixel.system.ui.FlxSoundTray;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.util.FlxGradient;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import lime.app.Application;
@@ -46,6 +48,8 @@ class TitleState extends MusicBeatState
 	var curWacky:Array<String> = [];
 
 	var wackyImage:FlxSprite;
+
+	var yipee:FlxSprite;
 
 	override public function create():Void
 	{
@@ -92,8 +96,13 @@ class TitleState extends MusicBeatState
 		
 		Application.current.onExit.add (function (exitCode) {
 			DiscordClient.shutdown();
-		 });
+		});
 		#end
+
+		yipee = FlxGradient.createGradientFlxSprite(FlxG.width, FlxG.height, [0x0, FlxColor.CYAN]);
+		yipee.scrollFactor.set();
+		yipee.screenCenter();
+		yipee.alpha = 0;
 	}
 
 	var logoBl:FlxSprite;
@@ -139,6 +148,8 @@ class TitleState extends MusicBeatState
 		// bg.updateHitbox();
 		add(bg);
 
+		add(yipee);
+
 		logoBl = new FlxSprite(-150, -100);
 		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
 		logoBl.antialiasing = !PreferencesMenu.getPref('performance-mode');
@@ -173,13 +184,15 @@ class TitleState extends MusicBeatState
 
 		// FlxTween.tween(logoBl, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
 		// FlxTween.tween(logo, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG, startDelay: 0.1});
-
 		credGroup = new FlxGroup();
 		add(credGroup);
 		textGroup = new FlxGroup();
 
 		blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		credGroup.add(blackScreen);
+
+		credGroup.add(yipee);
+
 
 		credTextShit = new Alphabet(0, 0, "ninjamuffin99\nPhantomArcade\nkawaisprite\nevilsk8er", true);
 		credTextShit.screenCenter();
@@ -327,9 +340,13 @@ class TitleState extends MusicBeatState
 		if (PreferencesMenu.getPref('camera-zoom'))
 			FlxG.camera.zoom += 0.03;
 
-		super.beatHit();
+		yipee.alpha = 1; //cool right (not <= (ignore) made by crushernotdrip)
+		FlxTween.tween(yipee, {alpha: 0}, 0.5);
 
 		logoBl.animation.play('bump');
+
+		super.beatHit();
+
 		danceLeft = !danceLeft;
 
 		if (danceLeft)

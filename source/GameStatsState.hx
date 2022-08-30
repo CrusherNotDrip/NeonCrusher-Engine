@@ -1,5 +1,6 @@
 package;
 
+import flixel.tweens.FlxEase;
 import ui.PreferencesMenu;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
@@ -99,7 +100,6 @@ class GameStatsState extends MusicBeatState
         lastPlayedIcon.scrollFactor.set();
         lastPlayedIcon.y = 550;
         lastPlayedIcon.screenCenter(X);
-        lastPlayedIcon.canBounce = true;
         add(lastPlayedIcon);
 
         if (lastPlayed != 'None')
@@ -155,7 +155,12 @@ class GameStatsState extends MusicBeatState
 
     override function beatHit() 
     {
-		lastPlayedIcon.bounce(1.2);
+        if (lastPlayedIcon.scale.x == 1.2 || lastPlayedIcon.scale.y == 1.2) {
+            lastPlayedIcon.scale.x = 1;
+            lastPlayedIcon.scale.y = 1;
+        }
+
+        FlxTween.tween(lastPlayedIcon, {"scale.x": 1.2, "scale.y": 1.2}, 0.3, {ease: FlxEase.circInOut, type: FlxTweenType.BACKWARD});
 
         if (PreferencesMenu.getPref('camera-zoom'))
         {

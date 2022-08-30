@@ -86,7 +86,7 @@ class FPS extends TextField
 			text = 
 			"FPS: " + times.length 
 			+ "\nMemory: " + mem + " MB / " + memPeak + " MB"
-			+ "\nNeonCrusher Engine v" + Assets.getText(Paths.txt('version'));
+			+ "\nNeonCrusher Engine v" + MainMenuState.getVer();
 
 
 			#if (gl_stats && !disable_cffi && (!html5 || !canvas))

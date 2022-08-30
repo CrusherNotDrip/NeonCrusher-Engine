@@ -1,5 +1,7 @@
 package;
 
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import ui.PreferencesMenu;
 #if DISCORD_RPC
 import Discord.DiscordClient;
@@ -294,7 +296,6 @@ class FreeplayState extends MusicBeatState
 			case 'monster':
 				Conductor.changeBPM(95);
 
-			
 			case 'pico':
 				Conductor.changeBPM(150);
 			case 'philly':
@@ -334,13 +335,9 @@ class FreeplayState extends MusicBeatState
 		var bullShit:Int = 0;
 
 		for (i in 0...iconArray.length)
-		{
 			iconArray[i].alpha = 0.6;
-			iconArray[i].canBounce = false;
-		}
 
 		iconArray[curSelected].alpha = 1;
-		iconArray[curSelected].canBounce = true;
 
 		for (i in 0...iconArray.length)
 			iconArray[i].animation.play('normal', true);
@@ -374,7 +371,16 @@ class FreeplayState extends MusicBeatState
 
 	override function beatHit()
 	{
-		iconArray[curSelected].bounce(1.2);
+
+		for (i in 0...iconArray.length) {
+			if (iconArray[i].alpha == 0.6) {
+				iconArray[i].scale.set(1, 1);
+				FlxTween.tween(iconArray[i], {"scale.x": 1.05, "scale.y": 1.05}, 0.3, {ease: FlxEase.circInOut, type: FlxTweenType.BACKWARD}); 
+			} else if (iconArray[i].alpha == 1) {
+				iconArray[i].scale.set(1, 1);
+				FlxTween.tween(iconArray[i], {"scale.x": 1.2, "scale.y": 1.2}, 0.3, {ease: FlxEase.circInOut, type: FlxTweenType.BACKWARD}); 
+			}
+		}
 
 		if (PreferencesMenu.getPref('camera-zoom'))
 		{

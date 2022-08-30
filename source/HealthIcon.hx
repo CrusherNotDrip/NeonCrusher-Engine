@@ -16,7 +16,6 @@ class HealthIcon extends FlxSprite
 	public var char:String;
 	public var isPlayer:Bool = false;
 	public var isOldIcon:Bool = false;
-	public var canBounce:Bool = false;
 
 	public function new(char:String = 'bf', isPlayer:Bool = false)
 	{
@@ -65,17 +64,10 @@ class HealthIcon extends FlxSprite
 
 		if (sprTracker != null)
 			setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y - 30);
-
-		if(canBounce) {
-			setGraphicSize(Std.int(FlxMath.lerp(150, width, 0.85)));
-			updateHitbox();
-		}
 	}
 
 	public function bounce(amount:Float) {
-		if(canBounce) {
-			setGraphicSize(Std.int(150 * amount));
-			updateHitbox();
-		}
+		setGraphicSize(Std.int(150 * amount));
+		updateHitbox();
 	}
 }

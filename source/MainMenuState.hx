@@ -1,5 +1,6 @@
 package;
 
+import flixel.math.FlxMath;
 import ui.PreferencesMenu;
 import lime.utils.Assets;
 import ui.OptionsState;
@@ -32,6 +33,7 @@ class MainMenuState extends MusicBeatState
 
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
+	var bgl:FlxSprite;
 
 	override function create()
 	{
@@ -76,27 +78,34 @@ class MainMenuState extends MusicBeatState
 		add(magenta);
 		// magenta.scrollFactor.set();
 
+		bgl = new FlxSprite(0, 0).loadGraphic(Paths.image('mainmenu/menubg'));
+		bgl.screenCenter();
+		bgl.x -= 40;
+		bgl.scrollFactor.set();
+		add(bgl);
+
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
 
 		for (i in 0...optionShit.length)
 		{
-			var tex = Paths.getSparrowAtlas('mainmenu/' + optionShit[i]);
-			var menuItem:FlxSprite = new FlxSprite(0, 60 + (i * 160));
+			var tex = Paths.getSparrowAtlas('mainmenu/items/' + optionShit[i]);
+			var menuItem:FlxSprite = new FlxSprite(70, 60 + (i * 130));
 			menuItem.frames = tex;
 			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
-			menuItem.screenCenter(X);
+			//menuItem.screenCenter(X);
 			menuItems.add(menuItem);
+			menuItem.scale.set(0.8, 0.8);
 			menuItem.scrollFactor.set(0, 1);
 			menuItem.antialiasing = !PreferencesMenu.getPref('performance-mode');
 		}
 
 		FlxG.camera.follow(camFollow, null, 0.06);
 
-		var versionShit:FlxText = new FlxText(5, FlxG.height - 38, 0, "NeonCrusher Engine v" + Assets.getText(Paths.txt('version')), 12);
+		var versionShit:FlxText = new FlxText(5, FlxG.height - 38, 0, "NeonCrusher Engine v" + getVer(), 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
@@ -111,6 +120,13 @@ class MainMenuState extends MusicBeatState
 		super.create();
 	}
 
+	public static function getVer() {
+		if (Assets.getText(Paths.txt('version')) != null)
+			return Assets.getText(Paths.txt('version'));
+		else
+			return "???";
+	}
+
 	var selectedSomethin:Bool = false;
 
 	override function update(elapsed:Float)
@@ -119,6 +135,24 @@ class MainMenuState extends MusicBeatState
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
+		menuItems.forEach(function(spr:FlxSprite)
+		{
+			var lerpVal:Float = CoolUtil.boundTo(elapsed * 12, 0, 1);
+	
+			if (spr.ID == curSelected)
+			{
+				spr.x = FlxMath.lerp(spr.x, 130, lerpVal);
+			} else {
+				spr.x = FlxMath.lerp(spr.x, 60, lerpVal);
+			}
+	
+			//spr.updateHitbox();
+
+			switch (spr.ID) {
+				case 0:
+					//FlxTween.color(bgl, 0.3, FlxColor.fromRGB());
+			}	
+		});
 
 		if (!selectedSomethin)
 		{
@@ -219,10 +253,12 @@ class MainMenuState extends MusicBeatState
 
 		super.update(elapsed);
 
+		/*
 		menuItems.forEach(function(spr:FlxSprite)
 		{
 			spr.screenCenter(X);
 		});
+		*/
 	}
 
 	function changeItem(huh:Int = 0)

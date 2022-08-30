@@ -934,7 +934,7 @@ class PlayState extends MusicBeatState
 		add(scoreTxt);
 
 		// NeonCrusher Engine Watermark
-		watermarks = new FlxText(0, 10, FlxG.width, SONG.song + " - " + CoolUtil.difficultyString() + " // NeonCrusher Engine v" + Assets.getText(Paths.txt('version')) + " // Friday Night Funkin' v" + Application.current.meta.get('version'), 12);
+		watermarks = new FlxText(0, 10, FlxG.width, SONG.song + " - " + CoolUtil.difficultyString() + " // NeonCrusher Engine v" + MainMenuState.getVer() + " // Friday Night Funkin' v" + Application.current.meta.get('version'), 12);
 		watermarks.setFormat(Paths.font("vcr.ttf"), 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		watermarks.scrollFactor.set();
 		add(watermarks);
@@ -949,12 +949,10 @@ class PlayState extends MusicBeatState
 
 		iconP1 = new HealthIcon(SONG.player1, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
-		iconP1.canBounce = true;
 		add(iconP1);
 
 		iconP2 = new HealthIcon(SONG.player2, false);
 		iconP2.y = healthBar.y - (iconP2.height / 2);
-		iconP2.canBounce = true;
 		add(iconP2);
 
 		if(!PreferencesMenu.getPref('performance-mode'))
@@ -2924,8 +2922,10 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		iconP1.bounce(1.2);
-		iconP2.bounce(1.2);
+		iconP1.scale.set(1, 1);
+		iconP2.scale.set(1, 1);
+		FlxTween.tween(iconP1, {"scale.x": 1.2, "scale.y": 1.2}, 0.3, {ease: FlxEase.circInOut, type: FlxTweenType.BACKWARD}); 
+		FlxTween.tween(iconP2, {"scale.x": 1.2, "scale.y": 1.2}, 0.3, {ease: FlxEase.circInOut, type: FlxTweenType.BACKWARD}); 
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
