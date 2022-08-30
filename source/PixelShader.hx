@@ -23,14 +23,13 @@ class HentaiShader extends FlxShader
 {
     @:glFragmentSource('
     #pragma header
+
     uniform float pixels;
 
     void main()
     {
         vec2 uv = openfl_TextureCoordv.xy;
-        
         uv = floor(uv*openfl_TextureSize.x*pixels)/(openfl_TextureSize.x*pixels);
-        
         gl_FragColor = texture2D(bitmap, uv);
     }')
 

@@ -47,10 +47,13 @@ import lime.utils.Assets;
 import openfl.display.BlendMode;
 import openfl.display.StageQuality;
 import openfl.filters.ShaderFilter;
-import vlc.MP4Handler;
 import WiggleEffect.WiggleShader;
 import openfl.filters.BitmapFilter;
 import openfl.utils.Assets as OpenFlAssets;
+
+#if VIDEOS_ALLOWED
+import VideoHandler;
+#end
 
 using StringTools;
 
@@ -1117,7 +1120,28 @@ class PlayState extends MusicBeatState
 	{
 		inCutscene = true;
 
-		#if html5
+		#if VIDEOS_ALLOWED
+		var filepath:String = Paths.video(name);
+
+		var video:VideoHandler = new VideoHandler();
+		video.playVideo(filepath);
+		video.finishCallback = function()
+		{
+			switch (SONG.song.toLowerCase())
+			{
+				case 'ugh' | 'guns' | 'stress':
+					FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, (Conductor.stepCrochet / 1000) * 5, {ease: FlxEase.quadInOut});
+			}
+			startAndEnd();
+			return;
+		}
+		if(SONG.song.toLowerCase() == 'ugh')
+		{
+			FlxG.camera.zoom = defaultCamZoom * 1.2;
+			camFollow.x += 100;
+			camFollow.y += 100;
+		}
+		#else //fuck html5 fr
 		var black:FlxSprite = new FlxSprite(-200, -200).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
 		black.scrollFactor.set();
 		add(black);
@@ -1132,27 +1156,6 @@ class PlayState extends MusicBeatState
 			}
 			startCountdown();
 		};
-		if(SONG.song.toLowerCase() == 'ugh')
-		{
-			FlxG.camera.zoom = defaultCamZoom * 1.2;
-			camFollow.x += 100;
-			camFollow.y += 100;
-		}
-		#else
-		var filepath:String = Paths.video(name);
-
-		var video:MP4Handler = new MP4Handler();
-		video.playVideo(filepath);
-		video.finishCallback = function()
-		{
-			switch (SONG.song.toLowerCase())
-			{
-				case 'ugh' | 'guns' | 'stress':
-					FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, (Conductor.stepCrochet / 1000) * 5, {ease: FlxEase.quadInOut});
-			}
-			startAndEnd();
-			return;
-		}
 		if(SONG.song.toLowerCase() == 'ugh')
 		{
 			FlxG.camera.zoom = defaultCamZoom * 1.2;

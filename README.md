@@ -4,14 +4,14 @@
 uhhh someone ill pay you -26798562341985698$ bucks if you make it
 
 ## About the Engine
-uhh neoncrusher engine iss uhhh e uhhhh ermmm uhh I forgor 💀 (mainly cuz nothing cool is inside the engine except for judgement counters but thats very fucking ez to make)
+uhh neoncrusher engine iss uhhh e uhhhh ermmm uhh I forgor 💀 (mainly cuz nothing cool is inside the engine except for game stats menu but thats very fucking ez to make)
 
 ## Stuff that fnf didn't add that I added into this engine
 
 - Daddy Dearest Losing Icon (ok lets be real ANYONE can make this)
 - Healthbar Colours (it was kinda ez to make and I didnt have to steal code from psych!)
 - Combo Sprite Readded
-- Ghost Tapping (uhh for now you can spam the shit out of your keys and not get any misses (cuz theres no anti spam), I do plan on fixing it though!)
+- Ghost Tapping (uhh for now you can spam the shit out of your keys and not get any misses (cuz theres no anti spam), I do plan on fixing it though! (hopefully))
 - Judgement Counters (Basically if you notes it tells you how much notes you hit, your combo, your sicks, goods, bads etc.)
 - Story Mode BG Colours
 - New Stats Menu
@@ -22,7 +22,7 @@ and thats really it
 # Credits
 
 ### NeonCrusher Engine
-- [CrusherMods (a.k.a CrusherNotDrip)](https://twitter.com/CrusherNotDrip) - Main Programmer + Owner of NeonCrusher 
+- [CrusherNotDrip](https://twitter.com/CrusherNotDrip) - Main Programmer + Owner of NeonCrusher Engine
 - [NeonFurious](https://twitter.com/Java_NotDrip) - Co-Owner of NeonCrusher Engine
 
 ### Special Thanks

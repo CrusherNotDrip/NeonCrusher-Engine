@@ -92,7 +92,9 @@ class Paths
 
 	inline static public function video(key:String, ?library:String)
 	{
+		#if VIDEOS_ALLOWED
 		return getPath('videos/$key.mp4', TEXT, library);
+		#end
 	}
 		
 	inline static public function inst(song:String)

@@ -2,7 +2,7 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Friday Night Funkin': NeonCrusher Engine" file="NeonCrusherEngine" packageName="com.crushermods.neoncrusherengine" package="com.crushermods.neoncrusherengine" main="Main" version="0.2.8" company="CrusherMods" />
+	<app title="Friday Night Funkin': NeonCrusher Engine" file="NeonCrusherEngine" packageName="com.crushernotdrip.neoncrusherengine" package="com.crushernotdrip.neoncrusherengine" main="Main" version="0.2.8" company="CrusherNotDrip" />
 
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
 	<app preloader="flixel.system.FlxPreloader" />
@@ -41,10 +41,11 @@
 	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
 
 	<define name="DISCORD_RPC" if="desktop" unless="neko"/>
+	<define name="VIDEOS_ALLOWED" if="desktop || android"/>
 	
 	<section if="PRELOAD_ALL">
-		<library name="songs"    preload="true" />
 		<library name="shared"   preload="true" />
+		<library name="songs"    preload="true" />
 		<library name="tutorial" preload="true" />
 		<library name="week1"    preload="true" />
 		<library name="week2"    preload="true" />
@@ -56,8 +57,8 @@
 	</section>
 	
 	<section if="NO_PRELOAD_ALL">
-		<library name="songs"    preload="true" />
 		<library name="shared"   preload="false" />
+		<library name="songs"    preload="true" />
 		<library name="tutorial" preload="false" />
 		<library name="week1"    preload="false" />
 		<library name="week2"    preload="false" />
@@ -67,32 +68,43 @@
 		<library name="week6"    preload="false" />
 		<library name="week7"    preload="false" />
 	</section>
-	
-	<assets path='art/readme.txt'  rename='do NOT readme.txt'/>
-	<assets path='example_mods'    rename='mods' embed='false'/>
-	<assets path="assets/songs"    library="songs"    exclude="*.ogg" if="web"/>
-	<assets path="assets/songs"    library="songs"    exclude="*.mp3" unless="web"/>
+
+	<assets path="assets/fonts"    embed='true'/>
+
 	<assets path="assets/shared"   library="shared"   exclude="*.ogg" if="web"/>
 	<assets path="assets/shared"   library="shared"   exclude="*.mp3" unless="web"/>
+
+	<assets path="assets/songs"    library="songs"    exclude="*.ogg" if="web"/>
+	<assets path="assets/songs"    library="songs"    exclude="*.mp3" unless="web"/>
+
 	<assets path="assets/tutorial" library="tutorial" exclude="*.ogg" if="web"/>
 	<assets path="assets/tutorial" library="tutorial" exclude="*.mp3" unless="web"/>
+
+	<assets path='assets/videos'   library='videos'/>
+
 	<assets path="assets/week1"    library="week1"    exclude="*.ogg" if="web"/>
 	<assets path="assets/week1"    library="week1"    exclude="*.mp3" unless="web"/>
+
 	<assets path="assets/week2"    library="week2"    exclude="*.ogg" if="web"/>
 	<assets path="assets/week2"    library="week2"    exclude="*.mp3" unless="web"/>
+
 	<assets path="assets/week3"    library="week3"    exclude="*.ogg" if="web"/>
 	<assets path="assets/week3"    library="week3"    exclude="*.mp3" unless="web"/>
+
 	<assets path="assets/week4"    library="week4"    exclude="*.ogg" if="web"/>
 	<assets path="assets/week4"    library="week4"    exclude="*.mp3" unless="web"/>
+
 	<assets path="assets/week5"    library="week5"    exclude="*.ogg" if="web"/>
 	<assets path="assets/week5"    library="week5"    exclude="*.mp3" unless="web"/>
+
 	<assets path="assets/week6"    library="week6"    exclude="*.ogg" if="web"/>
 	<assets path="assets/week6"    library="week6"    exclude="*.mp3" unless="web"/>
+
 	<assets path="assets/week7"    library="week7"    exclude="*.ogg" if="web"/>
 	<assets path="assets/week7"    library="week7"    exclude="*.mp3" unless="web"/>
-	<assets path='assets/videos'   library='videos'/>
-	<assets path="CHANGELOG.md"    rename='changelog.txt'/>
-	<assets path="assets/fonts"    embed='true'/>
+	
+	<assets path='example_mods'    rename='mods' embed='false'/>
+
 	<!-- _______________________________ Libraries ______________________________ -->
 
 	<haxelib name="flixel" />
@@ -102,8 +114,8 @@
 	<haxelib name="flixel-ui" />
 	<haxelib name="faxe" if='switch' />
 	<haxelib name="discord_rpc" if="DISCORD_RPC" />
+	<haxelib name="hxCodec" if="VIDEOS_ALLOWED" />
 	<haxelib name="hxcpp-debug-server" />
-	<haxelib name="hxCodec" />
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
