@@ -24,6 +24,7 @@ and thats really it
 ### NeonCrusher Engine
 - [CrusherNotDrip](https://twitter.com/CrusherNotDrip) - Main Programmer + Owner of NeonCrusher Engine
 - [NeonFurious](https://twitter.com/Java_NotDrip) - Co-Owner of NeonCrusher Engine
+- [Hayfi](https://github.com/hayfii) - Secondary Programmer
 
 ### Special Thanks
 - no one at all cuz no one else helped with the engine except for haxeflixel tutorials
