@@ -23,6 +23,7 @@ class MusicBeatSubstate extends FlxSubState
 
 	override function update(elapsed:Float)
 	{
+		//FunkinWindow.updateShit();
 		//everyStep();
 		var oldStep:Int = curStep;
 

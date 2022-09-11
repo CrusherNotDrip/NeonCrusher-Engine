@@ -55,7 +55,7 @@ class FreeplayState extends MusicBeatState
 	{
 		FunkinWindow.changeAppName(FunkinWindow.appName + " - Freeplay Menu");
 		
-		Conductor.changeBPM(100);
+		Conductor.changeBPM(102);
 
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
 
@@ -220,20 +220,15 @@ class FreeplayState extends MusicBeatState
 		if (controls.BACK)
 		{
 			FlxG.sound.play(Paths.sound("cancelMenu"));
-			FlxG.sound.playMusic(Paths.music('freakyMenu'), 1);
-            Conductor.changeBPM(102);
+			if (PreferencesMenu.getPref('fas') == true) {
+				FlxG.sound.playMusic(Paths.music('freakyMenu'), 1);
+                Conductor.changeBPM(102);
+			}
 			FlxG.switchState(new MainMenuState());
 		}
 
 		if (accepted)
 		{
-			var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
-
-			PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
-			PlayState.isStoryMode = false;
-			PlayState.storyDifficulty = curDifficulty;
-
-			PlayState.storyWeek = songs[curSelected].week;
 			trace('CUR WEEK' + PlayState.storyWeek);
 			LoadingState.loadAndSwitchState(new PlayState());
 		}
@@ -275,62 +270,78 @@ class FreeplayState extends MusicBeatState
 		// lerpScore = 0;
 		#end
 
-		FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
+		var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
+		PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
+		PlayState.isStoryMode = false;
+		PlayState.storyDifficulty = curDifficulty;
+		PlayState.storyWeek = songs[curSelected].week;
 
-		switch (songs[curSelected].songName.toLowerCase()) //i didnt know another way of doing this
-		{
-			case 'tutorial':
-				Conductor.changeBPM(100);
-
-			case 'bopeebo':
-				Conductor.changeBPM(100);
-			case 'fresh':
-				Conductor.changeBPM(120);
-			case 'dadbattle':
-				Conductor.changeBPM(180);
-
-			case 'spookeez':
-				Conductor.changeBPM(150);
-			case 'south':
-				Conductor.changeBPM(165);
-			case 'monster':
-				Conductor.changeBPM(95);
-
-			case 'pico':
-				Conductor.changeBPM(150);
-			case 'philly':
-				Conductor.changeBPM(175);
-			case 'blammed':
-				Conductor.changeBPM(165);
-
-			case 'satin-panties':
-				Conductor.changeBPM(110);
-			case 'high':
-				Conductor.changeBPM(125);
-			case 'milf':
-				Conductor.changeBPM(180);
-
-			case 'cocoa':
-				Conductor.changeBPM(100);
-			case 'eggnog':
-				Conductor.changeBPM(150);
-			case 'winter-horrorland':
-				Conductor.changeBPM(159);
-
-			case 'senpai':
-				Conductor.changeBPM(144);
-			case 'roses':
-				Conductor.changeBPM(120);
-			case 'thorns':
-				Conductor.changeBPM(190);
-
-			case 'ugh':
-				Conductor.changeBPM(160);
-			case 'guns':
-				Conductor.changeBPM(185);
-			case 'stress':
-				Conductor.changeBPM(178);
+		if (PreferencesMenu.getPref('fas') == true) { //yes
+			FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
 		}
+
+		Conductor.changeBPM(PlayState.SONG.bpm);
+
+		/*if (PlayState.SONG.bpm != idkyet) { //to avoid errors
+			Conductor.changeBPM(PlayState.SONG.bpm);
+		} else {
+			switch (songs[curSelected].songName.toLowerCase()) //i didnt know another way of doing this
+			{
+				case 'tutorial':
+					Conductor.changeBPM(100);
+
+				case 'bopeebo':
+					Conductor.changeBPM(100);
+				case 'fresh':
+					Conductor.changeBPM(120);
+				case 'dadbattle':
+					Conductor.changeBPM(180);
+
+				case 'spookeez':
+					Conductor.changeBPM(150);
+				case 'south':
+					Conductor.changeBPM(165);
+				case 'monster':
+					Conductor.changeBPM(95);
+
+				case 'pico':
+					Conductor.changeBPM(150);
+				case 'philly':
+					Conductor.changeBPM(175);
+				case 'blammed':
+					Conductor.changeBPM(165);
+
+				case 'satin-panties':
+					Conductor.changeBPM(110);
+				case 'high':
+					Conductor.changeBPM(125);
+				case 'milf':
+					Conductor.changeBPM(180);
+
+				case 'cocoa':
+					Conductor.changeBPM(100);
+				case 'eggnog':
+					Conductor.changeBPM(150);
+				case 'winter-horrorland':
+					Conductor.changeBPM(159);
+
+				case 'senpai':
+					Conductor.changeBPM(144);
+				case 'roses':
+					Conductor.changeBPM(120);
+				case 'thorns':
+					Conductor.changeBPM(190);
+
+				case 'ugh':
+					Conductor.changeBPM(160);
+				case 'guns':
+					Conductor.changeBPM(185);
+				case 'stress':
+					Conductor.changeBPM(178);
+				default:
+					Conductor.changeBPM(100);
+			}
+		}*/
 
 		var bullShit:Int = 0;
 

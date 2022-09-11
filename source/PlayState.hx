@@ -114,6 +114,7 @@ class PlayState extends MusicBeatState
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
 	private var camHUD:FlxCamera;
+	private var notesHUD:FlxCamera;
 	private var camGame:FlxCamera;
 
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
@@ -205,8 +206,10 @@ class PlayState extends MusicBeatState
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
 		camHUD.bgColor.alpha = 0;
-
+		notesHUD = new FlxCamera();
+		notesHUD.bgColor.alpha = 0;
 		FlxG.cameras.reset(camGame);
+		FlxG.cameras.add(notesHUD, false);
 		FlxG.cameras.add(camHUD, false);
 
 		pixelStage = false;
@@ -922,18 +925,10 @@ class PlayState extends MusicBeatState
 		healthBar.scrollFactor.set();
 		healthBar.createFilledBar(dad.iconColour, boyfriend.iconColour);
 		healthBar.screenCenter(X);
-		// healthBar
 		add(healthBar);
 		add(healthBarBG);
 
-		scoreTxt = new FlxText(0, healthBarBG.y + 30, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		scoreTxt.borderSize = 2;
-		scoreTxt.borderQuality = 2;
-		scoreTxt.scrollFactor.set();
-		add(scoreTxt);
-
-		// NeonCrusher Engine Watermark
+		// HayNeonCrusher Engine Watermark
 		watermarks = new FlxText(0, 10, FlxG.width, SONG.song + " - " + CoolUtil.difficultyString() + " // NeonCrusher Engine v" + MainMenuState.getVer() + " // Friday Night Funkin' v" + Application.current.meta.get('version'), 12);
 		watermarks.setFormat(Paths.font("vcr.ttf"), 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		watermarks.scrollFactor.set();
@@ -955,10 +950,18 @@ class PlayState extends MusicBeatState
 		iconP2.y = healthBar.y - (iconP2.height / 2);
 		add(iconP2);
 
+		scoreTxt = new FlxText(0, healthBarBG.y + 30, FlxG.width, "", 20);
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.borderSize = 2;
+		scoreTxt.borderQuality = 2;
+		scoreTxt.scrollFactor.set();
+		add(scoreTxt);
+
 		if(!PreferencesMenu.getPref('performance-mode'))
-			grpNoteSplashes.cameras = [camHUD];
-		strumLineNotes.cameras = [camHUD];
-		notes.cameras = [camHUD];
+			grpNoteSplashes.cameras = [notesHUD];
+		strumLineNotes.cameras = [notesHUD];
+		notes.cameras = [notesHUD];
+
 		healthBar.cameras = [camHUD];
 		healthBarBG.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
@@ -979,6 +982,7 @@ class PlayState extends MusicBeatState
 					add(blackScreen);
 					blackScreen.scrollFactor.set();
 					camHUD.visible = false;
+					notesHUD.visible = false;
 
 					new FlxTimer().start(0.1, function(tmr:FlxTimer)
 					{
@@ -992,6 +996,7 @@ class PlayState extends MusicBeatState
 						new FlxTimer().start(0.8, function(tmr:FlxTimer)
 						{
 							camHUD.visible = true;
+							notesHUD.visible = true;
 							remove(blackScreen);
 							FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, 2.5, {
 								ease: FlxEase.quadInOut,
@@ -1147,6 +1152,7 @@ class PlayState extends MusicBeatState
 		{
 			remove(black);
 			camHUD.visible = false;
+			notesHUD.visible = false;
 			switch (SONG.song.toLowerCase())
 			{
 				case 'ugh' | 'guns' | 'stress':
@@ -1177,6 +1183,7 @@ class PlayState extends MusicBeatState
 	function startCountdown():Void
 	{
 		camHUD.visible = true;
+		notesHUD.visible = true;
 		inCutscene = false;
 
 		generateStaticArrows(0);
@@ -1313,10 +1320,10 @@ class PlayState extends MusicBeatState
 		FlxG.sound.music.onComplete = endSong;
 		vocals.play();
 
-		#if DISCORD_RPC
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
 
+		#if DISCORD_RPC
 		// Updating Discord Rich Presence (with Time Left)
 		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconRPC, true, songLength);
 		#end
@@ -1836,6 +1843,7 @@ class PlayState extends MusicBeatState
 		{
 			FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom, FlxG.camera.zoom, 0.95);
 			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, 0.95);
+			notesHUD.zoom = FlxMath.lerp(1, notesHUD.zoom, 0.95);
 		}
 
 		FlxG.watch.addQuick("beatShit", curBeat);
@@ -2206,6 +2214,7 @@ class PlayState extends MusicBeatState
 					blackShit.scrollFactor.set();
 					add(blackShit);
 					camHUD.visible = false;
+					notesHUD.visible = false;
 
 					FlxG.sound.play(Paths.sound('Lights_Shut_off'));
 				}
@@ -2913,12 +2922,14 @@ class PlayState extends MusicBeatState
 			{
 				camGame.zoom += 0.015;
 				camHUD.zoom += 0.03;
+				notesHUD.zoom += 0.03;
 			}
 
 			if (camZooming && FlxG.camera.zoom < 1.35 && curBeat % 4 == 0)
 			{
 				camGame.zoom += 0.015;
 				camHUD.zoom += 0.03;
+				notesHUD.zoom += 0.03;
 			}
 		}
 

@@ -29,6 +29,7 @@ class MusicBeatState extends FlxUIState
 
 	override function update(elapsed:Float)
 	{
+		FunkinWindow.updateShit();
 		//everyStep();
 		var oldStep:Int = curStep;
 
