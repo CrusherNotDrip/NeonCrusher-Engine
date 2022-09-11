@@ -276,12 +276,9 @@ class FreeplayState extends MusicBeatState
 		PlayState.storyDifficulty = curDifficulty;
 		PlayState.storyWeek = songs[curSelected].week;
 
-		if (PreferencesMenu.getPref('fas') == true) { //yes\
-			Conductor.changeBPM(PlayState.SONG.bpm);
+		if (PreferencesMenu.getPref('fas') == true) { //yes
 			FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
-			if (PreferencesMenu.getPref('fv') == true) {
-				FlxG.sound.playMusic(Paths.voices(songs[curSelected].songName), 0);
-			}
+			Conductor.changeBPM(PlayState.SONG.bpm);
 		}
 
 		/*switch (songs[curSelected].songName.toLowerCase()) //i didnt know another way of doing this

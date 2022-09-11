@@ -35,7 +35,6 @@ class PreferencesMenu extends Page
 		createPrefItem('Camera Zooming on Beat', 'camera-zoom', true);
 		createPrefItem('FPS Counter', 'fps-counter', true);
 		createPrefItem('Freeplay Autoplay Song', 'fas', true);
-		createPrefItem('Freeplay Vocals', 'fv', false);
 		camFollow = new FlxObject(FlxG.width / 2, 0, 140, 70);
 		if (items != null)
 		{
@@ -88,7 +87,6 @@ class PreferencesMenu extends Page
 		preferenceCheck('fps-counter', true);
 		preferenceCheck('master-volume', 1);
 		preferenceCheck('fas', true);
-		preferenceCheck('fv', true);
 
 		/*
 		if(FlxG.save.data.censorNaughty != null)
