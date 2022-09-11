@@ -278,9 +278,8 @@ class FreeplayState extends MusicBeatState
 
 		if (PreferencesMenu.getPref('fas') == true) { //yes
 			FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
+			Conductor.changeBPM(PlayState.SONG.bpm);
 		}
-
-		Conductor.changeBPM(PlayState.SONG.bpm);
 
 		/*switch (songs[curSelected].songName.toLowerCase()) //i didnt know another way of doing this
 			{
