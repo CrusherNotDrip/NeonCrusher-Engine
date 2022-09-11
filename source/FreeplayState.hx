@@ -282,10 +282,7 @@ class FreeplayState extends MusicBeatState
 
 		Conductor.changeBPM(PlayState.SONG.bpm);
 
-		/*if (PlayState.SONG.bpm != idkyet) { //to avoid errors
-			Conductor.changeBPM(PlayState.SONG.bpm);
-		} else {
-			switch (songs[curSelected].songName.toLowerCase()) //i didnt know another way of doing this
+		/*switch (songs[curSelected].songName.toLowerCase()) //i didnt know another way of doing this
 			{
 				case 'tutorial':
 					Conductor.changeBPM(100);
@@ -340,8 +337,7 @@ class FreeplayState extends MusicBeatState
 					Conductor.changeBPM(178);
 				default:
 					Conductor.changeBPM(100);
-			}
-		}*/
+			}*/
 
 		var bullShit:Int = 0;
 
