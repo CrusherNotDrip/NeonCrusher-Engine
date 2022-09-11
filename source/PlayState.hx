@@ -1321,9 +1321,8 @@ class PlayState extends MusicBeatState
 		vocals.play();
 
 		// Song duration in a float, useful for the time left feature
-		songLength = FlxG.sound.music.length;
-
 		#if DISCORD_RPC
+		songLength = FlxG.sound.music.length;
 		// Updating Discord Rich Presence (with Time Left)
 		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconRPC, true, songLength);
 		#end
