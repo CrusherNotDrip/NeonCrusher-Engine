@@ -34,14 +34,14 @@
 
 	<classpath name="source" />
 	
-	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
-	<assets path="assets/preload" rename="assets" exclude="*.mp3" unless="web"/>
+	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web" />
+	<assets path="assets/preload" rename="assets" exclude="*.mp3" unless="web" />
 	
 	<define name="PRELOAD_ALL" unless="web" />
-	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
+	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL" />
 
-	<define name="DISCORD_RPC" if="desktop" unless="neko"/>
-	<define name="VIDEOS_ALLOWED" if="desktop || android"/>
+	<define name="DISCORD_RPC" if="desktop" unless="neko" />
+	<define name="VIDEOS_ALLOWED" if="desktop || android" unless="neko" />
 	
 	<section if="PRELOAD_ALL">
 		<library name="shared"   preload="true" />

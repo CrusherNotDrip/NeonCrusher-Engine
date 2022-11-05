@@ -164,7 +164,7 @@ class MenuTypedList<T:MenuItem> extends FlxTypedGroup<T>
 		{
 			busy = true;
 			FlxG.sound.play(Paths.sound("confirmMenu"));
-			if (PreferencesMenu.getPref('flashing-menu'))
+			if (PreferencesMenu.getPref('flashing-lights'))
 			{
 				FlxFlicker.flicker(selected, 1, 0.06, true, false, function(flicker)
 				{

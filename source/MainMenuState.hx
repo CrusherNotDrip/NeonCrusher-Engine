@@ -1,5 +1,6 @@
 package;
 
+import flixel.math.FlxRandom;
 import flixel.math.FlxMath;
 import ui.PreferencesMenu;
 import lime.utils.Assets;
@@ -79,8 +80,8 @@ class MainMenuState extends MusicBeatState
 		// magenta.scrollFactor.set();
 
 		bgl = new FlxSprite(0, 0).loadGraphic(Paths.image('mainmenu/menubg'));
-		bgl.screenCenter();
-		bgl.x -= 40;
+		//bgl.screenCenter();
+		//bgl.x -= 40;
 		bgl.scrollFactor.set();
 		add(bgl);
 
@@ -131,8 +132,9 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if (FlxG.sound.music.volume < 0.8)
+		if (FlxG.sound.music != null)
 		{
+			Conductor.songPosition = FlxG.sound.music.time;
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
 		menuItems.forEach(function(spr:FlxSprite)
@@ -179,7 +181,7 @@ class MainMenuState extends MusicBeatState
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 
-					if (PreferencesMenu.getPref('flashing-menu'))
+					if (PreferencesMenu.getPref('flashing-lights'))
 						FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 
 					menuItems.forEach(function(spr:FlxSprite)
@@ -196,7 +198,7 @@ class MainMenuState extends MusicBeatState
 						}
 						else
 						{
-							if (PreferencesMenu.getPref('flashing-menu'))
+							if (PreferencesMenu.getPref('flashing-lights'))
 							{
 								FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
 								{
@@ -240,7 +242,7 @@ class MainMenuState extends MusicBeatState
 										#else
 										FlxG.openURL('https://ninja-muffin24.itch.io/funkin');
 										#end
-										FlxG.switchState(new MainMenuState()); //Had to switch it back to main menu otherwise everything dies in the main menu
+										FlxG.resetState();
 									case 'options':
 										FlxG.switchState(new OptionsState());
 								}
@@ -259,6 +261,18 @@ class MainMenuState extends MusicBeatState
 			spr.screenCenter(X);
 		});
 		*/
+	}
+
+	override function beatHit()
+	{	
+		bgl.color = randomizeColour();
+		super.beatHit();
+	}
+
+	function randomizeColour()
+	{
+		var randomcolour:FlxRandom = new FlxRandom();
+		return randomcolour.color(null, null, 1, false);
 	}
 
 	function changeItem(huh:Int = 0)

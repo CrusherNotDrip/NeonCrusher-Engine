@@ -31,7 +31,7 @@ class PreferencesMenu extends Page
 		createPrefItem('Performance Mode', 'performance-mode', false);
 		createPrefItem('Ghost Tapping', 'ghostTapping', true);
 		createPrefItem('Downscroll', 'downscroll', false);
-		createPrefItem('Flashing Lights', 'flashing-menu', true);
+		createPrefItem('Flashing Lights', 'flashing-lights', true);
 		createPrefItem('Camera Zooming on Beat', 'camera-zoom', true);
 		createPrefItem('FPS Counter', 'fps-counter', true);
 		createPrefItem('Freeplay Autoplay Song', 'fas', true);
@@ -82,7 +82,7 @@ class PreferencesMenu extends Page
 		preferenceCheck('performance-mode', false);
 		preferenceCheck('ghostTapping', true);
 		preferenceCheck('downscroll', false);
-		preferenceCheck('flashing-menu', true);
+		preferenceCheck('flashing-lights', true);
 		preferenceCheck('camera-zoom', true);
 		preferenceCheck('fps-counter', true);
 		preferenceCheck('master-volume', 1);
@@ -173,7 +173,7 @@ class PreferencesMenu extends Page
 						description = 'If Enabled: Everytime you press a note keybind, You wont get a miss.';
 					case 'downscroll':
 						description = 'If Enabled: Some parts of the UI go from bottom to top instead of top to bottom.';
-					case 'flashing-menu':
+					case 'flashing-lights':
 						description = "If Enabled: Flashing Lights Show.\nIt's Recommended to disable this if you are sensitive to flashing lights!";
 					case 'camera-zoom':
 						description = 'If Enabled: Camera Zooms in every beat hit.';

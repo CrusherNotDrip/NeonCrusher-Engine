@@ -1,5 +1,6 @@
 package;
 
+import flixel.math.FlxRandom;
 import flixel.util.FlxGradient;
 import ui.PreferencesMenu;
 import flixel.math.FlxMath;
@@ -99,10 +100,13 @@ class TitleState extends MusicBeatState
 		});
 		#end
 
-		yipee = FlxGradient.createGradientFlxSprite(FlxG.width, FlxG.height, [0x0, FlxColor.CYAN]);
-		yipee.scrollFactor.set();
-		yipee.screenCenter();
-		yipee.alpha = 0;
+		if (PreferencesMenu.getPref('flashing-lights'))
+		{
+			yipee = FlxGradient.createGradientFlxSprite(FlxG.width, FlxG.height, [FlxColor.WHITE]);
+			yipee.scrollFactor.set();
+			yipee.screenCenter();
+			yipee.alpha = 0;
+		}
 	}
 
 	var logoBl:FlxSprite;
@@ -143,12 +147,10 @@ class TitleState extends MusicBeatState
 		persistentUpdate = true;
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		bg.antialiasing = !PreferencesMenu.getPref('performance-mode');
-		// bg.setGraphicSize(Std.int(bg.width * 0.6));
-		// bg.updateHitbox();
 		add(bg);
 
-		add(yipee);
+		if (PreferencesMenu.getPref('flashing-lights'))
+			add(yipee);
 
 		logoBl = new FlxSprite(-150, -100);
 		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
@@ -191,7 +193,8 @@ class TitleState extends MusicBeatState
 		blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		credGroup.add(blackScreen);
 
-		credGroup.add(yipee);
+		if (PreferencesMenu.getPref('flashing-lights'))
+			credGroup.add(yipee);
 
 
 		credTextShit = new Alphabet(0, 0, "ninjamuffin99\nPhantomArcade\nkawaisprite\nevilsk8er", true);
@@ -279,10 +282,10 @@ class TitleState extends MusicBeatState
 
 		if (pressedEnter && !transitioning && skippedIntro)
 		{
-			if (PreferencesMenu.getPref('flashing-menu'))
+			if (PreferencesMenu.getPref('flashing-lights'))
 				titleText.animation.play('press');
 
-			if (PreferencesMenu.getPref('flashing-menu'))
+			if (PreferencesMenu.getPref('flashing-lights'))
 				FlxG.camera.flash(FlxColor.WHITE, 1);
 
 			FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
@@ -340,8 +343,12 @@ class TitleState extends MusicBeatState
 		if (PreferencesMenu.getPref('camera-zoom'))
 			FlxG.camera.zoom += 0.03;
 
-		yipee.alpha = 1; //cool right (not <= (ignore) made by crushernotdrip)
-		FlxTween.tween(yipee, {alpha: 0}, 0.5);
+		if (PreferencesMenu.getPref('flashing-lights'))
+		{
+			yipee.color = randomizeColour();
+			yipee.alpha = 1;
+			FlxTween.tween(yipee, {alpha: 0}, 0.5);
+		}
 
 		logoBl.animation.play('bump');
 
@@ -388,6 +395,12 @@ class TitleState extends MusicBeatState
 			case 16:
 				skipIntro();
 		}
+	}
+
+	function randomizeColour()
+	{
+		var randomcolour:FlxRandom = new FlxRandom();
+		return randomcolour.color();
 	}
 
 	var skippedIntro:Bool = false;

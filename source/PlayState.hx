@@ -641,10 +641,10 @@ class PlayState extends MusicBeatState
 
 			case 'tank':
 				defaultCamZoom = 0.9;
-						
+
 				var sky:BGSprite = new BGSprite('tankSky', -400, -400, 0, 0);
 				add(sky);
-						
+
 				var clouds:BGSprite = new BGSprite('tankClouds', FlxG.random.int(-700, -100), FlxG.random.int(-20, 20), 0.1, 0.1);
 				clouds.active = true;
 				clouds.velocity.x = FlxG.random.float(5, 15);
@@ -656,26 +656,26 @@ class PlayState extends MusicBeatState
 					mountains.setGraphicSize(Std.int(mountains.width * 1.2));
 					mountains.updateHitbox();
 					add(mountains);
-							
+
 					var buildings:BGSprite = new BGSprite('tankBuildings', -200, 0, 0.3, 0.3);
 					buildings.setGraphicSize(Std.int(buildings.width * 1.1));
 					buildings.updateHitbox();
 					add(buildings);
-							
+
 					var ruins:BGSprite = new BGSprite('tankRuins', -200, 0, 0.35, 0.35);
 					ruins.setGraphicSize(Std.int(ruins.width * 1.1));
 					ruins.updateHitbox();
 					add(ruins);
-				
+
 					var smokeL:BGSprite = new BGSprite('smokeLeft', -200, -100, 0.4, 0.4, ['SmokeBlurLeft'], true);
 					add(smokeL);
-							
+
 					var smokeR:BGSprite = new BGSprite('smokeRight', 1100, -100, 0.4, 0.4, ['SmokeRight'], true);
 					add(smokeR);
-							
+
 					tankWatchtower = new BGSprite('tankWatchtower', 100, 50, 0.5, 0.5, ['watchtower gradient color']);
 					add(tankWatchtower);
-							
+
 					tankGround = new BGSprite('tankRolling', 300, 300, 0.5, 0.5, ['BG tank w lighting'], true);
 					add(tankGround);
 
