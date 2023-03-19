@@ -1,6 +1,5 @@
 package openfl.display;
 
-import ui.PreferencesMenu;
 import openfl.system.System;
 import haxe.Timer;
 import openfl.events.Event;
@@ -86,7 +85,7 @@ class FPS extends TextField
 			text = 
 			"FPS: " + times.length 
 			+ "\nMemory: " + mem + " MB / " + memPeak + " MB"
-			+ "\nNeonCrusher Engine v" + MainMenuState.getVer();
+			+ "\nNeonCrusher Engine v" + states.MainMenuState.getVer();
 
 
 			#if (gl_stats && !disable_cffi && (!html5 || !canvas))
