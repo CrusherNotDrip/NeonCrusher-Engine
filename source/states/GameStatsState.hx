@@ -37,7 +37,7 @@ class GameStatsState extends MusicBeatState
 
     override function create()
     {
-        bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+        bg = new FlxSprite().loadGraphic(Paths.image('mainmenu/background/menuDesat'));
         bg.color = iconColour;
         bg.scrollFactor.set();  
         bg.screenCenter();

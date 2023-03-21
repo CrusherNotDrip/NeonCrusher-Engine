@@ -86,7 +86,7 @@ class ChartingState extends MusicBeatState
 
 		curSection = lastSection;
 
-		var bg:BGSprite = new BGSprite('menuDesat', 0, 0, 0, 0);
+		var bg:BGSprite = new BGSprite('mainmenu/background/menuDesat', 0, 0, 0, 0);
 		bg.color = 0xFF464646;
 		add(bg);
 

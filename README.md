@@ -19,6 +19,10 @@ uhh neoncrusher engine iss uhhh e uhhhh ermmm uhh I forgor 💀 (mainly cuz noth
 
 and thats really it
 
+## Known Issues
+
+- Combo Sprites don't match the actual combo (off by 1)
+
 # Credits
 
 ### NeonCrusher Engine

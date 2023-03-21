@@ -1,11 +1,7 @@
 package options;
 
-import flixel.FlxSprite;
-import flixel.text.FlxText;
-import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxCamera;
-import flixel.util.FlxColor;
 import haxe.ds.StringMap;
 
 class PreferencesMenu extends Page
@@ -28,15 +24,15 @@ class PreferencesMenu extends Page
 		menuCamera.bgColor = FlxColor.TRANSPARENT;
 		camera = menuCamera;
 		add(items = new TextMenuList());
+		#if !html5
+		createPrefItem('120 FPS Mode', '120-fps', false); //until I figure out how to code my OWN options menu we are just gonna do this for now
+		#end
 		createPrefItem('Performance Mode', 'performance-mode', false);
 		createPrefItem('Ghost Tapping', 'ghostTapping', true);
 		createPrefItem('Downscroll', 'downscroll', false);
 		createPrefItem('Flashing Lights', 'flashing-lights', true);
 		createPrefItem('Camera Zooming on Beat', 'camera-zoom', true);
 		createPrefItem('FPS Counter', 'fps-counter', true);
-		#if DISCORD_RPC
-		createPrefItem('Discord Rich Presence', 'discord-rpc', true);
-		#end
 		createPrefItem('Freeplay Autoplay Song', 'fas', true);
 		camFollow = new FlxObject(FlxG.width / 2, 0, 140, 70);
 		if (items != null)
@@ -82,15 +78,15 @@ class PreferencesMenu extends Page
 
 	public static function initPrefs()
 	{
+		#if !html5
+		preferenceCheck('120-fps', false);
+		#end
 		preferenceCheck('performance-mode', false);
 		preferenceCheck('ghostTapping', true);
 		preferenceCheck('downscroll', false);
 		preferenceCheck('flashing-lights', true);
 		preferenceCheck('camera-zoom', true);
 		preferenceCheck('fps-counter', true);
-		#if DISCORD_RPC
-		preferenceCheck('discord-rpc', true);
-		#end
 		preferenceCheck('master-volume', 1);
 		preferenceCheck('fas', true);
 
@@ -159,9 +155,10 @@ class PreferencesMenu extends Page
 		trace('toggled? ' + Std.string(preferences.get(identifier)));
 		switch (identifier)
 		{
-			#if DISCORD_RPC
-			case 'discord-rpc':
-				DiscordClient.shutdown();
+			#if !html5
+			case '120-fps':
+				FlxG.updateFramerate = 120;
+				FlxG.drawFramerate = 120;
 			#end
 		}
 	}

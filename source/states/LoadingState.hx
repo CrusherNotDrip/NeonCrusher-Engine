@@ -40,7 +40,7 @@ class LoadingState extends MusicBeatState
 		add(bg);
 
 		funkay = new FlxSprite();
-		funkay.loadGraphic(Paths.image('funkay'));
+		funkay.loadGraphic(Paths.image('loadingscreen/funkay'));
 		funkay.setGraphicSize(0, FlxG.height);
 		funkay.updateHitbox();
 		funkay.antialiasing = !PreferencesMenu.getPref('performance-mode');

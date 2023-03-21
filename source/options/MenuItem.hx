@@ -1,7 +1,5 @@
 package options;
 
-import flixel.FlxSprite;
-
 class MenuItem extends FlxSprite
 {
 	public var fireInstantly:Bool = false;

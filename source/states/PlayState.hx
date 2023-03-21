@@ -332,10 +332,10 @@ class PlayState extends MusicBeatState
 			case 'stage':
 		        defaultCamZoom = 0.9;
 
-				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
+				var bg:BGSprite = new BGSprite('stage/stageback', -600, -200, 0.9, 0.9);
 		        add(bg);
 
-		        var stageFront:FlxSprite = new FlxSprite(-650, 600).loadGraphic(Paths.image('stagefront'));
+		        var stageFront:FlxSprite = new FlxSprite(-650, 600).loadGraphic(Paths.image('stage/stagefront'));
 		        stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
 		        stageFront.updateHitbox();
 		        stageFront.antialiasing = !PreferencesMenu.getPref('performance-mode');
@@ -343,7 +343,7 @@ class PlayState extends MusicBeatState
 		        stageFront.active = false;
 		        add(stageFront);
 
-		        var stageCurtains:FlxSprite = new FlxSprite(-500, -300).loadGraphic(Paths.image('stagecurtains'));
+		        var stageCurtains:FlxSprite = new FlxSprite(-500, -300).loadGraphic(Paths.image('stage/stagecurtains'));
 		        stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 0.9));
 		        stageCurtains.updateHitbox();
 		        stageCurtains.antialiasing = !PreferencesMenu.getPref('performance-mode');
@@ -532,7 +532,7 @@ class PlayState extends MusicBeatState
 		    case 'school':
 				pixelStage = true;
 
-		        var bgSky = new FlxSprite().loadGraphic(Paths.image('weeb/weebSky'));
+		        var bgSky = new FlxSprite().loadGraphic(Paths.image('weeb/stage/weebSky'));
 		        bgSky.scrollFactor.set(0.1, 0.1);
 		        add(bgSky);
 
@@ -540,24 +540,24 @@ class PlayState extends MusicBeatState
 
 		        var repositionShit = -200;
 
-		        var bgSchool:FlxSprite = new FlxSprite(repositionShit, 0).loadGraphic(Paths.image('weeb/weebSchool'));
+		        var bgSchool:FlxSprite = new FlxSprite(repositionShit, 0).loadGraphic(Paths.image('weeb/stage/weebSchool'));
 		        bgSchool.scrollFactor.set(0.6, 0.90);
 		        add(bgSchool);
 
-		        var bgStreet:FlxSprite = new FlxSprite(repositionShit).loadGraphic(Paths.image('weeb/weebStreet'));
+		        var bgStreet:FlxSprite = new FlxSprite(repositionShit).loadGraphic(Paths.image('weeb/stage/weebStreet'));
 		        bgStreet.scrollFactor.set(0.95, 0.95);
 		        add(bgStreet);
 
 				if (!PreferencesMenu.getPref('performance-mode'))
 				{
-					var fgTrees:FlxSprite = new FlxSprite(repositionShit + 170, 130).loadGraphic(Paths.image('weeb/weebTreesBack'));
+					var fgTrees:FlxSprite = new FlxSprite(repositionShit + 170, 130).loadGraphic(Paths.image('weeb/stage/weebTreesBack'));
 					fgTrees.scrollFactor.set(0.9, 0.9);
 					fgTrees.setGraphicSize(Std.int(widShit * 0.8));
 					fgTrees.updateHitbox();
 					add(fgTrees);
 	
 					var bgTrees:FlxSprite = new FlxSprite(repositionShit - 380, -800);
-					var treetex = Paths.getPackerAtlas('weeb/weebTrees');
+					var treetex = Paths.getPackerAtlas('weeb/stage/weebTrees');
 					bgTrees.frames = treetex;
 					bgTrees.animation.add('treeLoop', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 12);
 					bgTrees.animation.play('treeLoop');
@@ -567,7 +567,7 @@ class PlayState extends MusicBeatState
 					add(bgTrees);
 	
 					var treeLeaves:FlxSprite = new FlxSprite(repositionShit, -40);
-					treeLeaves.frames = Paths.getSparrowAtlas('weeb/petals');
+					treeLeaves.frames = Paths.getSparrowAtlas('weeb/stage/petals');
 					treeLeaves.animation.addByPrefix('leaves', 'PETALS ALL', 24, true);
 					treeLeaves.animation.play('leaves');
 					treeLeaves.scrollFactor.set(0.85, 0.85);
@@ -596,7 +596,7 @@ class PlayState extends MusicBeatState
 					bgGirls.updateHitbox();
 					add(bgGirls);
 				}
-		    
+
 		    case 'schoolEvil':
 				pixelStage = true;
 
@@ -605,8 +605,8 @@ class PlayState extends MusicBeatState
 				var posX:Float = 502;
 				var posY:Float = 376;
 
-		        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image("weeb/evilSchoolBG"));
-				var fg:FlxSprite = new FlxSprite().loadGraphic(Paths.image("weeb/evilSchoolFG"));
+		        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image("weeb/evilStage/evilSchoolBG"));
+				var fg:FlxSprite = new FlxSprite().loadGraphic(Paths.image("weeb/evilStage/evilSchoolFG"));
 
 				if (!PreferencesMenu.getPref('performance-mode'))
 				{
@@ -914,7 +914,7 @@ class PlayState extends MusicBeatState
 
 		FlxG.fixedTimestep = false;
 
-		healthBarBG = new FlxSprite(0, FlxG.height * 0.9).loadGraphic(Paths.image('healthBar'));
+		healthBarBG = new FlxSprite(0, FlxG.height * 0.9).loadGraphic(Paths.image('ui/healthBar'));
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
 		if (PreferencesMenu.getPref('downscroll'))
@@ -1015,11 +1015,11 @@ class PlayState extends MusicBeatState
 				case 'thorns':
 					schoolIntro(doof);
 				case 'ugh':
-					startVideo('ughCutscene');
+					startVideo('week7/ughCutscene');
 				case 'guns':
-					startVideo('gunsCutscene');
+					startVideo('week7/gunsCutscene');
 				case 'stress':
-					startVideo('stressCutscene');
+					startVideo('week7stressCutscene');
 				default:
 					startCountdown();
 			}
@@ -1047,7 +1047,7 @@ class PlayState extends MusicBeatState
 		red.scrollFactor.set();
 
 		var senpaiEvil:FlxSprite = new FlxSprite();
-		senpaiEvil.frames = Paths.getSparrowAtlas('weeb/senpaiCrazy');
+		senpaiEvil.frames = Paths.getSparrowAtlas('weeb/dialogue/senpaiCrazy');
 		senpaiEvil.animation.addByPrefix('idle', 'Senpai Pre Explosion', 24, false);
 		senpaiEvil.setGraphicSize(Std.int(senpaiEvil.width * 6));
 		senpaiEvil.scrollFactor.set();
@@ -1221,9 +1221,9 @@ class PlayState extends MusicBeatState
 				}
 
 			var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
-			introAssets.set('default', ['ready', "set", "go"]);
-			introAssets.set('school', ['pixelUI/ready-pixel', 'pixelUI/set-pixel', 'pixelUI/date-pixel']);
-			introAssets.set('schoolEvil', ['pixelUI/ready-pixel', 'pixelUI/set-pixel', 'pixelUI/date-pixel']);
+			introAssets.set('default', ['countdown/ready', "countdown/set", "countdown/go"]);
+			introAssets.set('school', ['pixelUI/countdown/ready-pixel', 'pixelUI/countdown/set-pixel', 'pixelUI/countdown/date-pixel']);
+			introAssets.set('schoolEvil', ['pixelUI/countdown/ready-pixel', 'pixelUI/countdown/set-pixel', 'pixelUI/countdown/date-pixel']);
 
 			var introAlts:Array<String> = introAssets.get('default');
 			var altSuffix:String = "";
@@ -1444,7 +1444,7 @@ class PlayState extends MusicBeatState
 
 			if (pixelStage == true)
 			{
-				babyArrow.loadGraphic(Paths.image('pixelUI/NOTE_assets'), true, 17, 17);
+				babyArrow.loadGraphic(Paths.image('pixelUI/notes/NOTE_assets'), true, 17, 17);
 				babyArrow.animation.add('green', [6]);
 				babyArrow.animation.add('red', [7]);
 				babyArrow.animation.add('blue', [5]);
@@ -1492,7 +1492,7 @@ class PlayState extends MusicBeatState
 			}
 			else
 			{
-				babyArrow.frames = Paths.getSparrowAtlas('NOTE_assets');
+				babyArrow.frames = Paths.getSparrowAtlas('notes/NOTE_assets');
 				babyArrow.animation.addByPrefix('green', 'arrowUP');
 				babyArrow.animation.addByPrefix('blue', 'arrowDOWN');
 				babyArrow.animation.addByPrefix('purple', 'arrowLEFT');
@@ -2311,7 +2311,7 @@ class PlayState extends MusicBeatState
 			pixelShitPart2 = '-pixel';
 		}
 
-		rating.loadGraphic(Paths.image(pixelShitPart1 + daRating + pixelShitPart2));
+		rating.loadGraphic(Paths.image(pixelShitPart1 + 'ratings/' + daRating + pixelShitPart2));
 		rating.screenCenter();
 		rating.x = coolText.x - 40;
 		rating.y -= 60;
@@ -2319,7 +2319,7 @@ class PlayState extends MusicBeatState
 		rating.velocity.y -= FlxG.random.int(140, 175);
 		rating.velocity.x -= FlxG.random.int(0, 10);
 
-		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'combo' + pixelShitPart2));
+		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'ratings/combo' + pixelShitPart2));
 		comboSpr.screenCenter();
 		comboSpr.x = coolText.x;
 		comboSpr.acceleration.y = 600;
@@ -2328,7 +2328,7 @@ class PlayState extends MusicBeatState
 		comboSpr.velocity.x += FlxG.random.int(1, 10);
 		add(rating);
 
-		if (!pixelStage == true)
+		if (!pixelStage)
 		{
 			rating.setGraphicSize(Std.int(rating.width * 0.7));
 			rating.antialiasing = !PreferencesMenu.getPref('performance-mode');
@@ -2353,7 +2353,7 @@ class PlayState extends MusicBeatState
 		var daLoop:Int = 0;
 		for (i in seperatedScore)
 		{
-			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'num' + Std.int(i) + pixelShitPart2));
+			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'num/' + Std.int(i) + pixelShitPart2));
 			numScore.screenCenter();
 			numScore.x = coolText.x + (43 * daLoop) - 90;
 			numScore.y += 80;

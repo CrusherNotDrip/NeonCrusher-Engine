@@ -1,6 +1,5 @@
 package options;
 
-import flixel.FlxSprite;
 import haxe.ds.EnumValueMap;
 
 class OptionsState extends MusicBeatState
@@ -21,7 +20,7 @@ class OptionsState extends MusicBeatState
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('mainmenu/background/menuDesat'));
 		bg.color = 0xFFEA71FD;
 		bg.setGraphicSize(Std.int(bg.width * 1.1));
 		bg.updateHitbox();

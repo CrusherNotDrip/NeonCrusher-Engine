@@ -1,7 +1,5 @@
 package options;
 
-import flixel.FlxG;
-
 class OptionsMenu extends Page
 {
 	var items:TextMenuList;

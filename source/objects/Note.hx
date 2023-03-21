@@ -2,8 +2,6 @@ package objects;
 
 import flixel.graphics.frames.FlxAtlasFrames;
 
-using StringTools;
-
 class Note extends FlxSprite
 {
 	public var strumTime:Float = 0;
@@ -47,7 +45,7 @@ class Note extends FlxSprite
 
 		if (PlayState.pixelStage == true)
 		{
-			loadGraphic(Paths.image('pixelUI/NOTE_assets'), true, 17, 17);
+			loadGraphic(Paths.image('pixelUI/notes/NOTE_assets'), true, 17, 17);
 
 			animation.add('greenScroll', [6]);
 			animation.add('redScroll', [7]);
@@ -56,7 +54,7 @@ class Note extends FlxSprite
 
 			if (isSustainNote)
 			{
-				loadGraphic(Paths.image('pixelUI/NOTE_assetsEnds'), true, 7, 6);
+				loadGraphic(Paths.image('pixelUI/notes/NOTE_assetsEnds'), true, 7, 6);
 
 				animation.add('purpleholdend', [4]);
 				animation.add('greenholdend', [6]);
@@ -74,7 +72,7 @@ class Note extends FlxSprite
 		}
 		else
 		{
-			frames = Paths.getSparrowAtlas('NOTE_assets');
+			frames = Paths.getSparrowAtlas('notes/NOTE_assets');
 
 			animation.addByPrefix('greenScroll', 'green0');
 			animation.addByPrefix('redScroll', 'red0');

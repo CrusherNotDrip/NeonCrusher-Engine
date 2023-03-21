@@ -126,7 +126,7 @@ class AtlasFontData
 	
 	public function new(font:AtlasFont)
 	{
-		var path = 'fonts/'+font.getName().toLowerCase();
+		var path = 'alphabet/fonts/'+font.getName().toLowerCase();
 		atlas = Paths.getSparrowAtlas(path);
 		atlas.parent.destroyOnNoUse = false;
 		atlas.parent.persist = true;

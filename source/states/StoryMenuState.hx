@@ -135,7 +135,7 @@ class StoryMenuState extends MusicBeatState
 			// Needs an offset thingie
 			if (!weekUnlocked[i])
 			{
-				var lock:FlxSprite = new FlxSprite(weekThing.width + 10 + weekThing.x, Paths.image('ui/lock'));
+				var lock:FlxSprite = new FlxSprite(weekThing.width + 10 + weekThing.x, Paths.image('storymenu/ui/lock'));
 				lock.ID = i;
 				lock.antialiasing = !PreferencesMenu.getPref('performance-mode');
 				grpLocks.add(lock);
@@ -183,7 +183,7 @@ class StoryMenuState extends MusicBeatState
 		leftArrow.animation.play('idle');
 		difficultySelectors.add(leftArrow);
 
-		sprDifficulty = new FlxSprite(leftArrow.x + 125, leftArrow.y, Paths.image('ui/difficulties/' + curDifficultyName));
+		sprDifficulty = new FlxSprite(leftArrow.x + 125, leftArrow.y, Paths.image('storymenu/ui/difficulties/' + curDifficultyName));
 		changeDifficulty();
 
 		difficultySelectors.add(sprDifficulty);
@@ -347,7 +347,7 @@ class StoryMenuState extends MusicBeatState
 				curDifficultyName = 'hard';
 		}
 
-		sprDifficulty.loadGraphic(Paths.image('ui/difficulties/' + curDifficultyName));
+		sprDifficulty.loadGraphic(Paths.image('storymenu/ui/difficulties/' + curDifficultyName));
 		sprDifficulty.alpha = 0;
 
 		// USING THESE WEIRD VALUES SO THAT IT DOESNT FLOAT UP
@@ -426,7 +426,7 @@ class StoryMenuState extends MusicBeatState
 
 		var stringThing:Array<String> = weekData[curWeek];
 
-		for (i in 0...stringThing.length+1)
+		for (i in 0...stringThing.length)
 		{
 			txtTracklist.text += "\n" + stringThing[i];
 		}

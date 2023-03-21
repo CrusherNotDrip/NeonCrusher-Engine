@@ -1,6 +1,5 @@
 package objects;
 
-import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 
 class MenuCharacter extends FlxSprite
@@ -13,7 +12,7 @@ class MenuCharacter extends FlxSprite
 
 		this.character = character;
 
-		var tex = Paths.getSparrowAtlas('campaign_menu_UI_characters');
+		var tex = Paths.getSparrowAtlas('storymenu/ui/campaign_menu_UI_characters');
 		frames = tex;
 
 		animation.addByPrefix('bf', "BF idle dance white", 24);

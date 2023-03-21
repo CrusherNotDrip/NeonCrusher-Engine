@@ -1,7 +1,5 @@
 package options;
 
-import flixel.FlxSprite;
-
 class CheckboxThingie extends FlxSprite
 {
 	public var daValue(default, set):Bool;
@@ -9,7 +7,7 @@ class CheckboxThingie extends FlxSprite
 	override public function new(x:Float, y:Float, state:Bool = false)
 	{
 		super(x, y);
-		frames = Paths.getSparrowAtlas('checkboxThingie');
+		frames = Paths.getSparrowAtlas('ui/checkboxThingie');
 		animation.addByPrefix('static', 'Check Box unselected', 24, false);
 		animation.addByPrefix('checked', 'Check Box selecting animation', 24, false);
 		antialiasing = !PreferencesMenu.getPref('performance-mode');
