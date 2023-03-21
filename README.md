@@ -22,6 +22,7 @@ and thats really it
 ## Known Issues
 
 - Combo Sprites don't match the actual combo (off by 1)
+- Freeplay may sometimes not use the difficulty you selected
 
 # Credits
 
