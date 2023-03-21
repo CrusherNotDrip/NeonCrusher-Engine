@@ -2,6 +2,7 @@
 <TextureAtlas imagePath="bold.png">
 	<!-- Created with Adobe Animate version 19.2.1.408 -->
 	<!-- http://www.adobe.com/products/animate.html -->
+	<!-- Bold Numbers inside XML by CrusherNotDrip -->
 	<SubTexture name="#0000" x="2" y="2" width="50" height="56"/>
 	<SubTexture name="#0001" x="2" y="2" width="50" height="56"/>
 	<SubTexture name="#0002" x="54" y="2" width="50" height="56"/>
@@ -230,6 +231,16 @@
 	<SubTexture name="Z0001" x="228" y="797" width="52" height="65"/>
 	<SubTexture name="Z0002" x="282" y="797" width="52" height="65"/>
 	<SubTexture name="Z0003" x="282" y="797" width="52" height="65"/>
+	<SubTexture name="00000" x="333" y="791" width="51" height="62"/>
+	<SubTexture name="10000" x="384" y="791" width="51" height="62"/>
+	<SubTexture name="20000" x="435" y="791" width="51" height="62"/>
+	<SubTexture name="30000" x="0" y="864" width="51" height="62"/>
+	<SubTexture name="40000" x="51" y="864" width="51" height="62"/>
+	<SubTexture name="50000" x="102" y="866" width="51" height="62"/>
+	<SubTexture name="60000" x="153" y="866" width="51" height="62"/>
+	<SubTexture name="70000" x="204" y="865" width="51" height="62"/>
+	<SubTexture name="80000" x="255" y="862" width="50" height="62"/>
+	<SubTexture name="90000" x="305" y="862" width="51" height="63"/>
 	<SubTexture name="[0000" x="150" y="369" width="25" height="61"/>
 	<SubTexture name="[0001" x="150" y="369" width="25" height="61"/>
 	<SubTexture name="[0002" x="177" y="369" width="25" height="61"/>

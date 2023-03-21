@@ -52,7 +52,9 @@ import openfl.filters.BitmapFilter;
 import openfl.utils.Assets as OpenFlAssets;
 
 #if VIDEOS_ALLOWED
-import vlc.MP4Handler;
+#if (hxCodec >= "2.6.1") import hxcodec.VideoHandler as MP4Handler;
+#elseif (hxCodec == "2.6.0") import VideoHandler as MP4Handler;
+#else import vlc.MP4Handler; #end
 #end
 
 using StringTools;
@@ -187,10 +189,12 @@ class PlayState extends MusicBeatState
 	override public function create()
 	{
 		gameVar = this;
+		
+			FunkinWindow.changeAppName("Friday Night Funkin': NeonCrusher Engine" + " - " + SONG.song + " - " + CoolUtil.difficultyString()  +
 		if (isStoryMode) 
-			FunkinWindow.changeAppName("Friday Night Funkin': NeonCrusher Engine" + " - " + SONG.song + " - " + CoolUtil.difficultyString()  + " - (Story Mode)");
+			" - (Story Mode)"
 		else
-			FunkinWindow.changeAppName("Friday Night Funkin': NeonCrusher Engine" + " - " + SONG.song + " - " + CoolUtil.difficultyString()  + " - (Freeplay)");
+			" - (Freeplay)");
 
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
