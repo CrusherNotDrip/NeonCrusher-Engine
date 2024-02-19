@@ -1,3 +1,6 @@
+# DISCONTINUED! 
+this isnt even finished so if u wanna add and remove things and fix bugs from this repo then feel free ig im not doing anything with this anymore
+
 # NeonCrusher Engine
 
 ## Logo
